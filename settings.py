@@ -60,6 +60,11 @@ def log():
         fbcursor.execute(sql,val)
         if fbcursor.fetchone()is not None:
             mainpage()
+            if user_name1 != "adminstator":
+              tab06.destroy()
+            else:
+              pass
+            root.iconify()
         else:
             messagebox.showinfo('Acess denied','Username Or Password Wrong')
 
@@ -75,9 +80,7 @@ if not user_log:
   root.resizable(False, False)
   root.eval('tk::PlaceWindow . center')
   Label(text='Wellocome to F-Billing Revolution 2022',font='arial 13 bold').place(x=100,y=40)
-  submitbtn1=Button(text='OPEN NOW', width=20,height=2,command=lo,activeforeground="white",
-                   activebackground="black",font='arial 8 bold').place(x=165,y=100)
-  root.destroy()             
+  submitbtn1=Button(text='OPEN NOW', width=20,height=2,command=lo,activeforeground="white",activebackground="black",font='arial 8 bold').place(x=165,y=100)             
 else:
     root=Tk()
     root.geometry("500x200")
@@ -163,7 +166,7 @@ photo8 = PhotoImage(file = "images/refresh_E.png")
 photo9 = PhotoImage(file = "images/sum.png")
 photo10 = PhotoImage(file = "images/text-message.png")
 def mainpage():
-  global mainpage
+  root.iconify()
   main = Toplevel()
   main.geometry("1360x730")
   p1 = PhotoImage(file = 'images/fbicon.png')
@@ -335,7 +338,8 @@ def mainpage():
   pn.pack(side="left", padx=(0, 5))
   
   editcustomerIcon = ImageTk.PhotoImage(Image.open("images/user_edit.png"))
-  editcustomerLabel = Button(settframe,compound="top", text="Quick\nStart Wizard",relief=RAISED,command="",   image=editcustomerIcon,  font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
+  editcustomerLabel =  Button(settframe,compound="top", text="Save\nSettings",relief=RAISED,    command='', image=editcustomerIcon, font=("arial", 8),bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
+  addcustomerLabel.pack(side="left", pady=3, ipadx=4)
   editcustomerLabel.pack(side="left")
   
   deletecustomerIcon = ImageTk.PhotoImage(Image.open("images/user_delete.png"))
@@ -396,6 +400,7 @@ def mainpage():
   invoi1label = Label(settingsframe, text="Settings", font=("arial", 18), bg="#f8f8f2")
   invoi1label.pack(side="left", padx=(20,0))
   
+  global tab06
   m = ttk.Style()
   m.theme_use('default')
   m.configure('one.TNotebook.Tab', background="white", width=20, padding=10)
@@ -773,6 +778,7 @@ def mainpage():
   ver = Label(firsttab,text="FREE version.Upgrade PRO version for all features and Ad free invoice")
   ver.place(x=480,y=15)
   
+  
   chapass=LabelFrame(firsttab,text="Change Password", height=150, width=500)
   chapass.place(x=480, y=40)
   
@@ -794,8 +800,19 @@ def mainpage():
   cnp.place(x=495,y=120)
   cnewp = Entry(firsttab,textvariable=cnewpass)
   cnewp.place(x=640,y=120)
-  
-  chabtn = Button(firsttab,text="Change password")
+
+  def change_pass():
+    usna = username1.get()
+    print(usna)
+    # if nepas=="":
+    #     Label(screen4,text='Plz enter new password',fg='red').place(x=85,y=260)
+    # else:
+    #     sql='UPDATE registration SET passsword=%s WHERE username=%s'
+    #     val=(nepas,un_ame,)
+    #     mycursor.execute(sql,val)
+    #     mydb.commit()
+    #     messagebox.showinfo('Updated','Password updated successfully')
+  chabtn = Button(firsttab,text="Change password",command=change_pass)
   chabtn.place(x=840,y=150)
   
   termf=LabelFrame(firsttab,text="Terms of payment", height=150, width=500)
@@ -1339,22 +1356,39 @@ def mainpage():
       val=(user_name,)
       fbcursor.execute(sql,val)
       if fbcursor.fetchone()is not None:
-        messagebox.showerror('Warming','User name already exist!!')
-      else:
-        sql="INSERT INTO users(displayloginscreen,username,password,confirm_password,create_invoice,  delete_invoice,void_invoice,mark_invoice_as_paid,create_order,delete_order,turn_order_into_invoice,  send_sms_nofitication,create_estimate,delete_estimate,turn_oestimate_into_invoice,	create_expense,	  delete_expense,rebill_exprense,create_customer,delete_customer,import_customer,	create_product_service,  delete_product_service,	import_product_service,run_reports,generate_recurring_invoice,  create_purchase_order,delete_purchase_order,modify_invoice_settings,modify_order_settings,  modify_estimate_settings) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,  %s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
-        val=(display,user_name,password,conformpassword,create_inv,delete_inv,void_inv,mark_inv_as_paid,  create_ord,delete_ord,turn_inv_ord,smsnofi,create_est,delete_est,turn_est,create_exp,delete_exp,  rebill_exp,create_cus,delete_cus,imp_cus,create_pros,delete_pros,import_pros,runrep,gen_rec,create_pur,  delete_pur,modify_inv,modify_ord,modify_est)
+        sql='SELECT * FROM users WHERE username=%s'
+        val=(user_name,)
         fbcursor.execute(sql,val)
-        fbilldb.commit()
-        for record in uactree.get_children():
-          uactree.delete(record)
-        sql = "select * from users"
-        fbcursor.execute(sql)
-        sixuactree = fbcursor.fetchall()
-        coutset = 0
-        for i in sixuactree:
-          uactree.insert(parent='', index='end', iid=coutset, text='hello', values=(i[3]))
-          coutset += 1
-  
+        whuser = fbcursor.fetchone()
+        print(whuser[0])
+        if password == conformpassword:
+        # messagebox.showerror('Warming','User name already exist!!')
+          sqll= 'UPDATE users SET displayloginscreen=%s,username=%s,password=%s,confirm_password=%s,create_invoice=%s,delete_invoice=%s,void_invoice=%s,mark_invoice_as_paid=%s,create_order=%s,delete_order=%s,turn_order_into_invoice=%s,send_sms_nofitication=%s,create_estimate=%s,delete_estimate=%s,turn_oestimate_into_invoice=%s,create_expense=%s,delete_expense=%s,rebill_exprense=%s,create_customer=%s,delete_customer=%s,import_customer=%s,	create_product_service=%s,delete_product_service=%s,import_product_service=%s,run_reports=%s,generate_recurring_invoice=%s,create_purchase_order=%s,delete_purchase_order=%s,modify_invoice_settings=%s,modify_order_settings=%s,modify_estimate_settings=%s WHERE userID=%s'
+          vall=(display,user_name,password,conformpassword,create_inv,delete_inv,void_inv,mark_inv_as_paid,  create_ord,delete_ord,turn_inv_ord,smsnofi,create_est,delete_est,turn_est,create_exp,delete_exp,  rebill_exp,create_cus,delete_cus,imp_cus,create_pros,delete_pros,import_pros,runrep,gen_rec,create_pur,  delete_pur,modify_inv,modify_ord,modify_est,whuser[0])
+          fbcursor.execute(sqll,vall)
+          fbilldb.commit()
+        else:
+          messagebox.showerror('Warming','Password not match!!')
+      else:
+        if password == conformpassword:
+          sql="INSERT INTO users(displayloginscreen,username,password,confirm_password,create_invoice,  delete_invoice,void_invoice,mark_invoice_as_paid,create_order,delete_order,turn_order_into_invoice,  send_sms_nofitication,create_estimate,delete_estimate,turn_oestimate_into_invoice,	create_expense,	  delete_expense,rebill_exprense,create_customer,delete_customer,import_customer,	create_product_service,  delete_product_service,	import_product_service,run_reports,generate_recurring_invoice,  create_purchase_order,delete_purchase_order,modify_invoice_settings,modify_order_settings,  modify_estimate_settings) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,  %s,%s,%s,%s,%s,%s,%s,%s)" #adding values into db
+          val=(display,user_name,password,conformpassword,create_inv,delete_inv,void_inv,mark_inv_as_paid,  create_ord,delete_ord,turn_inv_ord,smsnofi,create_est,delete_est,turn_est,create_exp,delete_exp,  rebill_exp,create_cus,delete_cus,imp_cus,create_pros,delete_pros,import_pros,runrep,gen_rec,create_pur,  delete_pur,modify_inv,modify_ord,modify_est)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+          for record in uactree.get_children():
+            uactree.delete(record)
+          sql = "select * from users"
+          fbcursor.execute(sql)
+          sixuactree = fbcursor.fetchall()
+          coutset = 0
+          for i in sixuactree:
+           uactree.insert(parent='', index='end', iid=coutset, text='hello', values=(i[3]))
+           coutset += 1
+        else:
+          messagebox.showerror('Warming','Password not match!!')
+        
+
+   
     
   
   
@@ -1389,9 +1423,100 @@ def mainpage():
     print(sixtabdataback)
     usernae.delete(0,END)
     usernae.insert(0,itemid)
+    if itemid == "adminstator":
+        usernae.delete(0,END)
+        usernae.insert(0,itemid)
+        usernae["state"] = DISABLED
+        creinv["state"] = DISABLED
+        delinv["state"] = DISABLED
+        voinv["state"] = DISABLED
+        markinv["state"] = DISABLED
+        creord["state"] = DISABLED
+        delord["state"] = DISABLED
+        turninv["state"] = DISABLED
+        smsinv["state"] = DISABLED
+        creestimate["state"] = DISABLED
+        delestimate["state"] = DISABLED
+        turnestiinv["state"] = DISABLED
+        creexpense["state"] = DISABLED
+        delexpense["state"] = DISABLED
+        rebillexpe["state"] = DISABLED
+        crecus["state"] = DISABLED
+        delcus["state"] = DISABLED
+        impcus["state"] = DISABLED
+        crepros["state"] = DISABLED
+        delpros["state"] = DISABLED
+        imppros["state"] = DISABLED
+        runrep["state"] = DISABLED
+        genrecinv["state"] = DISABLED
+        crepur["state"] = DISABLED
+        delpur["state"] = DISABLED
+        modifyinv["state"] = DISABLED
+        modifyord["state"] = DISABLED
+        modifyesti["state"] = DISABLED
+    else:
+        userpase.delete(0, END)
+        usercpase.delete(0, END)
+        usernae.delete(0,END)
+        usernae.insert(0,itemid)
+        usernae["state"] = NORMAL
+        creinv["state"] = NORMAL
+        delinv["state"] = NORMAL
+        voinv["state"] = NORMAL
+        markinv["state"] = NORMAL
+        creord["state"] = NORMAL
+        delord["state"] = NORMAL
+        turninv["state"] = NORMAL
+        smsinv["state"] = NORMAL
+        creestimate["state"] = NORMAL
+        delestimate["state"] = NORMAL
+        turnestiinv["state"] = NORMAL
+        creexpense["state"] = NORMAL
+        delexpense["state"] = NORMAL
+        rebillexpe["state"] = NORMAL
+        crecus["state"] = NORMAL
+        delcus["state"] = NORMAL
+        impcus["state"] = NORMAL
+        crepros["state"] = NORMAL
+        delpros["state"] = NORMAL
+        imppros["state"] = NORMAL
+        runrep["state"] = NORMAL
+        genrecinv["state"] = NORMAL
+        crepur["state"] = NORMAL
+        delpur["state"] = NORMAL
+        modifyinv["state"] = NORMAL
+        modifyord["state"] = NORMAL
+        modifyesti["state"] = NORMAL
     if not sixtabdataback:
       userpase.delete(0, END)
       usercpase.delete(0, END)
+      creinv.deselect()
+      delinv.deselect()
+      voinv.deselect()
+      markinv.deselect()
+      creord.deselect()
+      delord.deselect()
+      turninv.deselect()
+      smsinv.deselect()
+      creestimate.deselect()
+      delestimate.deselect()
+      turnestiinv.deselect()
+      creexpense.deselect()
+      delexpense.deselect()
+      rebillexpe.deselect()
+      crecus.deselect()
+      delcus.deselect()
+      impcus.deselect()
+      crepros.deselect()
+      delpros.deselect()
+      imppros.deselect()
+      runrep.deselect()
+      genrecinv.deselect()
+      crepur.deselect()
+      delpur.deselect()
+      modifyinv.deselect()
+      modifyord.deselect()
+      modifyesti.deselect()
       if itemid == "adminstator":
         usernae.delete(0,END)
         usernae.insert(0,itemid)
