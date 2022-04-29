@@ -803,7 +803,7 @@ def mainpage():
 
   def change_pass():
     usna = username1.get()
-    print(usna)
+    # print(usna)
     # if nepas=="":
     #     Label(screen4,text='Plz enter new password',fg='red').place(x=85,y=260)
     # else:
