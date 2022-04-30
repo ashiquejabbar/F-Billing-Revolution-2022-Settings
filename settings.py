@@ -802,16 +802,29 @@ def mainpage():
   cnewp.place(x=640,y=120)
 
   def change_pass():
+    old_pass = enterold.get()
+    new_pass = enternew.get()
+    cnew_pass = cnewpass.get()
     usna = username1.get()
-    # print(usna)
-    # if nepas=="":
-    #     Label(screen4,text='Plz enter new password',fg='red').place(x=85,y=260)
-    # else:
-    #     sql='UPDATE registration SET passsword=%s WHERE username=%s'
-    #     val=(nepas,un_ame,)
-    #     mycursor.execute(sql,val)
-    #     mydb.commit()
-    #     messagebox.showinfo('Updated','Password updated successfully')
+    print(usna)
+    sql='SELECT * FROM users WHERE username=%s'
+    val=(usna,)
+    fbcursor.execute(sql,val)
+    chpass = fbcursor.fetchone()
+    print(chpass)
+    if old_pass == "" or new_pass == "" or cnew_pass == "":
+        messagebox.showerror('Password Error','Plz enter password')
+    elif old_pass == chpass[4]:
+      if new_pass == cnew_pass:
+        sqll='UPDATE users SET password=%s,confirm_password=%s WHERE userID=%s'
+        vall=(new_pass,cnew_pass,chpass[0])
+        fbcursor.execute(sqll,vall,)
+        fbilldb.commit()
+        messagebox.showinfo('Updated','Password updated successfully')
+      else:
+        messagebox.showerror('Password Error','password is not match')
+    else:
+      messagebox.showerror('Password Error','Old Password is Incorrect')
   chabtn = Button(firsttab,text="Change password",command=change_pass)
   chabtn.place(x=840,y=150)
   
