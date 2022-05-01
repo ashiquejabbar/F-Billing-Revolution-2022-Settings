@@ -6,6 +6,7 @@ from itertools import count
 from pydoc import describe
 from secrets import choice
 from sqlite3 import enable_callback_tracebacks
+import string
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -295,6 +296,13 @@ def mainpage():
     printtax2 = comptax2.get()
     printimage = compimg.get()
     win_menu_colour = win_menu.get()
+    radiobut = radema.get()
+    cbut1 = checkb1.get()
+    cbut2 = checkb2.get()
+    cbut3 = checkb3.get()
+    cbut4 = checkb4.get()
+    cbut5 = checkb5.get()
+    cbut6 = checkb6.get()
     child = exctree.get_children()
     var = json.dumps(child)
     sql = "select image from company"
@@ -306,26 +314,26 @@ def mainpage():
     if not i:
       if filename == "":
         print(12)
-        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,  %s,%s)'
-        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2)
+        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,attachment_file_type,miscellanoustab_cbutton1,miscellanoustab_cbutton2,miscellanoustab_cbutton3,miscellanoustab_cbutton4,miscellanoustab_cbutton5,miscellanoustab_cbutton6) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
         fbilldb.commit()
       else:
         shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,image) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s,%s,%s,%s,%s)'
-        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,filename.split('/')[-1])
+        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,image,attachment_file_type,miscellanoustab_cbutton1,miscellanoustab_cbutton2,miscellanoustab_cbutton3,miscellanoustab_cbutton4,miscellanoustab_cbutton5,miscellanoustab_cbutton6) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,filename.split('/')[-1],radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
         fbilldb.commit()
     else:
       if filename == "":
-        sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,currency=%s,currencysign=%s,  currsignplace=%s,decimalseperator=%s,excurrency=%s,dateformat=%s,exdate=%s,taxtype=%s,  printimageornot=%s,tax1name=%s,tax1rate=%s,printtax1=%s,tax2name=%s,tax2rate=%s,printtax2=%s"
-        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2)
+        sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,currency=%s,currencysign=%s,  currsignplace=%s,decimalseperator=%s,excurrency=%s,dateformat=%s,exdate=%s,taxtype=%s,  printimageornot=%s,tax1name=%s,tax1rate=%s,printtax1=%s,tax2name=%s,tax2rate=%s,printtax2=%s,attachment_file_type=%s,miscellanoustab_cbutton1=%s,miscellanoustab_cbutton2=%s,miscellanoustab_cbutton3=%s,miscellanoustab_cbutton4=%s,miscellanoustab_cbutton5=%s,miscellanoustab_cbutton6=%s"
+        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
         fbilldb.commit()
       else:
         shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-        sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,currency=%s,currencysign=%s,  currsignplace=%s,decimalseperator=%s,excurrency=%s,dateformat=%s,exdate=%s,taxtype=%s,  printimageornot=%s,tax1name=%s,tax1rate=%s,printtax1=%s,tax2name=%s,tax2rate=%s,printtax2=%s,image=%s"
-        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,filename.split('/')[-1])
+        sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,currency=%s,currencysign=%s,  currsignplace=%s,decimalseperator=%s,excurrency=%s,dateformat=%s,exdate=%s,taxtype=%s,  printimageornot=%s,tax1name=%s,tax1rate=%s,printtax1=%s,tax2name=%s,tax2rate=%s,printtax2=%s,image=%s,attachment_file_type=%s,miscellanoustab_cbutton1=%s,miscellanoustab_cbutton2=%s,miscellanoustab_cbutton3=%s,miscellanoustab_cbutton4=%s,miscellanoustab_cbutton5=%s,miscellanoustab_cbutton6=%s"
+        val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,filename.split('/')[-1],radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
         fbilldb.commit()
       
@@ -428,6 +436,10 @@ def mainpage():
   tabControl.pack(expand = 1, fill ="both")
   
   ################### tab01 ###################################
+  sql = "select * from company"
+  fbcursor.execute(sql)
+  sectab = fbcursor.fetchone()
+  
   firsttab1=Frame(tab01, relief=GROOVE, bg="#f8f8f2")
   firsttab1.pack(side="top", fill=BOTH)
   
@@ -830,6 +842,102 @@ def mainpage():
   
   termf=LabelFrame(firsttab,text="Terms of payment", height=150, width=500)
   termf.place(x=480, y=190)
+
+
+  def insert_valueterm():
+    first = entrytopstr.get()
+    second = entrydsstr.get()
+    if first == "" or second == "":
+      pass
+    else:
+      entrytop.delete(0, END)
+      entryds.delete(0, END)
+      sql1 = "select * from company"
+      fbcursor.execute(sql1)
+      com = fbcursor.fetchone()
+      if not com:
+        messagebox.showinfo("Alert", "Create Company Settings.")
+      else:
+        companyid = com[0]
+        sql = 'insert into terms_of_payment(companyid,terms_of_payment,Date_shift) values(%s,%s,%s)'
+        val = (companyid,first,second)
+        fbcursor.execute(sql,val)
+        fbilldb.commit()
+        for record in termtree.get_children():
+          termtree.delete(record)
+        sql = 'select * from terms_of_payment'
+        fbcursor.execute(sql)
+        setexctree = fbcursor.fetchall()
+        countp = 0
+        for i in setexctree:
+          
+          termtree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[3]))
+          countp += 1
+  # new_value = String
+        
+        
+  
+  def edit_valueterm(event):
+    itemid = termtree.item(termtree.focus())["values"][0]
+    sql = "select * from terms_of_payment where terms_of_payment = %s"
+    val = (itemid,)
+    fbcursor.execute(sql,val)
+    editterm = fbcursor.fetchone()
+    entrytop.delete(0, END)
+    entryds.delete(0, END)
+    entrytop.insert(0, editterm[2])
+    entryds.insert(0, editterm[3])
+  
+  def save_valueterm():
+    first = entrytopstr.get()
+    second = entrydsstr.get()
+    if first == "" or second == "":
+      pass
+    else:
+      itemid = termtree.item(termtree.focus())["values"][0]
+      sql1 = "select * from company"
+      fbcursor.execute(sql1)
+      com = fbcursor.fetchone()
+      if not com:
+        pass
+      else:
+        sql = "select * from terms_of_payment where terms_of_payment=%s"
+        val = (itemid,)
+        fbcursor.execute(sql,val)
+        payt = fbcursor.fetchone()
+        sql2 = 'update terms_of_payment set terms_of_payment=%s,Date_shift=%s where terms_of_paymentID=%s'
+        val2 = (first,second,payt[0])
+        fbcursor.execute(sql2,val2)
+        fbilldb.commit()
+        entrytop.delete(0, END)
+        entryds.delete(0, END)
+        for record in termtree.get_children():
+          termtree.delete(record)
+        fbcursor.execute("select *  from terms_of_payment")
+        pandsdata = fbcursor.fetchall()
+        countp = 0
+        for i in pandsdata:
+          
+          termtree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[3]))
+          countp += 1
+    
+    
+  
+  def del_valueterm():
+    itemid = termtree.item(termtree.focus())["values"][0]
+    print(itemid)
+    sql = "delete from terms_of_payment where terms_of_payment = %s"
+    val = (itemid,)
+    fbcursor.execute(sql, val)
+    fbilldb.commit()
+    for record in termtree.get_children():
+        termtree.delete(record)
+    fbcursor.execute("select *  from terms_of_payment")
+    pandsdata = fbcursor.fetchall()
+    countp = 0
+    for i in pandsdata:
+      termtree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[3]))
+      countp += 1
   
   
   
@@ -847,25 +955,42 @@ def mainpage():
   termtree.column('1', stretch=NO, minwidth=0, width=250)
   termtree.column('2', stretch=NO, minwidth=0, width=128)
   termtree.place(x=495,y=235,height=80,width=380)
-  
-  entrytop = Entry(firsttab,width=25)
+  termtree.bind('<Double-Button-1>' , edit_valueterm)
+
+  sql = 'select * from terms_of_payment'
+  fbcursor.execute(sql)
+  termt = fbcursor.fetchall()
+  countp = 0
+  for i in termt:
+      termtree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[3]))
+      countp += 1
+  entrytopstr = StringVar()
+  entrytop = Entry(firsttab,width=25,textvariable=entrytopstr)
   entrytop.place(x=495,y=208)
-  entryds = Entry(firsttab)
+  entrydsstr = StringVar()
+  entryds = Entry(firsttab,textvariable=entrydsstr)
   entryds.place(x=670,y=208)
-  bttermadd = Button(firsttab,text="Add new line")
+  bttermadd = Button(firsttab,text="Add new line",command=insert_valueterm)
   bttermadd.place(x=800,y=205)
-  bttermedit = Button(firsttab,text="     Edit line  ")
+  bttermedit = Button(firsttab,text="     Edit line  ",command=save_valueterm)
   bttermedit.place(x=890,y=205)
-  bttermdel = Button(firsttab,text="  Delete line  ")
+  bttermdel = Button(firsttab,text="  Delete line  ",command=del_valueterm)
   bttermdel.place(x=890,y=240)
   
   radem=LabelFrame(firsttab,text="Invoice/Oder/Estimate/P.order Email Attachment file type", height=60,   width=500)
   radem.place(x=480, y=340)
-  radema = IntVar()
+  radema = StringVar()
   radpdf = Radiobutton(firsttab,variable=radema,value="PDF",text='PDF')
   radpdf.place(x= 485, y= 360 )
   radhtml = Radiobutton(firsttab,variable=radema,value="HTML",text='HTML')
   radhtml.place(x= 660, y= 360 )
+  if  not sectab:
+    pass
+  else:
+    if sectab[22] == 'PDF':
+      radpdf.select()
+    else:
+      radhtml.select()
   
   checkb1 = IntVar()
   check1 = Checkbutton(firsttab,variable = checkb1, 
@@ -875,6 +1000,13 @@ def mainpage():
                         )
   
   check1.place(x=480,y=400)
+  if  not sectab:
+    pass
+  else:
+    if sectab[23] == 1:
+      check1.select()
+    else:
+      check1.deselect()
   
   checkb2 = IntVar()
   check2 = Checkbutton(firsttab,variable = checkb2, 
@@ -884,6 +1016,13 @@ def mainpage():
                        )
   
   check2.place(x=480,y=420)
+  if  not sectab:
+    pass
+  else:
+    if sectab[24] == 1:
+      check2.select()
+    else:
+      check2.deselect()
   
   checkb3 = IntVar()
   check3 = Checkbutton(firsttab,variable = checkb3, 
@@ -893,6 +1032,13 @@ def mainpage():
                         )
   
   check3.place(x=480,y=440)
+  if  not sectab:
+    pass
+  else:
+    if sectab[25] == 1:
+      check3.select()
+    else:
+      check3.deselect()
   
   checkb4 = IntVar()
   check4 = Checkbutton(firsttab,variable = checkb4, 
@@ -902,6 +1048,13 @@ def mainpage():
                        )
   
   check4.place(x=480,y=460)
+  if  not sectab:
+    pass
+  else:
+    if sectab[26] == 1:
+      check4.select()
+    else:
+      check4.deselect()
   
   checkb5 = IntVar()
   check5 = Checkbutton(firsttab,variable = checkb5, 
@@ -910,6 +1063,13 @@ def mainpage():
                         offvalue = 0,
                         )
   check5.place(x=480,y=480)
+  if  not sectab:
+    pass
+  else:
+    if sectab[27] == 1:
+      check5.select()
+    else:
+      check5.deselect()
   
   checkb6 = IntVar()
   check6 = Checkbutton(firsttab,variable = checkb6, 
@@ -919,6 +1079,13 @@ def mainpage():
                       )
   
   check6.place(x=480,y=500)
+  if  not sectab:
+    pass
+  else:
+    if sectab[28] == 1:
+      check6.select()
+    else:
+      check6.deselect()
   
   ################### tab02 ###################################
   sql = "select * from company"
@@ -1226,7 +1393,7 @@ def mainpage():
   if  not sectab:
     pass
   else:
-    tax2ratee.insert(0, sectab[18])
+    tax2ratee.insert(0, sectab[19])
   
   comptax2 = BooleanVar()
   ptax2 = Checkbutton(secondtab,text="Print TAX2" ,onvalue =1 ,offvalue = 0,variable=comptax2)
