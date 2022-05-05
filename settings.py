@@ -12,6 +12,7 @@ from tkinter import messagebox
 from tkinter import ttk
 from tkinter.font import BOLD
 from urllib.parse import parse_qs
+from xml.dom.minidom import Entity
 from PIL import ImageTk, Image, ImageFile
 from matplotlib.font_manager import json_dump
 from numpy import choose, empty, place
@@ -340,69 +341,120 @@ def mainpage():
       
   
   addcustomerIcon = ImageTk.PhotoImage(Image.open("images/user_add.png"))
-  addcustomerLabel = Button(settframe,compound="top", text="Save\nSettings",relief=RAISED,    command=save_company, image=saves, font=("arial", 8),bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
-  addcustomerLabel.pack(side="left", pady=3, ipadx=4)
+  save_setting = Button(settframe,compound="top", text="Save\nSettings",relief=RAISED,    command=save_company, image=saves, font=("arial", 8),bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
+  save_setting.pack(side="left", pady=3, ipadx=4)
   pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
   pn.pack(side="left", padx=(0, 5))
   
-  editcustomerIcon = ImageTk.PhotoImage(Image.open("images/user_edit.png"))
-  editcustomerLabel =  Button(settframe,compound="top", text="Save\nSettings",relief=RAISED,    command='', image=editcustomerIcon, font=("arial", 8),bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
-  addcustomerLabel.pack(side="left", pady=3, ipadx=4)
-  editcustomerLabel.pack(side="left")
-  
-  deletecustomerIcon = ImageTk.PhotoImage(Image.open("images/user_delete.png"))
-  deletecustomerLabel = Button(settframe,compound="top", text="Company\nManager",relief=RAISED, command="",  image=deletecustomerIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
-  deletecustomerLabel.pack(side="left")
-  
+  def wiz_page():
+    global filname
+    filname = ""
+    def upload_cfilelogo():
+      global filname
+      f_types =[('Png files','*.png'),('Jpg Files', '*.jpg')]
+      filname = filedialog.askopenfilename(filetypes=f_types)
+      shutil.copyfile(filname, os.getcwd()+'/images/'+filname.split('/')[-1])
+      image = Image.open(filname)
+      resize_image = image.resize((280, 140))
+      imgclogo = ImageTk.PhotoImage(resize_image)
+      btclogo = Button(wiz,width=280,height=140,image=imgclogo)
+      btclogo.place(x=30,y=240)
+      btclogo.photo = imgclogo
+    def csave():
+      company_name = company_namee.get()
+      company_address = company_addresse.get('1.0', 'end-1c')
+      company_email = company_emaile.get()
+      salestaxregno = salestaxregnoe.get()
+      cprint_logopic = cplogopic.get()
+      sql = "select image from company"
+      fbcursor.execute(sql)
+      im = fbcursor.fetchone()
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      i = fbcursor.fetchall()
+      if not i:
+        if filname == "":
+          sql = 'insert into company(name, address, email,salestaxno,printimageornot) values(%s, %s, %s, %s, %s)'
+          val = (company_name,company_address,company_email,salestaxregno,cprint_logopic)
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        else:
+          shutil.copyfile(filname, os.getcwd()+'/images/'+filname.split('/')[-1])
+          sql = 'insert into company(name, address, email,salestaxno,printimageornot,image) values(%s, %s, %s, %s, %s, %s)'
+          val = (company_name,company_address,company_email,salestaxregno,cprint_logopic,filname.split('/')[-1],)
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+      else:
+        if filname == "":
+          sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,printimageornot=%s"
+          val = (company_name,company_address,company_email,salestaxregno,cprint_logopic)
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        else:
+          shutil.copyfile(filname, os.getcwd()+'/images/'+filname.split('/')[-1])
+          sql = "update company set name=%s, address=%s, email=%s,salestaxno=%s,printimageornot=%s,image=%s"
+          val = (company_name,company_address,company_email,salestaxregno,cprint_logopic,filname.split('/')[-1])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+      centry.delete(0, END)
+      centry.insert(0, company_name)
+      caddent.delete('1.0', END)
+      caddent.insert('1.0', company_address)
+      cemailentry.delete(0, END)
+      cemailentry.insert(0, company_email)
+      ste.delete(0, END)
+      ste.insert(0, salestaxregno)
+      if cprint_logopic == '1':
+        primage.select()
+      else:
+        primage.deselect()
+
+
+      
+      
+
+
+    wiz = Toplevel()
+    wiz.geometry("500x449+400+167")
+    wiz.title("Wellcome to Quick Start Wizard")
+    comp_infor = Label(wiz,text="Enter Your Company Information",font='arial 13 bold',fg="blue")
+    comp_infor.place(x=15,y=15)
+    company_da_laframe = LabelFrame(wiz,text="Company data",height=180, width=460)
+    company_da_laframe.place(x=15,y=40)
+    company_name = Label(wiz,text="Company name")
+    company_name.place(x=30,y=60)
+    company_namee = Entry(wiz,width=50)
+    company_namee.place(x=160,y=60)
+    company_address = Label(wiz,text="Company address")
+    company_address.place(x=30,y=90)
+    company_addresse = scrolledtext.ScrolledText(wiz,)
+    company_addresse.place(x=160,y=90,width=250,height=60)
+    company_email = Label(wiz,text="Email address")
+    company_email.place(x=30,y=160)
+    company_emaile = Entry(wiz,width=50)
+    company_emaile.place(x=160,y=160)
+    salestaxregno = Label(wiz,text="Sales Tax.Reg.No")
+    salestaxregno.place(x=30,y=190)
+    salestaxregnoe = Entry(wiz,width=50)
+    salestaxregnoe.place(x=160,y=190)
+    
+    
+    company_da_laframe = LabelFrame(wiz,text="Company logo",height=190, width=460)
+    company_da_laframe.place(x=15,y=220)
+    cplogopic = BooleanVar()
+    cprint_logopic = Checkbutton(wiz,text='Print logo picture',bg='white',onvalue =1,
+                        offvalue = 0,)
+    cprint_logopic.place(x=320,y=250)
+    load_img = Button(wiz,text='Load logo image',command=upload_cfilelogo)
+    load_img.place(x=320,y=360)
+    save_com_wiz = Button(wiz,text='Save',width=10,command=csave)
+    save_com_wiz.place(x=370,y=415)
+
+  quick_start_wiz = Button(settframe,compound="top", text="Quick\nStart Wizard ",relief=RAISED,    command=wiz_page, image=photo, font=("arial", 8),bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
+  quick_start_wiz.pack(side="left", pady=3, ipadx=4)
   pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
+  pn.pack(side="left", padx=(0, 5))
   
-  previewinvoiceIcon = ImageTk.PhotoImage(Image.open("images/priewok.png"))
-  previewinvoiceLabel = Button(settframe,compound="top",command="", text="Optimize\nData tables",  relief=RAISED,               image=previewinvoiceIcon, font=("arial", 8),bg="#f8f8f2", fg="black",   height=55, bd=1, width=55)
-  previewinvoiceLabel.pack(side="left")
-  
-  printinvoiceIcon = ImageTk.PhotoImage(Image.open("images/printer.png"))
-  printinvoiceLabel = Button(settframe,compound="top", text="Repair\nDatabase",relief=RAISED,  command="",   image=printinvoiceIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
-  printinvoiceLabel.pack(side="left")
-  
-  pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
-  
-  emailinviceIcon = ImageTk.PhotoImage(Image.open("images/gmail.png"))
-  emailinviceLabel = Button(settframe,compound="top",command="", text="Backup\nDatabase",  relief=RAISED,               image=emailinviceIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55,   bd=1, width=55)
-  emailinviceLabel.pack(side="left")
-  
-  refreshcustomerIcon = ImageTk.PhotoImage(Image.open("images/refresh.png"))
-  refreshcustomerLabel = Button(settframe,compound="top", command="",text="Restore\nDatabase",  relief=RAISED,               image=refreshcustomerIcon, font=("arial", 8),bg="#f8f8f2", fg="black",   height=55, bd=1, width=55)
-  refreshcustomerLabel.pack(side="left")
-  
-  pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
-  
-  smsIcon = ImageTk.PhotoImage(Image.open("images/text-message.png"))
-  smsLabel = Button(settframe,compound="top", text="Serach\nfor Updates",command="", relief=RAISED,   image=smsIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
-  smsLabel.pack(side="left")
-  
-  pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
-  
-  importcustomerIcon = ImageTk.PhotoImage(Image.open("images/import.png"))
-  importcustomerLabel = Button(settframe,compound="top", text="Enter licence\nKey Code",command="",  relief=RAISED, image=importcustomerIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1,   width=55)
-  importcustomerLabel.pack(side="left")
-  
-  pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
-  
-  exportcustomerIcon = ImageTk.PhotoImage(Image.open("images/export.png"))
-  exportcustomerLabel = Button(settframe,compound="top", text="Online\nUser Manual",command="",relief=RAISED,   image=exportcustomerIcon, font=("arial", 8),bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
-  exportcustomerLabel.pack(side="left")
-  
-  pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
-  pn.pack(side="left", padx=5)
-  
-  customersearchIcon = ImageTk.PhotoImage(Image.open("images/search-icon.png"))
-  customersearchLabel = Button(settframe,compound="top",command="", text="Upgrade to\nPro Now!",  relief=RAISED,               image=customersearchIcon, font=("arial", 8),bg="#f8f8f2", fg="black",   height=55, bd=1, width=55)
-  customersearchLabel.pack(side="left")
   
   
   invoi1label = Label(settingsframe, text="Settings", font=("arial", 18), bg="#f8f8f2")
@@ -989,8 +1041,10 @@ def mainpage():
   else:
     if sectab[22] == 'PDF':
       radpdf.select()
-    else:
+    elif sectab[22] == 'HTML':
       radhtml.select()
+    else:
+      pass
   
   checkb1 = IntVar()
   check1 = Checkbutton(firsttab,variable = checkb1, 
@@ -1134,7 +1188,7 @@ def mainpage():
   
   stl = Label(secondtab,text="sales Tax.Reg.No.")
   stl.place(x=20, y =185)
-  comsalestax = IntVar()
+  comsalestax = StringVar()
   ste = Entry(secondtab,textvariable=comsalestax)
   if  not sectab:
     pass
@@ -1152,7 +1206,7 @@ def mainpage():
   currbox['values'] =('ALL','AFN','ARS','AWG','AUD','AZN','BSD','BBD','BYN','BZD','BMD','BOB','BAM','BWP',  'BGN','BRL','BND','KHR','CAD','KYD','CLP','CNY','COP','CRC','HRK','CUP','CZK','DKK','DOP','XCD','EGP','SVC',  'EUR','FKP','FJD','GHS','GIP','GTQ','GGP','GYD','HNL','HKD','HUF','ISK','INR','IDR','IRR','IMP','ILS','JMD',  'JPY','JEP','KZT','KPW','KRW','KGS','LAK','LBP','LRD','MKD','MYR','MUR','MXN','MNT','MNT','MZN','NAD','NPR',  'ANG','NZD','NIO','NGN','NOK','OMR','PKR','PAB','PYG','PEN','PHP','PLN','QAR','RON','RUB','SHP','SAR','RSD',  'SCR','SGD','SBD','SOS','KRW','ZAR','LKR','SEK','CHF','SRD','SYP','TWD','THB','TTD','TRY','TVD','UAH','AED',  'GBP','USD','UYU','UZS','VEF','VND','YER','ZWD',)
   if  not sectab:
     pass
-  else:
+  elif sectab[5]:
     currbox.insert(0, sectab[5])
   currbox.place(x=80,y=240)
   
@@ -1181,7 +1235,7 @@ def mainpage():
   currsignbox["values"] = ('Lek','؋','$','ƒ','$','₼','$','$','Br','BZ$','$','$b','KM','P','лв','R$','$','៛',  '$','$','$','¥','$','₡','kn','₱','Kč','kr','RD$','$','£','$','€','£','$','¢','£','Q','£','$','L','$','Ft',  'kr','₹','Rp','﷼','£','₪','J$','¥','£','лв','₩','₩','₭','£','$','ден','RM','₨','$','₮',' د.إ','MT','$','₨',  'ƒ','$','C$','₦','kr','﷼','₨','B/.','Gs','S/.','₱','zł','﷼','lei','₽','£','﷼','Дин.','₨','S','₩','R','₨',  'kr','CHF','£','NT$','฿','TT$','₺','$','₴','د.إ','$U','лв','Bs','₫','﷼','Z$')
   if  not sectab:
     pass
-  else:
+  elif sectab[6]:
     currsignbox.insert(0, sectab[6])
   currsignbox.place(x=265,y=240)
   
@@ -1212,7 +1266,7 @@ def mainpage():
   cspe["values"] = ("before amount","after amount",'before amount with space',"after amount with space")
   if  not sectab:
     pass
-  else:
+  elif sectab[7]:
     cspe.insert(0, sectab[7])
   cspe.place(x=180,y=270)
   
@@ -1235,7 +1289,7 @@ def mainpage():
   currbox['values'] = ('.',',')
   if  not sectab:
     pass
-  else:
+  elif sectab[8]:
     currbox.insert(0, sectab[8])
   currbox.place(x=130,y=300)
   
@@ -1245,7 +1299,7 @@ def mainpage():
   exbox = Entry(secondtab,width=15,textvariable=comex)
   if  not sectab:
     exbox.insert(0, 84367.26)
-  else:
+  elif sectab[9]:
     exbox.insert(0, sectab[9])
   exbox.place(x=245,y=300)
   
@@ -1281,7 +1335,7 @@ def mainpage():
   daf.bind("<<ComboboxSelected>>",daffun)
   if not sectab:
     pass
-  else:
+  elif sectab[10]:
     daf.insert(0, sectab[10])
   daf.place(x=60,y=380)
   
@@ -1290,7 +1344,7 @@ def mainpage():
   exd.place(x=280,y=380)
   if  not sectab:
     pass
-  else:
+  elif sectab[11]:
     exd.delete(0, END)
     exd.insert(0, sectab[11])
   
@@ -1351,7 +1405,7 @@ def mainpage():
   tax1namee = Entry(secondtab)
   if  not sectab:
     pass
-  else:
+  elif sectab[15]:
     tax1namee.insert(0, sectab[15])
   tax1namee.place(x=60,y=380)
   
@@ -1362,7 +1416,7 @@ def mainpage():
   tax1ratee = Entry(secondtab)
   if  not sectab:
     pass
-  else:
+  elif sectab[16]:
     tax1ratee.insert(0, sectab[16])
   
   comptax1 = BooleanVar()
@@ -1384,7 +1438,7 @@ def mainpage():
   tax2namee = Entry(secondtab)
   if  not sectab:
     pass
-  else:
+  elif sectab[18]:
     tax2namee.insert(0, sectab[18])
   
   tax2ratel = Label(secondtab,text="Tax2 rate")
@@ -1392,7 +1446,7 @@ def mainpage():
   tax2ratee = Entry(secondtab)
   if  not sectab:
     pass
-  else:
+  elif sectab[19]:
     tax2ratee.insert(0, sectab[19])
   
   comptax2 = BooleanVar()
@@ -1481,7 +1535,7 @@ def mainpage():
   btloadim = Button(secondtab,text="Load logo image",command=upload_filelogo)
   btloadim.place(x=580,y=460)
   
-  compimg = IntVar()
+  compimg = BooleanVar()
   primage = Checkbutton(secondtab,text="Print logo image",variable = compimg,onvalue =1 ,offvalue = 0)
   primage.place(x=740,y=460)
   
