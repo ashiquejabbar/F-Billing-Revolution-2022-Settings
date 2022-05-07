@@ -219,6 +219,14 @@ def mainpage():
 
   def add_expense():
     global expamountval,expdate,vn,cn,expdescriptionentry,expstaffentry,checkvarStatus4,cus,rebi,id_sku1,rebill_amoun,exptxt,expenselabelframe,rebill,imge,other
+
+    user_name1=username1.get()
+    sql = "select * from users where username = %s"
+    val = (user_name1,)
+    fbcursor.execute(sql,val)
+    exp_set_con = fbcursor.fetchone()
+    print(exp_set_con)
+
     window = Toplevel()  
     
     window.title("Add new Expense")
@@ -331,6 +339,7 @@ def mainpage():
         rebill_entry.place_forget()
     rebill = BooleanVar()
     rebi = StringVar()
+    
     button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle,onvalue ='Yes' ,offvalue = 'NO')
     
     

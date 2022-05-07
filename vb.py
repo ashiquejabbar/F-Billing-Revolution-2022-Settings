@@ -1,37 +1,43 @@
+import tkinter as tk
 
-# Importing tkinter to make gui in python 
+def start_gui():
+    main_window = MainWindow()
+    main_window.set_grid(20,4)
+    main_window.root.mainloop()
 
-from tkinter import*
+class MainWindow:
+    def __init__(self, root = tk.Tk()):
+        self.root = root
+        self.root.title('Some Table')
+        root.columnconfigure( 0, weight=1 ) # Stretch Column 0 to fit width.
+        root.rowconfigure( 0, weight=1 ) # Stretch row 0 to fit height.
 
-  
-# Importing tkPDFViewer to place pdf file in gui. 
-# In tkPDFViewer library there is 
-# an tkPDFViewer module. That I have imported as pdf 
+        self.canvas = tk.Canvas(root)
+        self.canvas.grid(row = 0, column = 0, sticky = 'nsew')
+        # Make canvas fit the whole of root. Useful to play with sizes.
 
-from tkPDFViewer import tkPDFViewer as pdf 
+        self.frame = tk.Frame(self.canvas)
+        self.canvas.create_window( 0, 0, window = self.frame, anchor=tk.NW )
+        # Makes frame an object in canvas
 
-  
-# Initializing tk 
+        self.vbar = tk.Scrollbar(root, orient = 'vertical', command= self.canvas.yview)
+        # The scrollbar is a child of root.
+        self.vbar.grid(row = 0, column = 1, sticky = 'ns')
 
-root = Tk() 
+        self.canvas.config(yscrollcommand = self.vbar.set)
 
-  
-# Set the width and height of our root window. 
+        self.frame.bind('<Configure>', self.on_config) 
+        # Bind on_config to a Frame config event.
 
-root.geometry("550x750") 
+    def on_config( self, e ):
+        # print(e.widget, e)
+        # Set the canvas scrollregion to fit the whole of frame.
+        self.canvas.configure(scrollregion=(0, 0, e.width, e.height))
 
-  
-# creating object of ShowPdf from tkPDFViewer. 
+    def set_grid(self, rows, columns):
+        for i in range(rows):
+            for j in range(columns):
+                tk.Label(self.frame, text = str(i)+' : '+str(j), width = 20).grid(row = i, column = j)
 
-v1 = pdf.ShowPdf() 
-
-  
-# Adding pdf location and width and height. 
-
-v2 = v1.pdf_view(root,
-                 width = 50, height = 100) 
-
-  
-# Placing Pdf in my gui. 
-v2.place(x=50,y=50)
-root.mainloop() 
+if __name__ == '__main__':
+    start_gui()
