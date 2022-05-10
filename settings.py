@@ -544,7 +544,8 @@ def mainpage():
       expokButton.place(x=280,y=415)
   
       window.mainloop()
-    
+  
+
   def add_expense_connection():
     sql = "select * from users"
     fbcursor.execute(sql)
@@ -552,15 +553,18 @@ def mainpage():
     if not addexp_check_user:
       add_expense()
     else:
-      user_name1=username1.get()
-      sql = "select create_expense from users where username = %s"
-      val = (user_name1,)
-      fbcursor.execute(sql,val)
-      disable_create_exp = fbcursor.fetchone()
-      if disable_create_exp[0] == 1:
+      try:
+        user_namech = username1.get()
+        sql = "select create_expense from users where username = %s"
+        val = (user_namech,)
+        fbcursor.execute(sql,val)
+        disable_create_exp = fbcursor.fetchone()
+        if disable_create_exp[0] == 1:
+          add_expense()
+        else:
+          messagebox.showerror("user","user does not have permission to perform this action")
+      except:
         add_expense()
-      else:
-        messagebox.showerror("user","user does not have permission to perform this action")
         
       
       
@@ -941,7 +945,9 @@ def mainpage():
 
 
   def delete_expense():
-    
+    # sql = "select * from users"
+    # fbcursor.execute(sql)
+    # addexp_check_user = fbcursor.fetchall()
     delmess = messagebox.askyesno("Delete Expense", "Are you sure to delete this Expense?")
     if delmess == True:
       itemid = exp_tree.item(exp_tree.focus())["values"][0]
@@ -954,6 +960,26 @@ def mainpage():
       exp_tree.delete(exp_tree.selection()[0])
     else:
       pass
+  
+  def delete_expense_check():
+    sql = "select * from users"
+    fbcursor.execute(sql)
+    delexp_check_user = fbcursor.fetchall()
+    if not delexp_check_user:
+      delete_expense()
+    else:
+      try:
+        user_namech = username1.get()
+        sql = "select delete_expense from users where username = %s"
+        val = (user_namech,)
+        fbcursor.execute(sql,val)
+        disable_del_exp = fbcursor.fetchone()
+        if disable_del_exp[0] == 1:
+          delete_expense()
+        else:
+          messagebox.showerror("user","user does not have permission to perform this action")
+      except:
+        delete_expense()
   
 
 ######################## SEARCH EXPENSE ######################################################################
@@ -1096,7 +1122,7 @@ def mainpage():
   expeditLabel = Button(expmidFrame,compound="top", text="Edit/View\nExpense",relief=RAISED,    image=expeditIcon,command=edit_expense,bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
   expeditLabel.pack(side="left")
   
-  expdeleteLabel = Button(expmidFrame,compound="top", text="Delete\nSelected", relief=RAISED,    command=delete_expense,image=expdeleteIcon,bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
+  expdeleteLabel = Button(expmidFrame,compound="top", text="Delete\nSelected", relief=RAISED,    command=delete_expense_check,image=expdeleteIcon,bg="#f8f8f2", fg="black", height=55, bd=1, width=55)
   expdeleteLabel.pack(side="left")
   
   e = Canvas(expmidFrame, width=1, height=65, bg="#b3b3b3", bd=0)
@@ -1292,7 +1318,7 @@ def mainpage():
 ############################ END OF Expense Module-############################
   
   
-  ######################## FRONT PAGE OF CUSTOMER SECTION   #######################################################################
+  ######################## FRONT PAGE OF Settings module  #######################################################################
   
       
   settingsframe=Frame(tab10, relief=GROOVE, bg="#f8f8f2")
@@ -2632,6 +2658,7 @@ def mainpage():
   compimg = BooleanVar()
   primage = Checkbutton(secondtab,text="Print logo image",variable = compimg,onvalue =1 ,offvalue = 0)
   primage.place(x=740,y=460)
+
   
   ################### tab06 ###################################
   
