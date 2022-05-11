@@ -462,9 +462,37 @@ def mainpage():
           rebill_label.place_forget()
           rebill_entry.place_forget()
       rebill = BooleanVar()
+
+      sql = "select * from users"
+      fbcursor.execute(sql)
+      rebill_check_user = fbcursor.fetchall()
+
+      try:
+        user_namech = username1.get()
+        sql = "select create_expense from users where username = %s"
+        val = (user_namech,)
+        fbcursor.execute(sql,val)
+        disable_create_exp = fbcursor.fetchone()
+      except:
+        pass
       
-      button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle,onvalue   ='Yes' ,offvalue = 'NO')
+      if not rebill_check_user:
+        button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle,onvalue   ='Yes' ,offvalue = 'NO')
+      else:
+        try:
+          user_namech = username1.get()
+          sql = "select rebill_exprense from users where username = %s"
+          val = (user_namech,)
+          fbcursor.execute(sql,val)
+          disable_create_exp = fbcursor.fetchone()
+          if disable_create_exp[0] == 1:
+            button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle,onvalue   ='Yes' ,offvalue = 'NO')
+          else:
+            pass
+        except:
+           button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle,onvalue   ='Yes' ,offvalue = 'NO')
       
+    
       
       id_sku1 = StringVar()
       id_skulabel=Label(expenselabelframe,text="id_sku:")
