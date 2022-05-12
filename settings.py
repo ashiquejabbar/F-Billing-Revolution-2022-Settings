@@ -318,22 +318,27 @@ def mainpage():
         sql = "select currencysign,currsignplace from company"
         fbcursor.execute(sql)
         currsymb = fbcursor.fetchone()
-        if currsymb[1] == "before amount":
-          expamountentry.insert (0, currsymb[0])
-          expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
-          expamountentry.config(validate='key',validatecommand=(expamountnum),justify='left')
-        elif currsymb[1] == "before amount with space":
-          expamountentry.insert (0, currsymb[0] + " ")
-          expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
-          expamountentry.config(validate='key',validatecommand=(expamountnum),justify='left')
-        elif currsymb[1] == "after amount":
-          expamountval.set(currsymb[0])
-          expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
-          expamountentry.config(validate='key',validatecommand=(expamountnum),justify='right')
-        elif currsymb[1] == "after amount with space":
-          expamountval.set(" " + currsymb[0])
-          expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
-          expamountentry.config(validate='key',validatecommand=(expamountnum),justify='right')
+        if not currsymb:
+          pass
+        else:
+          if currsymb[1] == "before amount":
+            expamountentry.insert (0, currsymb[0])
+            expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
+            expamountentry.config(validate='key',validatecommand=(expamountnum),justify='left')
+          elif currsymb[1] == "before amount with space":
+            expamountentry.insert (0, currsymb[0] + " ")
+            expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
+            expamountentry.config(validate='key',validatecommand=(expamountnum),justify='left')
+          elif currsymb[1] == "after amount":
+            expamountval.set(currsymb[0])
+            expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
+            expamountentry.config(validate='key',validatecommand=(expamountnum),justify='right')
+          elif currsymb[1] == "after amount with space":
+            expamountval.set(" " + currsymb[0])
+            expamountnum = (expenselabelframe.register(number_expacount),'%S','%d')
+            expamountentry.config(validate='key',validatecommand=(expamountnum),justify='right')
+          else:
+            pass
           
   
   
@@ -356,6 +361,30 @@ def mainpage():
       
       expdate=DateEntry(expenselabelframe)
       expdate.place(x=450,y=12)
+
+      sql = "select dateformat from company"
+      fbcursor.execute(sql)
+      date_for = fbcursor.fetchone()
+     
+      if not date_for:
+        pass
+      else:
+        if date_for[0] == "mm-dd-yyyy":
+          expdate._set_text(expdate._date.strftime('%m-%d-%Y'))
+        elif date_for[0] == "dd-mm-yyyy":
+          expdate._set_text(expdate._date.strftime('%d-%m-%Y'))
+        elif date_for[0] == "yyy.mm.dd":
+          expdate._set_text(expdate._date.strftime('%Y.%m.%d'))
+        elif date_for[0] == "mm/dd/yyyy":
+          expdate._set_text(expdate._date.strftime('%m/%d/%Y'))
+        elif date_for[0] == "dd/mm/yyy":
+          expdate._set_text(expdate._date.strftime('%d/%m/%Y'))
+        elif date_for[0] == "dd.mm.yyyy":
+          expdate._set_text(expdate._date.strftime('%d.%m.%Y'))
+        elif date_for[0] == "yyyy/mm/dd":
+          expdate._set_text(expdate._date.strftime('%Y/%m/%d'))
+        else:
+          pass
   
       sql = "select businessname from Customer where customertype =%s or customertype =%s"
       val = ('vendor','both(client,vendor)')
@@ -400,7 +429,7 @@ def mainpage():
       sql = "select taxtype from company"
       fbcursor.execute(sql)
       taxchoose = fbcursor.fetchone()
-      print(taxchoose[0])
+      
       
       
       checkvarStatus4=BooleanVar()
@@ -451,6 +480,8 @@ def mainpage():
   
       ent.delete(0,'end')
       def toggle():
+        id_skuentry.delete(0, END)
+        rebill_entry.delete(0, END)
         if rebill.get():
           id_skulabel.place(x=375,y=160)
           id_skuentry.place(x=420,y=160)
@@ -609,17 +640,29 @@ def mainpage():
 
 
   def edit_expense():
-    global expamountval,expdate,vn,cn,expdescriptionentry,expstafftval,checkvarStatus4,cus,rebi,id_sku1,rebill_amoun,exptxt,expenselabelframe,recimage
-    try:
+
+    # try:
       itemid = exp_tree.item(exp_tree.focus())["values"][0]
       sql = "select * from Expenses where expensesid = %s"
       val = (itemid, )
 
       fbcursor.execute(sql, val)
       psdata = fbcursor.fetchone()
+      def upload_file1():
+        global filename,img, b1
+        f_types =[('Png files','*.png'),('Jpg Files', '*.jpg')]
+        filename = filedialog.askopenfilename(filetypes=f_types)
+        #import pdb; pdb.set_trace()
+        shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
+        image = Image.open(filename)
+        resize_image = image.resize((120, 120))
+        img = ImageTk.PhotoImage(resize_image)
+        b1 = Label(expenselabelframe,image=img, height=120, width=120)
+        b1.place(x=450, y=240)
 
+      global filename
+      filename = ""
       def update_expenses():# Storing values into db (user)
-        global img , filename 
         itemid = exp_tree.item(exp_tree.focus())["values"][0]
         expense_amount = expamountval.get()
         date = expdate.get_date()
@@ -636,32 +679,25 @@ def mainpage():
         assign_cus = other.get()
         recepit = imge.get()
 
-
-        
         itemid1 = exp_tree.item(exp_tree.focus())["values"][0]
         sq = 'select image from Expenses where expensesid = %s'
         va =(itemid1,)
         fbcursor.execute(sq,va)
         up = fbcursor.fetchone()
-        print(up,recimage)
         # file = shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-        if up:
+        if filename == "":
           sql='UPDATE Expenses set expense_amount=%s,date=%s,vendor=%s,catagory=%s,description=%s,    staff_members=%s,taxable=%s,customer=%s,id_sku=%s,notes=%s,rebill_amount=%s,rebillable=%s,assign_customer=%s,receipt=%s where expensesid=%s'
           val=(expense_amount,date,vendor,catagory,description,staff_members,taxable,customer,id_sku,notes,
           rebill_amount,rebillabe,assign_cus,recepit,itemid)
           fbcursor.execute(sql,val)
+          fbilldb.commit()
         else:
-          pass
-        try:
           file = shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
           sql='UPDATE Expenses set expense_amount=%s,date=%s,vendor=%s,catagory=%s,description=%s,    staff_members=%s,taxable=%s,customer=%s,id_sku=%s,notes=%s,rebill_amount=%s,image=%s,rebillable=%s,assign_customer=%s,receipt=%s where expensesid=%s'
           val=(expense_amount,date,vendor,catagory,description,staff_members,taxable,customer,id_sku,notes,
           rebill_amount,filename.split('/')[-1],rebillabe,assign_cus,recepit,itemid)
           fbcursor.execute(sql,val)
-        except:
-          pass
-
-        fbilldb.commit()
+          fbilldb.commit()
         for record in exp_tree.get_children():
             exp_tree.delete(record)
         count=0
@@ -676,7 +712,7 @@ def mainpage():
             else:
                 pass
         count += 1
-        messagebox.showinfo('Update Successfull','Update Successfull')
+        window1.destroy()
       
       
       window1 = Toplevel()  
@@ -699,7 +735,7 @@ def mainpage():
       expenselabelframe.pack(side="top",fill=BOTH,padx=10)
   
   
-      expamountval = IntVar(expenselabelframe, value='$.00')
+      expamountval = StringVar()
       expamount=Label(expenselabelframe,text="Expense amount:",pady=10,padx=10)
       expamount.place(x=12,y=0)
       expamountentry = Entry(expenselabelframe,width=15,textvariable=expamountval)
@@ -715,6 +751,8 @@ def mainpage():
       expdate.place(x=450,y=12)
       expdate.delete(0,'end')
       expdate.insert(0, psdata[4])
+      
+      
 
       sql = "select businessname from Customer where customertype =%s or customertype =%s"
       val = ('vendor','both(client,vendor)')
@@ -766,7 +804,9 @@ def mainpage():
 
 
       
-      
+      sql = "select taxtype from company"
+      fbcursor.execute(sql)
+      taxchoose = fbcursor.fetchone()
 
   
       checkvarStatus4=BooleanVar()
@@ -775,10 +815,27 @@ def mainpage():
                         text="Taxable Tax1 rate", 
                         onvalue ='1',
                         offvalue = '0',
-                        height=3,
-                        width = 15)
+                        )
+              
+      tax2expstr = BooleanVar()
+      tax2exp = Checkbutton(expenselabelframe,variable = tax2expstr, 
+                        text="Taxable Tax2 rate", 
+                        onvalue ='1' ,
+                        offvalue = '0',
+                        )
+
+      if not taxchoose:
+        pass
+      elif taxchoose[0] == '1':
+        Button4.place_forget()
+        tax2exp.place_forget()
+      elif taxchoose[0] == '2':
+        Button4.place(x=400,y=125)
+        tax2exp.place_forget()
+      elif taxchoose[0] == '3':
+        tax2exp.place(x=400,y=105)
+        Button4.place(x=400,y=125)
   
-      Button4.place(x=400,y=120)
       # Button4.bind("<Button-1>", getBool)
       
       ps = psdata[9]
@@ -812,18 +869,8 @@ def mainpage():
       ent['values'] = cusdta
       ent.delete(0,'end')
       ent.insert(0, psdata[10])
-
       
-
-
-
-
-  
-      # def va():
-      #   id_skulabel.place(x=375,y=160)
-      #   id_skuentry.place(x=420,y=160)
-      #   rebill_label.place(x=335,y=180)
-      #   rebill_entry.place(x=420, y=180)
+      
 
       def toggle():
         if rebill.get():
@@ -837,7 +884,6 @@ def mainpage():
           rebill_label.place_forget()
           rebill_entry.place_forget()
       rebill = BooleanVar()
-      rebi = IntVar
       button51 = Checkbutton(expenselabelframe, text="Rebillable" ,variable=rebill, command=toggle)
       
       cns = psdata[17]
@@ -850,13 +896,13 @@ def mainpage():
         
       
       
-      id_sku1 = IntVar(expenselabelframe, value='-Expense-')
+      id_sku1 = StringVar()
       id_skulabel=Label(expenselabelframe,text="id_sku:")
       id_skuentry = Entry(expenselabelframe,width=15,textvariable=id_sku1)
       id_skuentry.delete(0,'end')
       id_skuentry.insert(0, psdata[15])
   
-      rebill_amoun = IntVar(expenselabelframe, value='$.00')
+      rebill_amoun = StringVar()
       rebill_label=Label(expenselabelframe,text="Rebill amount:")
       rebill_entry = Entry(expenselabelframe,width=15,textvariable=rebill_amoun)
       rebill_entry.delete(0,'end')
@@ -925,26 +971,15 @@ def mainpage():
 
       expokButton = Button(window1, text ="Ok",image=tick,width=70,compound = LEFT,command=update_expenses)
       expokButton.place(x=280,y=415)
-    except:
-        try:
-            window1.destroy()
-        except: 
-            pass
-        messagebox.showerror('F-Billing Revolution', 'Select a record to edit.')
+    # except:
+    #     try:
+    #         window1.destroy()
+    #     except: 
+    #         pass
+    #     messagebox.showerror('F-Billing Revolution', 'Select a record to edit.')
     
 
-  def upload_file1():
-    global filename,img, b1
-    f_types =[('Png files','*.png'),('Jpg Files', '*.jpg')]
-    filename = filedialog.askopenfilename(filetypes=f_types)
-    print(filename, 'name')
-    #import pdb; pdb.set_trace()
-    shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-    image = Image.open(filename)
-    resize_image = image.resize((120, 120))
-    img = ImageTk.PhotoImage(resize_image)
-    b1 = Label(expenselabelframe,image=img, height=120, width=120)
-    b1.place(x=450, y=240)
+  
       
   def file_image(event):
     itemid = exp_tree.item(exp_tree.focus())["values"][0]
@@ -1420,7 +1455,7 @@ def mainpage():
         fbilldb.commit()
       else:
         shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,image,attachment_file_type,miscellanoustab_cbutton1,miscellanoustab_cbutton2,miscellanoustab_cbutton3,miscellanoustab_cbutton4,miscellanoustab_cbutton5,miscellanoustab_cbutton6) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,  %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+        sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,image,attachment_file_type,miscellanoustab_cbutton1,miscellanoustab_cbutton2,miscellanoustab_cbutton3,miscellanoustab_cbutton4,miscellanoustab_cbutton5,miscellanoustab_cbutton6) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
         val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,filename.split('/')[-1],radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
         fbilldb.commit()
