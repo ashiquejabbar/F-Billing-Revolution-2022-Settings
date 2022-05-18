@@ -1674,9 +1674,10 @@ def mainpage():
       cost = costval.get()
       price_cost = priceval.get()
       taxable = checkvarStatus2.get()
+      tax2 = checkvarStatustax2.get()
       nostockcontrol = checkvarStatus3.get()
-      stock = stockval.get()
-      lowstock = lowval.get()
+      stock = stockentry.get()
+      lowstock = lowentry.get()
       warehouse = wareentry.get()
       pnotes = sctxt.get("1.0",'end-1c')
       entries = [sku,name, unitprice, cost]
@@ -1692,20 +1693,19 @@ def mainpage():
         row_count = fbcursor.rowcount
         if row_count == 0:
           if filename == "":
-            sql = 'insert into Productservice(sku, category, name, description, status, unitprice, peices, cost, taxable, priceminuscost, serviceornot, stock, stocklimit, warehouse, privatenote) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-            val = (sku, catgory, name, description, status, unitprice, peices, cost, taxable, price_cost, nostockcontrol, stock, lowstock, warehouse, pnotes)
+            sql = 'insert into Productservice(sku, category, name, description, status, unitprice, peices, cost, taxable, priceminuscost, serviceornot, stock, stocklimit, warehouse, privatenote,tax2) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)'
+            val = (sku, catgory, name, description, status, unitprice, peices, cost, taxable, price_cost, nostockcontrol, stock, lowstock, warehouse, pnotes,tax2)
             fbcursor.execute(sql, val)
             fbilldb.commit()
           else:
             file = shutil.copyfile(filename, os.getcwd()+'/images/'+filename.split('/')[-1])
-            sql = 'insert into Productservice(sku, category, name, description, status, unitprice, peices, cost, taxable, priceminuscost, serviceornot, stock, stocklimit, warehouse, image, privatenote) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
-            val = (sku, catgory, name, description, status, unitprice, peices, cost, taxable, price_cost, nostockcontrol, stock, lowstock, warehouse, filename.split('/')[-1], pnotes)
+            sql = 'insert into Productservice(sku, category, name, description, status, unitprice, peices, cost, taxable, priceminuscost, serviceornot, stock, stocklimit, warehouse, image, privatenote,tax2) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s)'
+            val = (sku, catgory, name, description, status, unitprice, peices, cost, taxable, price_cost, nostockcontrol, stock, lowstock, warehouse, filename.split('/')[-1], pnotes,tax2)
             fbcursor.execute(sql, val)
             fbilldb.commit()
         else:
           messagebox.showinfo("Alert", "Entry with same name or SKU already exists.\nTry again.")
-        top.destroy()
-        messagebox.showinfo("F-Billing Revolution", "Product added successfully.")
+          top.destroy()
         for record in treeproducts.get_children():
           treeproducts.delete(record)
         fbcursor.execute("select *  from Productservice")
@@ -1716,22 +1716,73 @@ def mainpage():
             acti = 'Active'
           else:
             acti = 'Inactive' 
-          if i[13] > i[14]:
-            treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
-            countp += 1
-          elif (i[12] =="0") == (i[13] <= i[14]):
-            treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
-            countp += 1
-          elif i[12] == '1':
-            treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
-            countp += 1
-          else:
-            pass
-          
-       
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          currsymb = fbcursor.fetchone()
+          if not currsymb: 
+            if i[13] > i[14]:
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
+              countp += 1
+            elif (i[12] =="") or (i[13] <= i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
+              countp += 1
+            elif i[12] == '1':
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
+              countp += 1
+            else:
+              pass
+          elif currsymb[1] == "before amount":
+            if (i[13]) > (i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0]+i[7], i[13], i[15],i[17]),tags=('green',))
+              countp += 1
+            elif (i[13] < i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
+              countp += 1
+            elif i[12] == '1':
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
+              countp += 1
+            else:
+              pass
+          elif currsymb[1] == "before amount with space":
+            if i[13] > i[14]:
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('green',))
+              countp += 1
+            elif (i[12] =="") or (i[13] <= i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('red',))
+              countp += 1
+            elif i[12] == '1':
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('blue',))
+              countp += 1
+            else:
+              pass
+          elif currsymb[1] == "after amount":
+            if i[13] > i[14]:
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+              countp += 1
+            elif (i[12] =="") or (i[13] <= i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+              countp += 1
+            elif i[12] == '1':
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+              countp += 1
+            else:
+              pass
+          elif currsymb[1] == "after amount with space":
+            if i[13] > i[14]:
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+              countp += 1
+            elif (i[12] == '0') or (i[13] <= i[14]):
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+              countp += 1
+            elif i[12] == '1':
+              treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+              countp += 1
+            else:
+              pass
+        top.destroy()
       else:
         messagebox.showinfo("Alert", "Fields name and SKU should not be empty.\nFill out required fields and try again")
-        top.destroy()
+        
  
     fbcursor.execute("SELECT * FROM Productservice ORDER BY sku DESC LIMIT 1")
     skuin = fbcursor.fetchone()
@@ -1776,11 +1827,21 @@ def mainpage():
     desentry = Entry(Customerlabelframe,width=70)
     desentry.place(x=110,y=105)
 
-    uval = IntVar()
+    def prdoucts_cal(S,d):
+        if d == '1': #insert
+          if not S in ['.','0','1','2','3','4','5','6','7','8','9']:
+            return False
+          return True
+        if d.isdigit():
+          return True
+
+    uval = StringVar()
     unit1=Label(Customerlabelframe,text="Unit Price:",fg="blue",pady=5,padx=10)
     unit1.place(x=20,y=130)
     unitentry = Entry(Customerlabelframe,width=20,textvariable=uval)
     unitentry.place(x=110,y=135)
+    cal_unit = (Customerlabelframe.register(prdoucts_cal),'%S','%d')
+    unitentry.config(validate='key',validatecommand=(cal_unit),justify='right')
     
 
     # pcsval = IntVar()
@@ -1789,26 +1850,32 @@ def mainpage():
     pcsentry = Entry(Customerlabelframe,width=20)
     pcsentry.place(x=410,y=135)
 
-    costval = IntVar()
+    costval = StringVar(value="0")
     cost1=Label(Customerlabelframe,text="Cost:",pady=5,padx=10)
     cost1.place(x=20,y=160)
     
-    
     costentry = Entry(Customerlabelframe,width=20,textvariable=costval)
     costentry.place(x=110,y=165)
-    # unit = int(uval.get())
-    # cost = int(costentry.get())
-    # prccst = unit-cost
+    cal_cost = (Customerlabelframe.register(prdoucts_cal),'%S','%d')
+    costentry.config(validate='key',validatecommand=(cal_cost),justify='right')
+    
     def set_label(name, index, mode):
-      priceval.set(float(uval.get()) - float(costval.get()))
+      copr = float(uval.get()) - float(costval.get())
+      priceval.set(str(copr))
+      
     priceval = StringVar()
     price1=Label(Customerlabelframe,text="(Price-Cost):",pady=5,padx=10)
     price1.place(x=20,y=190)
     priceentry = Entry(Customerlabelframe,width=20,textvariable=priceval,state=DISABLED,disabledbackground="white",disabledforeground="black")
+    priceentry.config(justify="right")
     priceentry.place(x=110,y=195)
     
     uval.trace('w', set_label)
     costval.trace('w', set_label)
+
+    sql = "select taxtype from company"
+    fbcursor.execute(sql)
+    taxchoose = fbcursor.fetchone()
 
     checkvarStatus2=IntVar()
    
@@ -1818,8 +1885,28 @@ def mainpage():
                       offvalue = 0,
                       height=2,
                       width = 12)
+    
+    checkvarStatustax2=IntVar()
+    Buttontax2 = Checkbutton(Customerlabelframe,variable = checkvarStatustax2, 
+                      text="Taxable Tax2rate",compound="right",
+                      onvalue =1 ,
+                      offvalue = 0,
+                      height=2,
+                      width = 12)
+  
+    if not taxchoose:
+      pass
+    elif taxchoose[0] == '1':
+      Button2.place_forget()
+      Buttontax2.place_forget()
+    elif taxchoose[0] == '2':
+      Button2.place(x=415,y=153)
+      Buttontax2.place_forget()
+    elif taxchoose[0] == '3':
+      Button2.place(x=415,y=153)
+      Buttontax2.place(x=415,y=203)
 
-    Button2.place(x=415,y=153)
+    
 
     def switch():
       if checkvarStatus3.get():
@@ -1840,16 +1927,15 @@ def mainpage():
     Button3.place(x=40,y=220)
 
 
-    stockval = IntVar()
     stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
     stock1.place(x=90,y=260)
-    stockentry = Entry(Customerlabelframe,width=15,textvariable=stockval)
+    stockentry = Entry(Customerlabelframe,width=15)
     stockentry.place(x=140,y=265)
 
-    lowval = IntVar()
+
     low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
     low1.place(x=280,y=260)
-    lowentry = Entry(Customerlabelframe,width=15,textvariable=lowval)
+    lowentry = Entry(Customerlabelframe,width=15)
     lowentry.place(x=435,y=265)
 
    
@@ -2858,18 +2944,71 @@ def mainpage():
       if i[6] == '1':
         acti = 'Active'
       else:
-        acti = 'Inactive' 
-      if i[13] > i[14]:
-        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
-        countp += 1
-      elif (i[12] =="0") == (i[13] <= i[14]):
-        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
-        countp += 1
-      elif i[12] == '1':
-        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
-        countp += 1
-      else:
-        pass
+        acti = 'Inactive'
+      sql = "select currencysign,currsignplace from company"
+      fbcursor.execute(sql)
+      currsymb = fbcursor.fetchone()
+      if not currsymb: 
+        if i[13] > i[14]:
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
+          countp += 1
+        elif (i[12] =="0") == (i[13] <= i[14]):
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
+          
+        elif i[12] == '1':
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
+          countp += 1
+        else:
+          pass
+      elif currsymb[1] == "before amount":
+        if i[13] > i[14]:
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0]+i[7], i[13], i[15],i[17]),tags=('green',))
+          countp += 1
+        elif (i[12] =="0") == (i[13] <= i[14]):
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0]+i[7], i[13], i[15],i[17]),tags=('red',))
+          countp += 1
+        elif i[12] == '1':
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0]+i[7], i[13], i[15],i[17]),tags=('blue',))
+          countp += 1
+        else:
+          pass
+      elif currsymb[1] == "before amount with space":
+        if i[13] > i[14]:
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('green',))
+          countp += 1
+        elif (i[12] =="0") == (i[13] <= i[14]):
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('red',))
+          countp += 1
+        elif i[12] == '1':
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('blue',))
+          countp += 1
+        else:
+          pass
+      elif currsymb[1] == "after amount":
+        if i[13] > i[14]:
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+          countp += 1
+        elif (i[12] =="0") == (i[13] <= i[14]):
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+          countp += 1
+        elif i[12] == '1':
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+          countp += 1
+        else:
+          pass
+      elif currsymb[1] == "after amount with space":
+        if i[13] > i[14]:
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+          countp += 1
+        elif (i[12] =="0") == (i[13] <= i[14]):
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+          countp += 1
+        elif i[12] == '1':
+          treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+          countp += 1
+        else:
+          pass
+
 
 ######################## View Image
 # #######################################################################
@@ -3025,26 +3164,78 @@ def mainpage():
   treeproducts.heading("8",text="Location/warehouse")
   treeproducts.heading("9",text="Image")
   treeproducts.bind('<Double-Button-1>' , psfile_image)
-  countp = 0
   treeproducts.tag_configure('green', foreground='green')
   treeproducts.tag_configure('red', foreground='red')
   treeproducts.tag_configure('blue', foreground='blue')
+  countp = 0
   for i in pandsdata:
     if i[6] == '1':
       acti = 'Active'
     else:
-      acti = 'Inactive' 
-    if i[13] > i[14]:
-      treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
-      countp += 1
-    elif (i[12] =="0") == (i[13] <= i[14]):
-      treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
-      countp += 1
-    elif i[12] == '1':
-      treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
-      countp += 1
-    else:
-      pass
+      acti = 'Inactive'
+    sql = "select currencysign,currsignplace from company"
+    fbcursor.execute(sql)
+    currsymb = fbcursor.fetchone()
+    if not currsymb: 
+      if i[13] > i[14]:
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('green',))
+        countp += 1
+      elif (i[12] =="") or (i[13] <= i[14]):
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
+        countp += 1
+      elif i[12] == '1':
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
+        countp += 1
+      else:
+        pass
+    elif currsymb[1] == "before amount":
+      if i[13] > i[14]:
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0]+i[7], i[13], i[15],i[17]),tags=('green',))
+        countp += 1
+      elif (i[12] =="") or (i[13] <= i[14]):
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('red',))
+        countp += 1
+      elif i[12] == '1':
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7], i[13], i[15],i[17]),tags=('blue',))
+        countp += 1
+      else:
+        pass
+    elif currsymb[1] == "before amount with space":
+      if i[13] > i[14]:
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('green',))
+        countp += 1
+      elif (i[12] =="") or (i[13] <= i[14]):
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('red',))
+        countp += 1
+      elif i[12] == '1':
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], currsymb[0] +" "+i[7], i[13], i[15],i[17]),tags=('blue',))
+        countp += 1
+      else:
+        pass
+    elif currsymb[1] == "after amount":
+      if i[13] > i[14]:
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+        countp += 1
+      elif (i[12] =="") or (i[13] <= i[14]):
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+        countp += 1
+      elif i[12] == '1':
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+        countp += 1
+      else:
+        pass
+    elif currsymb[1] == "after amount with space":
+      if i[13] > i[14]:
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('green',))
+        countp += 1
+      elif (i[12] =="") or (i[13] <= i[14]):
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('red',))
+        countp += 1
+      elif i[12] == '1':
+        treeproducts.insert(parent='', index='end', iid=countp, text='hello', values=('', i[0], i[3], acti, i[4], i[7]+" "+currsymb[0], i[13], i[15],i[17]),tags=('blue',))
+        countp += 1
+      else:
+        pass
 
 
 
@@ -3068,7 +3259,7 @@ def mainpage():
     sql = 'select * from Productservice'
     fbcursor.execute(sql)
     pandsdata = fbcursor.fetchall()
-    psql = "select * from Productservice where category=%s"
+    psql = "select * from Productservice where stock=%s"
     val = ('product', )
     fbcursor.execute(psql, val)
     pdata = fbcursor.fetchall()
