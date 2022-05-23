@@ -1917,18 +1917,28 @@ def mainpage():
                       height=3)
 
     Button3.place(x=40,y=220)
-
-
+ 
+    def stocknum(input):
+      if input.isdigit():
+        return True
+      elif input is "":
+        return True
+      else:
+        return False
     stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
     stock1.place(x=90,y=260)
     stockentry = Entry(Customerlabelframe,width=15)
     stockentry.place(x=140,y=265)
+    sto = Customerlabelframe.register(stocknum)
+    stockentry.config(validate="key",validatecommand=(sto, '%S'))
 
 
     low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
     low1.place(x=280,y=260)
     lowentry = Entry(Customerlabelframe,width=15)
     lowentry.place(x=435,y=265)
+    lowsto = Customerlabelframe.register(stocknum)
+    lowentry.config(validate="key",validatecommand=(lowsto, '%S'))
 
    
     ware1=Label(Customerlabelframe,text="Warehouse:",pady=5,padx=10)
@@ -2612,7 +2622,13 @@ def mainpage():
 
       
 
-
+      def stocknum(input):
+        if input.isdigit():
+          return True
+        elif input is "":
+          return True
+        else:
+          return False
       stockval = IntVar(updateframe)
       stock1=Label(updateframe,text="Stock:",pady=5,padx=10)
       stock1.place(x=90,y=260)
@@ -2620,6 +2636,8 @@ def mainpage():
       stockentry.place(x=140,y=265)
       stockentry.delete(0,'end')
       stockentry.insert(0, psdata[13])
+      sto = updateframe.register(stocknum)
+      stockentry.config(validate="key",validatecommand=(sto, '%S'))
       
 
       lowval = IntVar(updateframe)
@@ -2629,6 +2647,8 @@ def mainpage():
       lowentry.place(x=435,y=265)
       lowentry.delete(0,'end')
       lowentry.insert(0, psdata[14])
+      lowsto = updateframe.register(stocknum)
+      lowentry.config(validate="key",validatecommand=(lowsto, '%S'))
       
 
     

@@ -15,7 +15,7 @@ from urllib.parse import parse_qs
 from xml.dom.minidom import Entity
 from PIL import ImageTk, Image, ImageFile
 from matplotlib.font_manager import json_dump
-from numpy import choose, empty, place
+from numpy import choose, empty, place, where
 import pandas as pd
 from tkinter.messagebox import showinfo
 import tkinter.scrolledtext as scrolledtext
@@ -372,8 +372,29 @@ def order_create():
     scrollbar = Scrollbar(cuselection)
     scrollbar.place(x=640, y=45, height=560)
     scrollbar.config( command=ord_create_cusventtree.yview )
+    
+    ###### add customer deatils to ordertree ####
+    def selectcus():
+      cusid = ord_create_cusventtree.item(ord_create_cusventtree.focus())["values"][0]
+      sql = "select * from customer where customerid = %s"
+      val = (cusid,)
+      fbcursor.execute(sql,val)
+      cussel = fbcursor.fetchone()
+      ord_to.delete(0, END)
+      ord_to.insert(0, cussel[4])
+      ord_addr.delete("1.0", END)
+      ord_addr.insert("1.0", cussel[5])
+      ord_ship.delete(0, END)
+      ord_ship.insert(0, cussel[6])
+      ord_shipaddr.delete("1.0", END)
+      ord_shipaddr.insert("1.0", cussel[7])
+      ord_email.delete(0, END)
+      ord_email.insert(0, cussel[9])
+      ord_smsnum.delete(0, END)
+      ord_smsnum.insert(0, cussel[8])
+      cuselection.destroy()
 
-    btn1=Button(cuselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
+    btn1=Button(cuselection,compound = LEFT,image=tick ,text="ok", width=60,command=selectcus).place(x=15, y=610)
     btn1=Button(cuselection,compound = LEFT,image=tick,text="Edit selected customer", width=150,command=order_create_customer).place(x=250, y=610)
     btn1=Button(cuselection,compound = LEFT,image=tick, text="Add new customer", width=150,command=order_edit_customer).place(x=435, y=610)
     btn1=Button(cuselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)   
@@ -892,39 +913,69 @@ def order_create():
   fir1Frame=Frame(pop, height=180,bg="#f5f3f2")
   fir1Frame.pack(side="top", fill=X)
 
+  global ord_to,ord_addr,ord_ship,ord_shipaddr,ord_email,ord_smsnum
+
+  def selecombobox(event):
+    ord_cus = ord_to.get()
+    sql = "select * from customer where businessname = %s"
+    val = (ord_cus,)
+    fbcursor.execute(sql,val)
+    cussel = fbcursor.fetchone()
+    ord_addr.delete("1.0", END)
+    ord_addr.insert("1.0", cussel[5])
+    ord_ship.delete(0, END)
+    ord_ship.insert(0, cussel[6])
+    ord_shipaddr.delete("1.0", END)
+    ord_shipaddr.insert("1.0", cussel[7])
+    ord_email.delete(0, END)
+    ord_email.insert(0, cussel[9])
+    ord_smsnum.delete(0, END)
+    ord_smsnum.insert(0, cussel[8])
+  
+  sql = "select businessname from customer"
+  fbcursor.execute(sql)
+  cusna = fbcursor.fetchall()
   labelframe1 = LabelFrame(fir1Frame,text="Customers",font=("arial",15))
   labelframe1.place(x=10,y=5,width=640,height=160)
   order = Label(labelframe1, text="Order to").place(x=10,y=5)
-  e1 = ttk.Combobox(labelframe1, value="Hello",width=28).place(x=80,y=5)
+  ord_to = ttk.Combobox(labelframe1,width=28)
+  ord_to["values"] = cusna
+  ord_to.bind("<<ComboboxSelected>>",selecombobox)
+  ord_to.place(x=80,y=5)
   address=Label(labelframe1,text="Address").place(x=10,y=30)
-  e2=Text(labelframe1,width=23).place(x=80,y=30,height=70)
+  ord_addr=Text(labelframe1,width=23)
+  ord_addr.place(x=80,y=30,height=70)
   ship=Label(labelframe1,text="Ship to").place(x=342,y=5)
-  e3=Entry(labelframe1,width=30).place(x=402,y=3)
+  ord_ship=Entry(labelframe1,width=30)
+  ord_ship.place(x=402,y=3)
   address1=Label(labelframe1,text="Address").place(x=340,y=30)
-  e4=Text(labelframe1,width=23).place(x=402,y=30,height=70)
+  ord_shipaddr=Text(labelframe1,width=23)
+  ord_shipaddr.place(x=402,y=30,height=70)
 
   btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=280, y=50)
   
   labelframe2 = LabelFrame(fir1Frame,text="")
   labelframe2.place(x=10,y=130,width=640,height=42)
   email=Label(labelframe2,text="Email").place(x=10,y=5)
-  e5=Entry(labelframe2,width=30).place(x=80,y=5)
+  ord_email=Entry(labelframe2,width=30)
+  ord_email.place(x=80,y=5)
   sms=Label(labelframe2,text="SMS Number").place(x=328,y=5)
-  e6=Entry(labelframe2,width=30).place(x=402,y=5)
+  ord_smsnum=Entry(labelframe2,width=30)
+  ord_smsnum.place(x=402,y=5)
     
   labelframe = LabelFrame(fir1Frame,text="Order",font=("arial",15))
   labelframe.place(x=652,y=5,width=290,height=170)
   order=Label(labelframe,text="Order#").place(x=5,y=5)
-  e1=Entry(labelframe,width=25).place(x=100,y=5,)
+  ord_orderid=Entry(labelframe,width=25).place(x=100,y=5,)
   orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
-  e2=Entry(labelframe,width=20).place(x=150,y=33)
+  ord_date=DateEntry(labelframe,width=20).place(x=150,y=33)
   checkvarStatus5=IntVar()
-  duedate=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
-  e3=Entry(labelframe,width=20).place(x=150,y=62)
+  ord_duedatecheck=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
+  ord_duedate=DateEntry(labelframe,width=20).place(x=150,y=62)
   terms=Label(labelframe,text="Terms").place(x=5,y=92)
-  e4=ttk.Combobox(labelframe, value="",width=25).place(x=100,y=92)
+  ord_terms=ttk.Combobox(labelframe, value="",width=25).place(x=100,y=92)
   ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
-  e1=Entry(labelframe,width=27).place(x=100,y=118)
+  ord_orderref=Entry(labelframe,width=27).place(x=100,y=118)
 
   fir2Frame=Frame(pop, height=150,width=100,bg="#f5f3f2")
   fir2Frame.pack(side="top", fill=X)
@@ -981,19 +1032,19 @@ def order_create():
   labelframe1 = LabelFrame(orderFrame,text="",font=("arial",15))
   labelframe1.place(x=1,y=1,width=800,height=170)
   cost1=Label(labelframe1,text="Extra cost name").place(x=2,y=5)
-  e1=ttk.Combobox(labelframe1, value="",width=20).place(x=115,y=5)
+  ord_extracostname=ttk.Combobox(labelframe1, value="",width=20).place(x=115,y=5)
   rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
-  e2=Entry(labelframe1,width=6).place(x=460,y=5)
+  ord_disrate=Entry(labelframe1,width=6).place(x=460,y=5)
   cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
-  e3=Entry(labelframe1,width=10).place(x=115,y=35)
+  ord_extracost=Entry(labelframe1,width=10).place(x=115,y=35)
   tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
-  e4=Entry(labelframe1,width=7).place(x=460,y=35)
+  ord_tax=Entry(labelframe1,width=7).place(x=460,y=35)
   template=Label(labelframe1,text="Template").place(x=37,y=70)
-  e5=ttk.Combobox(labelframe1, value="",width=25).place(x=115,y=70)
+  ord_template=ttk.Combobox(labelframe1, value="",width=25).place(x=115,y=70)
   sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
-  e6=Entry(labelframe1,width=18).place(x=115,y=100)
+  ord_sales=Entry(labelframe1,width=18).place(x=115,y=100)
   category=Label(labelframe1,text="Category").place(x=300,y=100)
-  e7=Entry(labelframe1,width=22).place(x=370,y=100)
+  ord_cate=Entry(labelframe1,width=22).place(x=370,y=100)
   
   statusfrme = LabelFrame(labelframe1,text="Status",font=("arial",15))
   statusfrme.place(x=540,y=0,width=160,height=160)
@@ -1004,21 +1055,21 @@ def order_create():
   nev2=Label(statusfrme, text="Never").place(x=100,y=90)
 
   text1=Label(headerFrame,text="Title text").place(x=50,y=5)
-  e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=5)
+  ord_titletext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=5)
   text2=Label(headerFrame,text="Page header text").place(x=2,y=45)
-  e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=45)
+  ord_pageheadertext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=45)
   text3=Label(headerFrame,text="Footer text").place(x=35,y=85)
-  e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=85)
+  ord_footertext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=85)
 
   text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
-  e1=Text(noteFrame,width=100,height=7).place(x=10,y=32)
+  ord_privatenotes=Text(noteFrame,width=100,height=7).place(x=10,y=32)
 
-  e1=Text(termsFrame,width=100,height=9).place(x=10,y=10)
+  ord_termsnotes=Text(termsFrame,width=100,height=9).place(x=10,y=10)
 
-  e1=Text(commentFrame,width=100,height=9).place(x=10,y=10)
+  ord_commnotes=Text(commentFrame,width=100,height=9).place(x=10,y=10)
 
-  btn1=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
-  btn2=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
+  add_doc=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
+  del_doc=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
   text=Label(documentFrame,text="Attached documents or image files.If you attach large email then email taken long time to send").place(x=50,y=10)
   ord_create_doc_tree=ttk.Treeview(documentFrame, height=5)
   ord_create_doc_tree["columns"]=["1","2","3"]
