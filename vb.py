@@ -1,13 +1,32 @@
-from tkinter import *
+import os
+import subprocess
+import tkinter as tk
 
-some_list= ['a','b','c','b','d','m','n','n']
+class App(object):
+    def __init__(self, root):
+        self.line_start = None
+        self.canvas = tk.Canvas(root, width=300, height=300, bg="white")
+        self.canvas.bind("<Button-1>", lambda e: self.draw(e.x, e.y))
+        self.button = tk.Button(root, text="Generate PDF", command=self.generate_pdf)
+        self.canvas.pack()
+        self.button.pack(pady=10)
 
-my_list = sorted(some_list)
- 
-duplicates = []
-for i in my_list:
-     if my_list.count(i)>1:
-         if i not in duplicates:
-             duplicates.append(i)
+    def draw(self, x, y):
+        if self.line_start:
+            x_origin, y_origin = self.line_start
+            self.canvas.create_line(x_origin, y_origin, x, y)
+            self.line_start = None
+        else:
+            self.line_start = (x, y)
 
-print(duplicates)
+    def generate_pdf(self):
+        self.canvas.postscript(file="tmp.ps", colormode="color")
+        process = subprocess.Popen(["ps2pdf", "tmp.ps", "result.pdf"], shell=True)
+        process.wait()
+        os.remove("tmp.ps")
+
+if __name__ == '__main__':
+    root = tk.Tk()
+    root.title("Canvas2PDF")
+    app = App(root)
+    root.mainloop()
