@@ -936,6 +936,8 @@ def mainpage():
         scrollbar.config( command=ord_create_protree.yview )
       
         def selepro():
+          priceview = Label(listFrame,bg="#f5f3f2")
+          priceview.place(x=850,y=200,width=78,height=18)
           proskuid = ord_create_protree.item(ord_create_protree.focus())["values"][0]
           sql = "select * from Productservice where sku = %s"
           val = (proskuid,)
@@ -954,12 +956,35 @@ def mainpage():
             tax2 = ''
           if not create_maintree_insert:
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
+
           elif create_maintree_insert[12] == "1":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],prosele[7]*1))
+            total = 0.0
+            for child in ord_pro_create_tree.get_children():
+              total += float(ord_pro_create_tree.item(child, 'values')[6])
+            priceview.config(text=total)
+            order1.config(text=total)
+            balance1.config(text=total)
+            sub1.config(text=total)
           elif create_maintree_insert[12] == "2":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
+            total = 0.0
+            for child in ord_pro_create_tree.get_children():
+              total += float(ord_pro_create_tree.item(child, 'values')[7])
+            priceview.config(text=total)
+            order1.config(text=total)
+            balance1.config(text=total)
+            sub1.config(text=total)
           elif create_maintree_insert[12] == "3":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,tax2,prosele[7]*1))
+            total = 0.0
+            for child in ord_pro_create_tree.get_children():
+              total += float(ord_pro_create_tree.item(child, 'values')[8])
+            priceview.config(text=total)
+            sub1.config(text=total)
+            order1.config(text=total)
+            balance1.config(text=total)
+
           newselection.destroy()
 
         btn1=Button(newselection,compound = LEFT,image=tick ,text="ok", width=60,command=selepro).place(x=15, y=610)
@@ -1056,8 +1081,13 @@ def mainpage():
 
     
     #delete line item  
-    def order_edit_delete1():
-      messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
+    def order_create_delete1():
+      try:
+        selected_item = ord_pro_create_tree.selection()[0]
+        ord_pro_create_tree.delete(selected_item)
+      except: 
+        pass
+      
       
       
 
@@ -1077,7 +1107,7 @@ def mainpage():
     add= Button(firFrame,compound="top", text="Add new\nline item",relief=RAISED, image=photo,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_newline)
     add.pack(side="left", pady=3, ipadx=4)
 
-    dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_delete1)
+    dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_create_delete1)
     dele.pack(side="left", pady=3, ipadx=4)
 
     w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
@@ -1174,7 +1204,8 @@ def mainpage():
     fir2Frame=Frame(pop, height=150,width=100,bg="#f5f3f2")
     fir2Frame.pack(side="top", fill=X)
     listFrame = Frame(fir2Frame, bg="white", height=140,borderwidth=5,  relief=RIDGE)
-
+    
+    
     sql = "select * from company"
     fbcursor.execute(sql)
     create_maintree = fbcursor.fetchone()
@@ -1273,6 +1304,74 @@ def mainpage():
     ord_pro_create_tree.pack(fill="both", expand=1)
     listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
 
+    new_value = StringVar()
+    def edit_window_box(val):
+        
+        edit_window = Toplevel()
+        edit_window.title("Edit the value or cancel")
+        edit_window.geometry("400x200+350+300")
+        label_edit = Label(edit_window , text='Enter value to edit', 
+        font = ("Times New Roman", 10)).place(x=68,y=60)
+        #create edit box
+        edit_box = Entry(edit_window)
+        edit_box.insert(0,val)
+        edit_box.place(x=200,y=63)
+        #auto select edit window 
+        edit_window.focus()
+        
+        def value_assignment(event):
+            printing = edit_box.get()
+            new_value.set(printing)
+            #only destroy will not update the value (perhaps event keeps running in background)
+            #quit allows event to stop n update value in tree but does not close the window in single click 
+            #rather on dbl click shuts down entire app 
+            edit_window.quit()
+            edit_window.destroy()
+        
+        edit_window.bind('<Return>', value_assignment )
+    
+        B1 = Button(edit_window, text="Okay")
+        B1.bind('<Button-1>',value_assignment)
+        B1.place(x=70,y=130)
+        
+        B2 = Button(edit_window, text="Cancel", command = edit_window.destroy).place(x=276,y=130)
+        edit_window.mainloop()
+        
+    #will explain
+    #variable to hold col value (col clicked)
+    shape1 = IntVar()
+    #tracks both col , row on mouse click
+    def tree_click_handler(event):
+        cur_item = ord_pro_create_tree.item(ord_pro_create_tree.focus())
+        col = ord_pro_create_tree.identify_column(event.x)[1:]
+        rowid = ord_pro_create_tree.identify_row(event.y)[1:]
+        #updates list
+        shape1.set(col)
+        try:
+            x,y,w,h = ord_pro_create_tree.bbox('I'+rowid,'#'+col)
+        except:pass
+        #tree.tag_configure("highlight", background="yellow")
+        return(col)
+        
+    #code linked to event    
+    ord_pro_create_tree.bind('<ButtonRelease-1>', tree_click_handler)
+    def edit(event):
+      try:
+        selected_item = ord_pro_create_tree.selection()[0]
+        temp = list(ord_pro_create_tree.item(selected_item , 'values'))
+        tree_click_handler
+        col_selected = int(shape1.get())-1
+        edit_window_box(temp[col_selected])
+        #do not run if edit window is open
+        #use edit_window.mainloop() so value assign after window closes
+        temp[col_selected] = new_value.get()
+        ord_pro_create_tree.item(selected_item, values= temp)
+      except: pass
+    
+     
+#binding allows to edit on screen double click
+    ord_pro_create_tree.bind('<Double-Button-1>' , edit)
+
     fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
     fir3Frame.place(x=0,y=490)
 
@@ -1318,7 +1417,7 @@ def mainpage():
     template=Label(labelframe1,text="Template").place(x=37,y=70)
     ord_template=ttk.Combobox(labelframe1, value="",width=25)
     ord_template.place(x=115,y=70,width=200)
-    ord_template["values"] = ["Professional 1 (logo on left side,UTF8","Professional 1 (logo on right side"]
+    ord_template["values"] = ["Professional 1 (logo on left side,UTF8","Professional 1 (logo on right side","Simplified 1(logo on left side)","Simplified 1(logo on right side)","Business Classic(UTF-8)"]
     sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
     ord_sales=Entry(labelframe1,width=18).place(x=115,y=100)
     category=Label(labelframe1,text="Category").place(x=300,y=100)
@@ -1331,14 +1430,27 @@ def mainpage():
     nev1=Label(statusfrme, text="Never").place(x=100,y=50)
     on2=Label(statusfrme, text="Printed on:").place( y=90)
     nev2=Label(statusfrme, text="Never").place(x=100,y=90)
+    
+    sql = "select headerandfooter from header_and_footer"
+    fbcursor.execute(sql,)
+    extra_cname = fbcursor.fetchall()
+    header = []
+    for i in extra_cname:
+      header.append(i[0])
 
     text1=Label(headerFrame,text="Title text").place(x=50,y=5)
-    ord_titletext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=5)
+    ord_titletext=ttk.Combobox(headerFrame,width=60)
+    ord_titletext.place(x=125,y=5)
+    ord_titletext["values"] = header
     text2=Label(headerFrame,text="Page header text").place(x=2,y=45)
-    ord_pageheadertext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=45)
+    ord_pageheadertext=ttk.Combobox(headerFrame, value="",width=60)
+    ord_pageheadertext.place(x=125,y=45)
+    ord_pageheadertext["values"] = header
     text3=Label(headerFrame,text="Footer text").place(x=35,y=85)
-    ord_footertext=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=85)
-
+    ord_footertext=ttk.Combobox(headerFrame, value="",width=60)
+    ord_footertext.place(x=125,y=85)
+    ord_footertext["values"] = header
+    
     text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
     ord_privatenotes=Text(noteFrame,width=100,height=7).place(x=10,y=32)
 
@@ -1369,17 +1481,20 @@ def mainpage():
     discount=Label(summaryfrme, text="Discount").place(x=0 ,y=0)
     discount1=Label(summaryfrme, text="$0.00").place(x=130 ,y=0)
     sub=Label(summaryfrme, text="Subtotal").place(x=0 ,y=21)
-    sub1=Label(summaryfrme, text="$0.00").place(x=130 ,y=21)
+    sub1=Label(summaryfrme, text="$0.00")
+    sub1.place(x=130 ,y=21)
     tax=Label(summaryfrme, text="Tax1").place(x=0 ,y=42)
     tax1=Label(summaryfrme, text="$0.00").place(x=130 ,y=42)
     cost=Label(summaryfrme, text="Extra cost").place(x=0 ,y=63)
     cost=Label(summaryfrme, text="$0.00").place(x=130 ,y=63)
     order=Label(summaryfrme, text="Order total").place(x=0 ,y=84)
-    order1=Label(summaryfrme, text="$0.00").place(x=130 ,y=84)
+    order1=Label(summaryfrme, text="$0.00")
+    order1.place(x=130 ,y=84)
     total=Label(summaryfrme, text="Total paid").place(x=0 ,y=105)
     total1=Label(summaryfrme, text="$0.00").place(x=130 ,y=105)
     balance=Label(summaryfrme, text="Balance").place(x=0 ,y=126)
-    balance1=Label(summaryfrme, text="$0.00").place(x=130 ,y=126)
+    balance1=Label(summaryfrme, text="$0.00")
+    balance1.place(x=130 ,y=126)
 
     fir5Frame=Frame(pop,height=38,width=210)
     fir5Frame.place(x=735,y=485)
@@ -2086,7 +2201,7 @@ def mainpage():
 
     
     #delete line item  
-    def order_create_delete1():
+    def order_edit_delete1():
       messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
       
       
@@ -2107,7 +2222,7 @@ def mainpage():
     add= Button(firFrame,compound="top", text="Add new\nline item",relief=RAISED, image=photo,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_newline)
     add.pack(side="left", pady=3, ipadx=4)
 
-    dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_create_delete1)
+    dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_delete1)
     dele.pack(side="left", pady=3, ipadx=4)
 
     w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
