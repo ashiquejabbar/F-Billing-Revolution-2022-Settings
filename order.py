@@ -13,6 +13,7 @@ from tkinter import ttk
 from tkinter.font import BOLD
 from urllib.parse import parse_qs
 from xml.dom.minidom import Entity
+from xml.sax import parseString
 from PIL import ImageTk, Image, ImageFile
 from matplotlib.font_manager import json_dump
 from numpy import choose, empty, place
@@ -975,6 +976,21 @@ def mainpage():
             order1.config(text=total)
             balance1.config(text=total)
             sub1.config(text=total)
+
+            # totaltax1 = 0.0 
+            # for child in ord_pro_create_tree.get_children():
+            #   tax1cal = ord_pro_create_tree.item(child, 'values')[6]
+            #   if tax1cal == '':
+            #     pass
+            #   else:
+
+            #     for child in ord_pro_create_tree.get_children():
+            #       totaltax1 += float(ord_pro_create_tree.item(child, 'values')[7])
+                
+            #     tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            #   else:
+            #     pass
+
           elif create_maintree_insert[12] == "3":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,tax2,prosele[7]*1))
             total = 0.0
@@ -1193,9 +1209,19 @@ def mainpage():
     ord_orderid=Entry(labelframe,width=25).place(x=100,y=5,)
     orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
     ord_date=DateEntry(labelframe,width=20).place(x=150,y=33)
-    checkvarStatus5=IntVar()
-    ord_duedatecheck=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
-    ord_duedate=DateEntry(labelframe,width=20).place(x=150,y=62)
+    def ord_due():
+      if checkvarStatus522.get():
+        ord_duedate["state"] = NORMAL
+      else:
+        ord_duedate["state"] = DISABLED
+        ord_duedate.delete(0, END)
+        
+    checkvarStatus522=BooleanVar()
+    ord_duedatecheck=Checkbutton(labelframe,variable = checkvarStatus522,text="Due date",onvalue =1,offvalue = 0,command=ord_due)
+    ord_duedatecheck.select()
+    ord_duedatecheck.place(x=5,y=62)
+    ord_duedate=DateEntry(labelframe,width=20)
+    ord_duedate.place(x=150,y=62)
     terms=Label(labelframe,text="Terms").place(x=5,y=92)
     ord_terms=ttk.Combobox(labelframe, value="",width=25).place(x=100,y=92)
     ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
@@ -1408,12 +1434,53 @@ def mainpage():
     ord_extracostname=ttk.Combobox(labelframe1, value="",width=20)
     ord_extracostname["value"] = extra_cnamedata
     ord_extracostname.place(x=115,y=5)
+    def binddisc(event):
+      discount.config(text=ord_disrate.get()+"% Discount")
+
+
     rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
-    ord_disrate=Entry(labelframe1,width=6).place(x=460,y=5)
+    ord_disrate=Spinbox(labelframe1,width=6)
+    ord_disrate.place(x=460,y=5)
+    ord_disrate.bind('<KeyRelease>', binddisc)
     cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
     ord_extracost=Entry(labelframe1,width=10).place(x=115,y=35)
-    tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
-    ord_tax=Entry(labelframe1,width=7).place(x=460,y=35)
+    def bindtax1(event):
+      tax1sum.config(text=ord_tax.get())
+    def bindtax2(event):
+      tax2sum.config(text=ord_tax2.get())
+    
+    sql = "select taxtype,tax1rate,tax2rate from company"
+    fbcursor.execute(sql)
+    taxdis = fbcursor.fetchone()
+    if not taxdis:
+      pass
+    elif taxdis[0] == "1":
+      pass
+    elif taxdis[0] == "2":
+      tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
+      ord_tax=Entry(labelframe1,width=7)
+      ord_tax.place(x=460,y=35)
+      if not taxdis:
+        pass
+      else:
+        ord_tax.insert(0, taxdis[1])
+      ord_tax.bind('<KeyRelease>', bindtax1)
+    elif taxdis[0] == "3":
+      tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
+      ord_tax=Entry(labelframe1,width=7)
+      ord_tax.place(x=460,y=35)
+      tax2l=Label(labelframe1,text="Tax2").place(x=420,y=67)
+      ord_tax2=Entry(labelframe1,width=7)
+      ord_tax2.place(x=460,y=67)
+      if not taxdis:
+        pass
+      else:
+        ord_tax.insert(0, taxdis[1])
+        ord_tax2.insert(0, taxdis[2])
+      ord_tax.bind('<KeyRelease>', bindtax1)
+      ord_tax2.bind('<KeyRelease>', bindtax2)
+
+    
     template=Label(labelframe1,text="Template").place(x=37,y=70)
     ord_template=ttk.Combobox(labelframe1, value="",width=25)
     ord_template.place(x=115,y=70,width=200)
@@ -1478,23 +1545,84 @@ def mainpage():
     fir4Frame.place(x=740,y=520)
     summaryfrme = LabelFrame(fir4Frame,text="Summary",font=("arial",15))
     summaryfrme.place(x=0,y=0,width=200,height=170)
-    discount=Label(summaryfrme, text="Discount").place(x=0 ,y=0)
-    discount1=Label(summaryfrme, text="$0.00").place(x=130 ,y=0)
-    sub=Label(summaryfrme, text="Subtotal").place(x=0 ,y=21)
+    discount=Label(summaryfrme, text="Discount")
+    discount1=Label(summaryfrme, text="$0.00")
+    sub=Label(summaryfrme, text="Subtotal")
     sub1=Label(summaryfrme, text="$0.00")
-    sub1.place(x=130 ,y=21)
-    tax=Label(summaryfrme, text="Tax1").place(x=0 ,y=42)
-    tax1=Label(summaryfrme, text="$0.00").place(x=130 ,y=42)
-    cost=Label(summaryfrme, text="Extra cost").place(x=0 ,y=63)
-    cost=Label(summaryfrme, text="$0.00").place(x=130 ,y=63)
-    order=Label(summaryfrme, text="Order total").place(x=0 ,y=84)
+    tax=Label(summaryfrme, text="Tax1")
+    tax1sum=Label(summaryfrme, text="$0.00")
+    tax22=Label(summaryfrme, text="Tax2")
+    tax2sum=Label(summaryfrme, text="$0.00")
+    cost=Label(summaryfrme, text="Extra cost")
+    cost1=Label(summaryfrme, text="$0.00")
+    order=Label(summaryfrme, text="Order total")
     order1=Label(summaryfrme, text="$0.00")
-    order1.place(x=130 ,y=84)
-    total=Label(summaryfrme, text="Total paid").place(x=0 ,y=105)
-    total1=Label(summaryfrme, text="$0.00").place(x=130 ,y=105)
-    balance=Label(summaryfrme, text="Balance").place(x=0 ,y=126)
+    total=Label(summaryfrme, text="Total paid")
+    total1=Label(summaryfrme, text="$0.00")
+    balance=Label(summaryfrme, text="Balance")
     balance1=Label(summaryfrme, text="$0.00")
-    balance1.place(x=130 ,y=126)
+    
+    sql = "select taxtype from company"
+    fbcursor.execute(sql)
+    taxsummary = fbcursor.fetchone()
+    if not taxsummary:
+     discount.place(x=0 ,y=0)
+     discount1.place(x=130 ,y=0)
+     sub.place(x=0 ,y=21)
+     sub1.place(x=130 ,y=21)
+     cost.place(x=0 ,y=63)
+     cost1.place(x=130 ,y=63)
+     order.place(x=0 ,y=84)
+     order1.place(x=130 ,y=84)
+     total.place(x=0 ,y=105)
+     total1.place(x=130 ,y=105)
+     balance.place(x=0 ,y=126)
+     balance1.place(x=130 ,y=126)
+    elif taxsummary[0] == "1":
+      discount.place(x=0 ,y=7)
+      discount1.place(x=130 ,y=7)
+      sub.place(x=0 ,y=28)
+      sub1.place(x=130 ,y=28)
+      cost.place(x=0 ,y=54)
+      cost1.place(x=130 ,y=54)
+      order.place(x=0 ,y=77)
+      order1.place(x=130 ,y=77)
+      total.place(x=0 ,y=98)
+      total1.place(x=130 ,y=98)
+      balance.place(x=0 ,y=119)
+      balance1.place(x=130 ,y=119)
+    elif taxsummary[0] == "2":
+      tax.place(x=0 ,y=42)
+      tax1sum.place(x=130 ,y=42)
+      discount.place(x=0 ,y=0)
+      discount1.place(x=130 ,y=0)
+      sub.place(x=0 ,y=21)
+      sub1.place(x=130 ,y=21)
+      cost.place(x=0 ,y=63)
+      cost1.place(x=130 ,y=63)
+      order.place(x=0 ,y=84)
+      order1.place(x=130 ,y=84)
+      total.place(x=0 ,y=105)
+      total1.place(x=130 ,y=105)
+      balance.place(x=0 ,y=126)
+      balance1.place(x=130 ,y=126)
+    elif taxsummary[0] == "3":
+      tax.place(x=0 ,y=36)
+      tax1sum.place(x=130 ,y=36)
+      tax22.place(x=0 ,y=52)
+      tax2sum.place(x=130 ,y=52)
+      discount.place(x=0 ,y=0)
+      discount1.place(x=130 ,y=0)
+      sub.place(x=0 ,y=16)
+      sub1.place(x=130 ,y=16)
+      cost.place(x=0 ,y=69)
+      cost1.place(x=130 ,y=69)
+      order.place(x=0 ,y=89)
+      order1.place(x=130 ,y=89)
+      total.place(x=0 ,y=110)
+      total1.place(x=130 ,y=110)
+      balance.place(x=0 ,y=126)
+      balance1.place(x=130 ,y=126)
 
     fir5Frame=Frame(pop,height=38,width=210)
     fir5Frame.place(x=735,y=485)
