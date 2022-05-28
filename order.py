@@ -235,6 +235,23 @@ def mainpage():
     pop=Toplevel(order_midFrame)
     pop.title("Orders")
     pop.geometry("950x690+150+0")
+
+    def ord_attach_doc():
+      file_type = [('png files','.png'),('jpg files','.jpg'),('all files','.')]
+      file = filedialog.askopenfilename(initialdir="/",filetypes=file_type)
+      shutil.copyfile(file, os.getcwd()+'/images/'+file.split('/')[-1])
+      file_size = convertion(os.path.getsize(file))
+      ord_create_doc_tree.insert(parent='',index='end',iid=file.split('/')[-1],text='',values=('',file.split('/')[-1],file_size))
+    def convertion(B):
+      BYTE = float(B)
+      KB = float(1024)
+      MB = float(KB**2)
+      if BYTE < KB:
+        return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
+      elif KB <= BYTE < MB:
+        return '{0:.2f} KB'.format(BYTE / KB)
+      elif MB <= BYTE:
+        return '{0:.2f} MB'.format(BYTE / MB)
     
 
 
@@ -508,6 +525,8 @@ def mainpage():
         newselection.title("Select Customer")
         newselection.geometry("930x650+240+10")
         newselection.resizable(False, False)
+
+        
 
 
       #add new product
@@ -937,6 +956,7 @@ def mainpage():
         scrollbar.config( command=ord_create_protree.yview )
       
         def selepro():
+          global priceview
           priceview = Label(listFrame,bg="#f5f3f2")
           priceview.place(x=850,y=200,width=78,height=18)
           proskuid = ord_create_protree.item(ord_create_protree.focus())["values"][0]
@@ -960,46 +980,86 @@ def mainpage():
 
           elif create_maintree_insert[12] == "1":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
             total = 0.0
             for child in ord_pro_create_tree.get_children():
               total += float(ord_pro_create_tree.item(child, 'values')[6])
+            discou = (total*float(ord_disrate.get())/100)
+            extracs = (extracs+float(ord_extracost.get()))
+            cost1.config(text=ord_extracost.get())
+            discount1.config(text=discou)
             priceview.config(text=total)
-            order1.config(text=total)
-            balance1.config(text=total)
-            sub1.config(text=total)
+            order1.config(text=total-discou+extracs)
+            balance1.config(text=total-discou+extracs)
+            sub1.config(text=total-discou)
           elif create_maintree_insert[12] == "2":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
             total = 0.0
             for child in ord_pro_create_tree.get_children():
               total += float(ord_pro_create_tree.item(child, 'values')[7])
+            discou = (total*float(ord_disrate.get())/100)
+            extracs = (extracs+float(ord_extracost.get()))
+            cost1.config(text=ord_extracost.get())
+            discount1.config(text=discou)
             priceview.config(text=total)
-            order1.config(text=total)
-            balance1.config(text=total)
-            sub1.config(text=total)
+            sub1.config(text=total-discou)
+            
 
-            # totaltax1 = 0.0 
-            # for child in ord_pro_create_tree.get_children():
-            #   tax1cal = ord_pro_create_tree.item(child, 'values')[6]
-            #   if tax1cal == '':
-            #     pass
-            #   else:
-
-            #     for child in ord_pro_create_tree.get_children():
-            #       totaltax1 += float(ord_pro_create_tree.item(child, 'values')[7])
-                
-            #     tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
-            #   else:
-            #     pass
-
+            tot = 0.0
+            totaltax1 = 0.0
+            for child in ord_pro_create_tree.get_children():
+              checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+              if checktax1[6] == "🗹":
+                totaltax1 =(totaltax1 + float(checktax1[7]))
+                tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+                tot = (float(totaltax1)*float(ord_tax.get())/100)
+              else:
+                pass
+            order1.config(text=total+tot-discou+extracs)
+            balance1.config(text=total+tot-discou+extracs)
+              
           elif create_maintree_insert[12] == "3":
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,tax2,prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
             total = 0.0
             for child in ord_pro_create_tree.get_children():
               total += float(ord_pro_create_tree.item(child, 'values')[8])
+            extracs = (extracs+float(ord_extracost.get()))
+            cost1.config(text=ord_extracost.get())
+            discou = (total*float(ord_disrate.get())/100)
+            discount1.config(text=discou)
             priceview.config(text=total)
-            sub1.config(text=total)
-            order1.config(text=total)
-            balance1.config(text=total)
+            sub1.config(text=total-discou)
+            
+            tot = 0.0
+            totaltax1 = 0.0
+            for child in ord_pro_create_tree.get_children():
+              checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+              if checktax1[6] == "🗹":
+                totaltax1 =(totaltax1 + float(checktax1[8]))
+                tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+                tot = (float(totaltax1)*float(ord_tax.get())/100)
+              else:
+                pass
+            
+            tot2 = 0.0
+            totaltax2 = 0.0
+            for child in ord_pro_create_tree.get_children():
+              checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+              if checktax1[7] == "🗹":
+                totaltax2 =(totaltax2 + float(checktax1[8]))
+                tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+                
+                tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+              else:
+                pass
+
+            order1.config(text=total+tot+tot2-discou+extracs)
+            balance1.config(text=total+tot+tot2-discou+extracs)
 
           newselection.destroy()
 
@@ -1101,6 +1161,99 @@ def mainpage():
       try:
         selected_item = ord_pro_create_tree.selection()[0]
         ord_pro_create_tree.delete(selected_item)
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        delrefresh = fbcursor.fetchone()
+        if not delrefresh:
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[6])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "1":
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[6])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "2":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[7])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[6] == "🗹":
+              totaltax1 =(totaltax1 + float(checktax1[7]))
+              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tot = (float(totaltax1)*float(ord_tax.get())/100)
+            else:
+              pass
+          order1.config(text=total+tot-discou+extracs)
+          balance1.config(text=total+tot-discou+extracs)
+        elif delrefresh[12] == "3":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[8])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[6] == "🗹":
+              totaltax1 =(totaltax1 + float(checktax1[8]))
+              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tot = (float(totaltax1)*float(ord_tax.get())/100)
+            else:
+              pass
+          
+          tot2 = 0.0
+          totaltax2 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[7] == "🗹":
+              totaltax2 =(totaltax2 + float(checktax1[8]))
+              tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+              tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+            else:
+              pass
+
+          order1.config(text=total+tot+tot2-discou+extracs)
+          balance1.config(text=total+tot+tot2-discou+extracs)
       except: 
         pass
       
@@ -1435,19 +1588,307 @@ def mainpage():
     ord_extracostname["value"] = extra_cnamedata
     ord_extracostname.place(x=115,y=5)
     def binddisc(event):
-      discount.config(text=ord_disrate.get()+"% Discount")
+      discount.config(text=ord_disrate.get()+"%Discount")
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      disbind = fbcursor.fetchone()
+      if not disbind:
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[6])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        order1.config(text=total-discou+extracs)
+        balance1.config(text=total-discou+extracs)
+        sub1.config(text=total-discou)
+
+      elif disbind[12] == "1":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[6])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        order1.config(text=total-discou+extracs)
+        balance1.config(text=total-discou+extracs)
+        sub1.config(text=total-discou)
+        
+      elif disbind[12] == "2":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[7])
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discou = (total*float(ord_disrate.get())/100)
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        order1.config(text=total+tot-discou+extracs)
+        balance1.config(text=total+tot-discou+extracs)
+          
+      elif disbind[12] == "3":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[8])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[7] == "🗹":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+            tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+          else:
+            pass
+        order1.config(text=total+tot+tot2-discou+extracs)
+        balance1.config(text=total+tot+tot2-discou+extracs)
 
 
     rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
-    ord_disrate=Spinbox(labelframe1,width=6)
+    ord_disrate=Spinbox(labelframe1,width=6,from_=0,to=100)
     ord_disrate.place(x=460,y=5)
-    ord_disrate.bind('<KeyRelease>', binddisc)
+    ord_disrate.bind('<Button-1>', binddisc)
+    def extracostbind(event):
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      disbind = fbcursor.fetchone()
+      if not disbind:
+        extracs=0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[6])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        cost1.config(ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        order1.config(text=total-discou+extracs)
+        balance1.config(text=total-discou+extracs)
+        sub1.config(text=total-discou)
+
+      elif disbind[12] == "1":
+        extracs=0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[6])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = (extracs+float(ord_extracost.get()))
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        order1.config(text=total-discou+extracs)
+        balance1.config(text=total-discou+extracs)
+        sub1.config(text=total-discou)
+        
+      elif disbind[12] == "2":
+        extracs=0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[7])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = (extracs+float(ord_extracost.get()))
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        order1.config(text=total+tot-discou+extracs)
+        balance1.config(text=total+tot-discou+extracs)
+          
+      elif disbind[12] == "3":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[8])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = (extracs+float(ord_extracost.get()))
+        cost1.config(text=ord_extracost.get())
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[7] == "🗹":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+            tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+          else:
+            pass
+        order1.config(text=total+tot+tot2-discou+extracs)
+        balance1.config(text=total+tot+tot2-discou+extracs)
     cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
-    ord_extracost=Entry(labelframe1,width=10).place(x=115,y=35)
+    ord_extracoint = IntVar(value=0)
+    ord_extracost=Entry(labelframe1,width=10,textvariable=ord_extracoint)
+    ord_extracost.place(x=115,y=35)
+    ord_extracost.bind('<KeyRelease>',extracostbind)
     def bindtax1(event):
-      tax1sum.config(text=ord_tax.get())
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      tax1bind = fbcursor.fetchone()
+      if tax1bind[12] == "2":
+        extracs= 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[7])
+        discou = (total*float(ord_disrate.get())/100)
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+  
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        order1.config(text=total+tot-discou+extracs)
+        balance1.config(text=total+tot-discou+extracs)
+      elif tax1bind[12] == "3":
+        extracs= 0.0
+        discou = 0.0
+        total = 0.0
+        for child in ord_pro_create_tree.get_children():
+          total += float(ord_pro_create_tree.item(child, 'values')[8])
+        extracs = extracs + float(ord_extracost.get())
+        cost1.config(text=ord_extracost.get())
+        discou = (total*float(ord_disrate.get())/100)
+        discount1.config(text=discou)
+        priceview.config(text=total)
+        sub1.config(text=total-discou)
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[6] == "🗹":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+            tot = (float(totaltax1)*float(ord_tax.get())/100)
+          else:
+            pass
+        
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in ord_pro_create_tree.get_children():
+          checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+          if checktax1[7] == "🗹":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+            tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+          else:
+            pass
+  
+        order1.config(text=total+tot+tot2-discou+extracs)
+        balance1.config(text=total+tot+tot2-discou+extracs)
+  
     def bindtax2(event):
-      tax2sum.config(text=ord_tax2.get())
+      extracs= 0.0
+      discou = 0.0
+      total = 0.0
+      for child in ord_pro_create_tree.get_children():
+        total += float(ord_pro_create_tree.item(child, 'values')[8])
+      discou = (total*float(ord_disrate.get())/100)
+      extracs = extracs + float(ord_extracost.get())
+      cost1.config(text=ord_extracost.get())
+      discount1.config(text=discou)
+      priceview.config(text=total)
+      sub1.config(text=total-discou)
+      
+      tot = 0.0
+      totaltax1 = 0.0
+      for child in ord_pro_create_tree.get_children():
+        checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+        if checktax1[6] == "🗹":
+          totaltax1 =(totaltax1 + float(checktax1[8]))
+          tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+          tot = (float(totaltax1)*float(ord_tax.get())/100)
+        else:
+          pass
+      
+      tot2 = 0.0
+      totaltax2 = 0.0
+      for child in ord_pro_create_tree.get_children():
+        checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+        if checktax1[7] == "🗹":
+          totaltax2 =(totaltax2 + float(checktax1[8]))
+          tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+          tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+        else:
+          pass
+
+      order1.config(text=total+tot+tot2-discou+extracs)
+      balance1.config(text=total+tot+tot2-discou+extracs)
     
     sql = "select taxtype,tax1rate,tax2rate from company"
     fbcursor.execute(sql)
@@ -1525,8 +1966,14 @@ def mainpage():
 
     ord_commnotes=Text(commentFrame,width=100,height=9).place(x=10,y=10)
 
-    add_doc=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
-    del_doc=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
+    add_doc=Button(documentFrame,height=2,width=3,text="+",command=ord_attach_doc).place(x=5,y=10)
+    def ord_doc_del():
+      try:
+        selected_doc_item = ord_create_doc_tree.selection()[0]
+        ord_create_doc_tree.delete(selected_doc_item)
+      except:
+        pass
+    del_doc=Button(documentFrame,height=2,width=3,text="-",command=ord_doc_del).place(x=5,y=50)
     text=Label(documentFrame,text="Attached documents or image files.If you attach large email then email taken long time to send").place(x=50,y=10)
     ord_create_doc_tree=ttk.Treeview(documentFrame, height=5)
     ord_create_doc_tree["columns"]=["1","2","3"]
@@ -1540,44 +1987,92 @@ def mainpage():
     ord_create_doc_tree.heading("3",text="Filesize")  
     ord_create_doc_tree.place(x=50, y=45)
     
-
+    
+   
     fir4Frame=Frame(pop,height=190,width=210,bg="#f5f3f2")
     fir4Frame.place(x=740,y=520)
     summaryfrme = LabelFrame(fir4Frame,text="Summary",font=("arial",15))
     summaryfrme.place(x=0,y=0,width=200,height=170)
     discount=Label(summaryfrme, text="Discount")
-    discount1=Label(summaryfrme, text="$0.00")
+    discount1=Label(summaryfrme, text="0.00")
     sub=Label(summaryfrme, text="Subtotal")
-    sub1=Label(summaryfrme, text="$0.00")
+    sub1=Label(summaryfrme, text="0.00")
     tax=Label(summaryfrme, text="Tax1")
-    tax1sum=Label(summaryfrme, text="$0.00")
+    tax1sum=Label(summaryfrme, text="0.00")
     tax22=Label(summaryfrme, text="Tax2")
-    tax2sum=Label(summaryfrme, text="$0.00")
+    tax2sum=Label(summaryfrme, text="0.00")
     cost=Label(summaryfrme, text="Extra cost")
-    cost1=Label(summaryfrme, text="$0.00")
+    cost1=Label(summaryfrme, text="0.00")
     order=Label(summaryfrme, text="Order total")
-    order1=Label(summaryfrme, text="$0.00")
+    order1=Label(summaryfrme, text="0.00")
     total=Label(summaryfrme, text="Total paid")
-    total1=Label(summaryfrme, text="$0.00")
+    total1=Label(summaryfrme, text="0.00")
     balance=Label(summaryfrme, text="Balance")
-    balance1=Label(summaryfrme, text="$0.00")
+    balance1=Label(summaryfrme, text="0.00")
+
+    sql = "select taxtype from company"
+    fbcursor.execute(sql)
+    taxsummarysym = fbcursor.fetchone()
+    sql = "select currencysign,currsignplace from company"
+    fbcursor.execute(sql)
+    symbollabal = fbcursor.fetchone()
+    discountsym = Label(summaryfrme,text=symbollabal[0])
+    subsym = Label(summaryfrme,text=symbollabal[0])
+    tax1sym = Label(summaryfrme,text=symbollabal[0])
+    tax2sym = Label(summaryfrme,text=symbollabal[0])
+    costsym = Label(summaryfrme,text=symbollabal[0])
+    ordersym = Label(summaryfrme,text=symbollabal[0])
+    totalsym = Label(summaryfrme,text=symbollabal[0])
+    balsym = Label(summaryfrme,text=symbollabal[0])
+    if not taxsummarysym:
+      discountsym.place(x=118,y=7)
+      subsym.place(x=118,y=28)
+      costsym.place(x=118,y=54)
+      ordersym.place(x=118,y=77)
+      totalsym.place(x=118,y=98)
+      balsym.place(x=118,y=119)
+    elif taxsummarysym[0] == "1":
+      discountsym.place(x=118,y=7)
+      subsym.place(x=118,y=28)
+      costsym.place(x=118,y=54)
+      ordersym.place(x=118,y=77)
+      totalsym.place(x=118,y=98)
+      balsym.place(x=118,y=119)
+    elif taxsummarysym[0] == "2":
+      discountsym.place(x=118,y=0)
+      subsym.place(x=118,y=21)
+      tax1sym.place(x=118,y=42)
+      costsym.place(x=118,y=63)
+      ordersym.place(x=118,y=84)
+      totalsym.place(x=118,y=105)
+      balsym.place(x=118,y=126)
+    elif taxsummarysym[0] == "3":
+      discountsym.place(x=118,y=0)
+      subsym.place(x=118,y=16)
+      tax1sym.place(x=118,y=36)
+      tax2sym.place(x=118,y=52)
+      costsym.place(x=118,y=69)
+      ordersym.place(x=118,y=89)
+      totalsym.place(x=118,y=110)
+      balsym.place(x=118,y=126)
+
     
     sql = "select taxtype from company"
     fbcursor.execute(sql)
     taxsummary = fbcursor.fetchone()
     if not taxsummary:
-     discount.place(x=0 ,y=0)
-     discount1.place(x=130 ,y=0)
-     sub.place(x=0 ,y=21)
-     sub1.place(x=130 ,y=21)
-     cost.place(x=0 ,y=63)
-     cost1.place(x=130 ,y=63)
-     order.place(x=0 ,y=84)
-     order1.place(x=130 ,y=84)
-     total.place(x=0 ,y=105)
-     total1.place(x=130 ,y=105)
-     balance.place(x=0 ,y=126)
-     balance1.place(x=130 ,y=126)
+      discount.place(x=0 ,y=7)
+      discount1.place(x=130 ,y=7)
+      sub.place(x=0 ,y=28)
+      sub1.place(x=130 ,y=28)
+      cost.place(x=0 ,y=54)
+      cost1.place(x=130 ,y=54)
+      order.place(x=0 ,y=77)
+      order1.place(x=130 ,y=77)
+      total.place(x=0 ,y=98)
+      total1.place(x=130 ,y=98)
+      balance.place(x=0 ,y=119)
+      balance1.place(x=130 ,y=119)
     elif taxsummary[0] == "1":
       discount.place(x=0 ,y=7)
       discount1.place(x=130 ,y=7)
@@ -1626,6 +2121,7 @@ def mainpage():
 
     fir5Frame=Frame(pop,height=38,width=210)
     fir5Frame.place(x=735,y=485)
+
     btndown=Button(fir5Frame, compound="left", text="Line Down").place(x=75, y=0)
     btnup=Button(fir5Frame, compound="left", text="Line Up").place(x=150, y=0)
 
