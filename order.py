@@ -240,9 +240,9 @@ def mainpage():
       file_type = [('png files','.png'),('jpg files','.jpg'),('all files','.')]
       file = filedialog.askopenfilename(initialdir="/",filetypes=file_type)
       shutil.copyfile(file, os.getcwd()+'/images/'+file.split('/')[-1])
-      file_size = convertion(os.path.getsize(file))
+      file_size = crate_convertion(os.path.getsize(file))
       ord_create_doc_tree.insert(parent='',index='end',iid=file.split('/')[-1],text='',values=('',file.split('/')[-1],file_size))
-    def convertion(B):
+    def crate_convertion(B):
       BYTE = float(B)
       KB = float(1024)
       MB = float(KB**2)
@@ -252,9 +252,97 @@ def mainpage():
         return '{0:.2f} KB'.format(BYTE / KB)
       elif MB <= BYTE:
         return '{0:.2f} MB'.format(BYTE / MB)
-    
 
+    def crate_order():
+      ord_cus_name = ord_to.get()
+      ord_cus_address = ord_addr.get("1.0","end-1c")
+      ord_ship_name = ord_ship.get()
+      ord_ship_address = ord_shipaddr.get("1.0","end-1c")
+      ord_cus_email = ord_email.get()
+      ord_cus_num  = ord_smsnum.get()
+      ord_order_id = ord_orderid.get()
+      ord_order_date = ord_date.get_date()
+      # ord_duedatecheck = checkvarStatus522.get()
+      ord_due_date = ord_duedate.get_date()
+      ord_terms_pay = ord_terms.get()
+      # ord_order_ref = ord_orderref.get()
+      ord_extra_costname = ord_extracostname.get()
+      ord_discountrate = ord_disrate.get()
+      ord_extra_cost = ord_extracost.get()
+      ord_tax_1 = ord_tax.get()
+      ord_tax_2 = ord_tax2.get()
+      ord_templat = ord_template.get()
+      ord_sales_person = ord_sales.get()
+      ord_category = ord_cate.get()
+      ord_status = draft.cget("text")
+      ord_title_text = ord_titletext.get()
+      ord_pageheader_text = ord_pageheadertext.get()
+      ord_footer_text = ord_footertext.get()
+      ord_private_notes = ord_privatenotes.get("1.0","end-1c")
+      ord_terms_notes = ord_termsnotes.get("1.0","end-1c")
+      ord_comm_notes = ord_commnotes.get("1.0","end-1c")
+      sum_discount = discount1.cget("text")
+      sum_subtotal = sub1.cget("text")
+      sum_tax1 = tax1sum.cget("text")
+      sum_tax2 = tax2sum.cget("text")
+      # sum_sum_extra_cost = cost1.cget()
+      order_total = order1.cget("text")
+      # total_paid = total1.cget()
+      # balance = balance1.cget()
+      #________________ Order Insert___________________#
+      sql = 'insert into orders(businessname,businessaddress,shipname,shipaddress,cpemail,cpmobileforsms,order_number,order_date,due_date,terms_of_payment,extra_cost_name,discount_rate,extra_cost,tax1,tax2,template,sales_person,category,status,title_text,page_header_text,footer_text,private_notes,terms_notes,comments,sum_discount,sum_subtotal,sum_tax,sum_tax2,Order_total) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+      val = (ord_cus_name,ord_cus_address,ord_ship_name,ord_ship_address,ord_cus_email,ord_cus_num,ord_order_id,ord_order_date,ord_due_date,ord_terms_pay,ord_extra_costname,ord_discountrate,ord_extra_cost,ord_tax_1,ord_tax_2,ord_templat,ord_sales_person,ord_category,ord_status,ord_title_text,ord_pageheader_text,ord_footer_text,ord_private_notes,ord_terms_notes,ord_comm_notes,sum_discount,sum_subtotal,sum_tax1,sum_tax2,order_total)
+      fbcursor.execute(sql, val)
+      fbilldb.commit()
+      
+      #_______________ Order product service  insert _____________#
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      ord_insertpro_service = fbcursor.fetchone()
+      for child in ord_pro_create_tree.get_children():
+        insert_pro_list = list(ord_pro_create_tree.item(child, 'values'))
+        if not ord_insertpro_service:
+          sql = 'insert into storingproduct(order_number,sku,name,description,unitprice,quantity,peices,price) values(%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (ord_order_id,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif ord_insertpro_service[12] == "1":
+          sql = 'insert into storingproduct(order_number,sku,name,description,unitprice,quantity,peices,price) values(%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (ord_order_id,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif ord_insertpro_service[12] == "2":
+          sql = 'insert into storingproduct(order_number,sku,name,description,unitprice,quantity,peices,tax1,price) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (ord_order_id,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6],insert_pro_list[7])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif ord_insertpro_service[12] == "3":
+          sql = 'insert into storingproduct(order_number,sku,name,description,unitprice,quantity,peices,tax1,tax2,price) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (ord_order_id,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6],insert_pro_list[7],insert_pro_list[8])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
 
+      #_____________Documents Insert________________#
+      for child in ord_create_doc_tree.get_children():
+        insert_doc_list = list(ord_create_doc_tree.item(child, 'values'))
+        sql = 'insert into documents (order_number,documents) values(%s,%s)'
+        val = (ord_order_id,insert_doc_list[1])
+        fbcursor.execute(sql, val)
+        fbilldb.commit()
+      
+      #_________Refresh insert tree________#
+  
+      for record in ordtree.get_children():
+       ordtree.delete(record)
+      sql = "select * from orders"
+      fbcursor.execute(sql)
+      refreshinsert = fbcursor.fetchall()
+      count0 = 0
+      for i in refreshinsert:
+        ordtree.insert(parent='', index='end', iid=count0, text='', values=(' ',i[31], i[1], i[2], i[3], i[4],i[5], i[6], i[7], i[8], i[9], i[10]))
+        count0 += 1
+      pop.destroy()
+        
     #select customer
     def order_custom():
       cuselection=Toplevel()
@@ -956,7 +1044,6 @@ def mainpage():
         scrollbar.config( command=ord_create_protree.yview )
       
         def selepro():
-          global priceview
           priceview = Label(listFrame,bg="#f5f3f2")
           priceview.place(x=850,y=200,width=78,height=18)
           proskuid = ord_create_protree.item(ord_create_protree.focus())["values"][0]
@@ -1303,6 +1390,9 @@ def mainpage():
     calc= Button(firFrame,compound="top", text="Open\nCalculator",relief=RAISED, image=photo9,bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
     calc.pack(side="left", pady=3, ipadx=4)
 
+    calc= Button(firFrame,compound="top", text="save",relief=RAISED, image=tick,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=crate_order)
+    calc.pack(side="right", pady=3, ipadx=4)
+
     fir1Frame=Frame(pop, height=180,bg="#f5f3f2")
     fir1Frame.pack(side="top", fill=X)
 
@@ -1359,9 +1449,36 @@ def mainpage():
     labelframe = LabelFrame(fir1Frame,text="Order",font=("arial",15))
     labelframe.place(x=652,y=5,width=290,height=170)
     order=Label(labelframe,text="Order#").place(x=5,y=5)
-    ord_orderid=Entry(labelframe,width=25).place(x=100,y=5,)
+    ord_orderid=Entry(labelframe,width=25)
+    ord_orderid.place(x=100,y=5,)
+    def inv_num_increment(inum):
+      result = ""
+      numberStr = ""
+      print(inum)
+      i = len(inum) - 1
+      while i > 0:
+        c = inum[i]
+        if not c.isdigit():
+          break
+        numberStr = c + numberStr
+        i -= 1
+      number = int(numberStr)
+      number += 1
+      result += inum[0 : i + 1]
+      result += "0000" if number < 10 else ""
+      result += str(number)
+      return result
+    fbcursor.execute("SELECT order_number FROM orders ORDER BY orderid DESC LIMIT 1")
+    ord_number_data = fbcursor.fetchone()
+    if not ord_number_data == None:
+      a = ord_number_data[0]
+      ord_no = inv_num_increment(a)
+    else:
+      ord_no = 1
+    ord_orderid.insert(0, ord_no)
     orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
-    ord_date=DateEntry(labelframe,width=20).place(x=150,y=33)
+    ord_date=DateEntry(labelframe,width=20)
+    ord_date.place(x=150,y=33)
     def ord_due():
       if checkvarStatus522.get():
         ord_duedate["state"] = NORMAL
@@ -1376,9 +1493,11 @@ def mainpage():
     ord_duedate=DateEntry(labelframe,width=20)
     ord_duedate.place(x=150,y=62)
     terms=Label(labelframe,text="Terms").place(x=5,y=92)
-    ord_terms=ttk.Combobox(labelframe, value="",width=25).place(x=100,y=92)
+    ord_terms=ttk.Combobox(labelframe, value="",width=25)
+    ord_terms.place(x=100,y=92)
     ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
-    ord_orderref=Entry(labelframe,width=27).place(x=100,y=118)
+    ord_orderref=Entry(labelframe,width=27)
+    ord_orderref.place(x=100,y=118)
 
     fir2Frame=Frame(pop, height=150,width=100,bg="#f5f3f2")
     fir2Frame.pack(side="top", fill=X)
@@ -1482,6 +1601,9 @@ def mainpage():
       
     ord_pro_create_tree.pack(fill="both", expand=1)
     listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
+
+    priceview = Label(listFrame,bg="#f5f3f2")
+    priceview.place(x=850,y=200,width=78,height=18)
 
     new_value = StringVar()
     def edit_window_box(val):
@@ -1927,13 +2049,16 @@ def mainpage():
     ord_template.place(x=115,y=70,width=200)
     ord_template["values"] = ["Professional 1 (logo on left side,UTF8","Professional 1 (logo on right side","Simplified 1(logo on left side)","Simplified 1(logo on right side)","Business Classic(UTF-8)"]
     sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
-    ord_sales=Entry(labelframe1,width=18).place(x=115,y=100)
+    ord_sales=Entry(labelframe1,width=18)
+    ord_sales.place(x=115,y=100)
     category=Label(labelframe1,text="Category").place(x=300,y=100)
-    ord_cate=Entry(labelframe1,width=22).place(x=370,y=100)
+    ord_cate=Entry(labelframe1,width=22)
+    ord_cate.place(x=370,y=100)
     
     statusfrme = LabelFrame(labelframe1,text="Status",font=("arial",15))
     statusfrme.place(x=540,y=0,width=160,height=160)
-    draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey").place(x=50, y=3)
+    draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey")
+    draft.place(x=50, y=3)
     on1=Label(statusfrme, text="Emailed on:").place( y=50)
     nev1=Label(statusfrme, text="Never").place(x=100,y=50)
     on2=Label(statusfrme, text="Printed on:").place( y=90)
@@ -1960,11 +2085,14 @@ def mainpage():
     ord_footertext["values"] = header
     
     text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
-    ord_privatenotes=Text(noteFrame,width=100,height=7).place(x=10,y=32)
+    ord_privatenotes=Text(noteFrame,width=100,height=7)
+    ord_privatenotes.place(x=10,y=32)
 
-    ord_termsnotes=Text(termsFrame,width=100,height=9).place(x=10,y=10)
+    ord_termsnotes=Text(termsFrame,width=100,height=9)
+    ord_termsnotes.place(x=10,y=10)
 
-    ord_commnotes=Text(commentFrame,width=100,height=9).place(x=10,y=10)
+    ord_commnotes=Text(commentFrame,width=100,height=9)
+    ord_commnotes.place(x=10,y=10)
 
     add_doc=Button(documentFrame,height=2,width=3,text="+",command=ord_attach_doc).place(x=5,y=10)
     def ord_doc_del():
@@ -2025,36 +2153,36 @@ def mainpage():
     totalsym = Label(summaryfrme,text=symbollabal[0])
     balsym = Label(summaryfrme,text=symbollabal[0])
     if not taxsummarysym:
-      discountsym.place(x=118,y=7)
-      subsym.place(x=118,y=28)
-      costsym.place(x=118,y=54)
-      ordersym.place(x=118,y=77)
-      totalsym.place(x=118,y=98)
-      balsym.place(x=118,y=119)
+      discountsym.place(x=105,y=7)
+      subsym.place(x=105,y=28)
+      costsym.place(x=105,y=54)
+      ordersym.place(x=105,y=77)
+      totalsym.place(x=105,y=98)
+      balsym.place(x=105,y=119)
     elif taxsummarysym[0] == "1":
-      discountsym.place(x=118,y=7)
-      subsym.place(x=118,y=28)
-      costsym.place(x=118,y=54)
-      ordersym.place(x=118,y=77)
-      totalsym.place(x=118,y=98)
-      balsym.place(x=118,y=119)
+      discountsym.place(x=105,y=7)
+      subsym.place(x=105,y=28)
+      costsym.place(x=105,y=54)
+      ordersym.place(x=105,y=77)
+      totalsym.place(x=105,y=98)
+      balsym.place(x=105,y=119)
     elif taxsummarysym[0] == "2":
-      discountsym.place(x=118,y=0)
-      subsym.place(x=118,y=21)
-      tax1sym.place(x=118,y=42)
-      costsym.place(x=118,y=63)
-      ordersym.place(x=118,y=84)
-      totalsym.place(x=118,y=105)
-      balsym.place(x=118,y=126)
+      discountsym.place(x=105,y=0)
+      subsym.place(x=105,y=21)
+      tax1sym.place(x=105,y=42)
+      costsym.place(x=105,y=63)
+      ordersym.place(x=105,y=84)
+      totalsym.place(x=105,y=105)
+      balsym.place(x=105,y=126)
     elif taxsummarysym[0] == "3":
-      discountsym.place(x=118,y=0)
-      subsym.place(x=118,y=16)
-      tax1sym.place(x=118,y=36)
-      tax2sym.place(x=118,y=52)
-      costsym.place(x=118,y=69)
-      ordersym.place(x=118,y=89)
-      totalsym.place(x=118,y=110)
-      balsym.place(x=118,y=126)
+      discountsym.place(x=105,y=0)
+      subsym.place(x=105,y=16)
+      tax1sym.place(x=105,y=36)
+      tax2sym.place(x=105,y=52)
+      costsym.place(x=105,y=69)
+      ordersym.place(x=105,y=89)
+      totalsym.place(x=105,y=110)
+      balsym.place(x=105,y=126)
 
     
     sql = "select taxtype from company"
@@ -3516,6 +3644,71 @@ def mainpage():
   drop.pack(side="right", padx=(0,10))
   invoilabel = Label(order_mainFrame, text="Category filter", font=("arial", 15), bg="#f8f8f2")
   invoilabel.pack(side="right", padx=(0,10))
+  
+  #_________(Prdouct,Private_notes,Documents)_________#
+  def view_details(event):
+    for record in ord_pro_tree.get_children():
+       ord_pro_tree.delete(record)
+    orderitemnumber = ordtree.item(ordtree.focus())["values"][1]
+    sql = 'select * from storingproduct where order_number = %s'
+    val = (orderitemnumber,)
+    fbcursor.execute(sql,val)
+    storingpro = fbcursor.fetchall()
+    sql = 'select * from company'
+    fbcursor.execute(sql)
+    check_pro_tax = fbcursor.fetchone()
+    counto = 0
+    if not check_pro_tax:
+      for i in storingpro:
+        ord_pro_tree.insert(parent='', index='end',text='', values=('',i[1],i[6],i[7],i[8],i[9],i[13]))
+        counto +=1
+    elif check_pro_tax[12] == '1':
+      for i in storingpro:
+        ord_pro_tree.insert(parent='', index='end',text='', values=('',i[1],i[6],i[7],i[8],i[9],i[13]))
+        counto +=1
+    elif check_pro_tax[12] == '2':
+      for i in storingpro:
+        ord_pro_tree.insert(parent='', index='end',text='', values=('',i[1],i[6],i[7],i[8],i[9],i[11],i[13]))
+        counto +=1
+    elif check_pro_tax[12] == '3':
+      for i in storingpro:
+        ord_pro_tree.insert(parent='', index='end',text='', values=('',i[1],i[6],i[7],i[8],i[9],i[11],i[12],i[13]))
+        counto +=1
+    
+
+    #____Private note disply man tree_____#
+    sql = 'select private_notes from orders where order_number = %s'
+    val = (orderitemnumber,)
+    fbcursor.execute(sql,val)
+    privatenotes = fbcursor.fetchone()
+    ord_private_note1.delete('1.0',END)
+    ord_private_note1.insert('1.0',privatenotes[0])
+    
+    #___Documents_____#
+    for record in ord_doc_tree.get_children():
+       ord_doc_tree.delete(record)
+    sql = 'select * from documents where order_number = %s'
+    val = (orderitemnumber,)
+    fbcursor.execute(sql,val)
+    docu = fbcursor.fetchall()
+    countd = 0
+    for i in docu:
+      file_size = check_convertion(os.path.getsize('images'+i[6]))
+      ord_doc_tree.insert(parent='', index='end',text='', values=('',i[6],file_size))
+      countd += 1
+      def check_convertion(B):
+        BYTE = float(B)
+        KB = float(1024)
+        MB = float(KB**2)
+        if BYTE < KB:
+          return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
+        elif KB <= BYTE < MB:
+          return '{0:.2f} KB'.format(BYTE / KB)
+        elif MB <= BYTE:
+          return '{0:.2f} MB'.format(BYTE / MB)
+    
+
+
 
   class MyApp:
     def __init__(self, parent):
@@ -3541,7 +3734,7 @@ def mainpage():
         expand=YES,
         )
 
-      
+      global ordtree
       ordtree = ttk.Treeview(self.left_frame, columns = (1,2,3,4,5,6,7,8,9,10), height = 15, show = "headings")
       ordtree.pack(side = 'top')
       ordtree.heading(1)
@@ -3564,6 +3757,16 @@ def mainpage():
       ordtree.column(8, width = 130)
       ordtree.column(9, width = 130)
       ordtree.column(10, width = 130)
+      ordtree.bind('<ButtonRelease-1>',view_details)
+      fbcursor.execute('SELECT * FROM Orders;')
+      counto = 0
+      for i in fbcursor:
+        ordtree.insert(parent='', index='end', iid=counto, text='', values=(' ',i[31], i[1], i[2], i[3], i[4],i[5], i[6], i[7], i[8], i[9], i[10]))
+        counto += 1
+
+
+
+
 
       scrollbar = Scrollbar(self.left_frame)
       scrollbar.place(x=990+300+50, y=0, height=300+20)
@@ -3580,37 +3783,101 @@ def mainpage():
       tabControl.add(tab4,image=estimates,compound = LEFT, text ='Documents')
       tabControl.pack(expand = 1, fill ="both")
       
-      ord_pro_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7,8,), height = 15, show = "headings")
-      ord_pro_tree.pack(side = 'top')
-      ord_pro_tree.heading(1)
-      ord_pro_tree.heading(2, text="Product/Service ID",)
-      ord_pro_tree.heading(3, text="Name")
-      ord_pro_tree.heading(4, text="Description")
-      ord_pro_tree.heading(5, text="Price")
-      ord_pro_tree.heading(6, text="QTY")
-      ord_pro_tree.heading(7, text="Tax1")
-      ord_pro_tree.heading(8, text="Line Total")   
-      ord_pro_tree.column(1, width = 50)
-      ord_pro_tree.column(2, width = 270)
-      ord_pro_tree.column(3, width = 270)
-      ord_pro_tree.column(4, width = 300)
-      ord_pro_tree.column(5, width = 130)
-      ord_pro_tree.column(6, width = 100)
-      ord_pro_tree.column(7, width = 100)
-      ord_pro_tree.column(8, width = 150)
-
-      note1=Text(tab2, width=220,height=10).place(x=10, y=10)
+      global ord_pro_tree
+      sql = 'select * from company'
+      fbcursor.execute(sql)
+      check_pro_tax = fbcursor.fetchone()
+      if not check_pro_tax:
+        ord_pro_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7), height = 15, show = "headings")
+        ord_pro_tree.pack(side = 'top')
+        ord_pro_tree.heading(1)
+        ord_pro_tree.heading(2, text="Product/Service ID",)
+        ord_pro_tree.heading(3, text="Name")
+        ord_pro_tree.heading(4, text="Description")
+        ord_pro_tree.heading(5, text="Price")
+        ord_pro_tree.heading(6, text="QTY")
+        ord_pro_tree.heading(8, text="Line Total")   
+        ord_pro_tree.column(1, width = 50)
+        ord_pro_tree.column(2, width = 270)
+        ord_pro_tree.column(3, width = 270)
+        ord_pro_tree.column(4, width = 300)
+        ord_pro_tree.column(5, width = 130)
+        ord_pro_tree.column(6, width = 100)
+        ord_pro_tree.column(7, width = 100)
+      elif check_pro_tax[12] == '1':
+        ord_pro_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7), height = 15, show = "headings")
+        ord_pro_tree.pack(side = 'top')
+        ord_pro_tree.heading(1)
+        ord_pro_tree.heading(2, text="Product/Service ID",)
+        ord_pro_tree.heading(3, text="Name")
+        ord_pro_tree.heading(4, text="Description")
+        ord_pro_tree.heading(5, text="Price")
+        ord_pro_tree.heading(6, text="QTY")
+        ord_pro_tree.heading(7, text="Line Total")   
+        ord_pro_tree.column(1, width = 10)
+        ord_pro_tree.column(2, width = 310)
+        ord_pro_tree.column(3, width = 310)
+        ord_pro_tree.column(4, width = 300)
+        ord_pro_tree.column(5, width = 170)
+        ord_pro_tree.column(6, width = 120)
+        ord_pro_tree.column(7, width = 115)
+      elif check_pro_tax[12] == '2':
+        ord_pro_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7,8,), height = 15, show = "headings")
+        ord_pro_tree.pack(side = 'top')
+        ord_pro_tree.heading(1)
+        ord_pro_tree.heading(2, text="Product/Service ID",)
+        ord_pro_tree.heading(3, text="Name")
+        ord_pro_tree.heading(4, text="Description")
+        ord_pro_tree.heading(5, text="Price")
+        ord_pro_tree.heading(6, text="QTY")
+        ord_pro_tree.heading(7, text="Tax1")
+        ord_pro_tree.heading(8, text="Line Total")   
+        ord_pro_tree.column(1, width = 10)
+        ord_pro_tree.column(2, width = 270)
+        ord_pro_tree.column(3, width = 270)
+        ord_pro_tree.column(4, width = 300)
+        ord_pro_tree.column(5, width = 130)
+        ord_pro_tree.column(6, width = 100)
+        ord_pro_tree.column(7, width = 100)
+        ord_pro_tree.column(8, width = 150)
+      elif check_pro_tax[12] == '3':
+        ord_pro_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7,8,9), height = 15, show = "headings")
+        ord_pro_tree.pack(side = 'top')
+        ord_pro_tree.heading(1)
+        ord_pro_tree.heading(2, text="Product/Service ID",)
+        ord_pro_tree.heading(3, text="Name")
+        ord_pro_tree.heading(4, text="Description")
+        ord_pro_tree.heading(5, text="Price")
+        ord_pro_tree.heading(6, text="QTY")
+        ord_pro_tree.heading(7, text="Tax1")
+        ord_pro_tree.heading(8, text="Tax2")
+        ord_pro_tree.heading(9, text="Line Total")   
+        ord_pro_tree.column(1, width = 10)
+        ord_pro_tree.column(2, width = 270)
+        ord_pro_tree.column(3, width = 270)
+        ord_pro_tree.column(4, width = 200)
+        ord_pro_tree.column(5, width = 130)
+        ord_pro_tree.column(6, width = 100)
+        ord_pro_tree.column(7, width = 100)
+        ord_pro_tree.column(8, width = 100)
+        ord_pro_tree.column(9, width = 150)
+      
+      
+      global ord_private_note1
+      ord_private_note1=Text(tab2, width=220,height=10)
+      ord_private_note1.place(x=10, y=10)
 
       note1=Text(tab3, width=2200,height=10).place(x=10, y=10)
 
+      global ord_doc_tree
       ord_doc_tree = ttk.Treeview(tab4, columns = (1,2,3), height = 15, show = "headings")
       ord_doc_tree.pack(side = 'top')
       ord_doc_tree.heading(1)
-      ord_doc_tree.heading(2, text="Attach to Email",)
-      ord_doc_tree.heading(3, text="Filename")
+      ord_doc_tree.heading(2, text="Filename",)
+      ord_doc_tree.heading(3, text="Filename Size")
       ord_doc_tree.column(1, width = 50)
-      ord_doc_tree.column(2, width = 290)
-      ord_doc_tree.column(3, width = 1000)
+      ord_doc_tree.column(2, width = 1000)
+      ord_doc_tree.column(3, width = 290)
 
       scrollbar = Scrollbar(self.left_frame)
       scrollbar.place(x=990+300+50, y=360, height=190)
