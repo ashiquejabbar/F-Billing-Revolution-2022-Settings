@@ -1044,8 +1044,8 @@ def mainpage():
         scrollbar.config( command=ord_create_protree.yview )
       
         def selepro():
-          priceview = Label(listFrame,bg="#f5f3f2")
-          priceview.place(x=850,y=200,width=78,height=18)
+          # priceview = Label(listFrame,bg="#f5f3f2")
+          # priceview.place(x=850,y=200,width=78,height=18)
           proskuid = ord_create_protree.item(ord_create_protree.focus())["values"][0]
           sql = "select * from Productservice where sku = %s"
           val = (proskuid,)
@@ -1055,11 +1055,11 @@ def mainpage():
           fbcursor.execute(sql)
           create_maintree_insert = fbcursor.fetchone()
           if prosele[10] == '1':
-            tax1 = '🗹'
+            tax1 = 'yes'
           else:
             tax1 = ''
           if prosele[19] == '1':
-            tax2 = '🗹'
+            tax2 = 'yes'
           else:
             tax2 = ''
           if not create_maintree_insert:
@@ -1099,7 +1099,7 @@ def mainpage():
             totaltax1 = 0.0
             for child in ord_pro_create_tree.get_children():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-              if checktax1[6] == "🗹":
+              if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[7]))
                 tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
                 tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1126,7 +1126,7 @@ def mainpage():
             totaltax1 = 0.0
             for child in ord_pro_create_tree.get_children():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-              if checktax1[6] == "🗹":
+              if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[8]))
                 tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
                 tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1137,7 +1137,7 @@ def mainpage():
             totaltax2 = 0.0
             for child in ord_pro_create_tree.get_children():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-              if checktax1[7] == "🗹":
+              if checktax1[7] == "yes":
                 totaltax2 =(totaltax2 + float(checktax1[8]))
                 tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
                 
@@ -1296,7 +1296,7 @@ def mainpage():
           totaltax1 = 0.0
           for child in ord_pro_create_tree.get_children():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-            if checktax1[6] == "🗹":
+            if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[7]))
               tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
               tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1321,7 +1321,7 @@ def mainpage():
           totaltax1 = 0.0
           for child in ord_pro_create_tree.get_children():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-            if checktax1[6] == "🗹":
+            if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[8]))
               tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
               tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1332,7 +1332,7 @@ def mainpage():
           totaltax2 = 0.0
           for child in ord_pro_create_tree.get_children():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-            if checktax1[7] == "🗹":
+            if checktax1[7] == "yes":
               totaltax2 =(totaltax2 + float(checktax1[8]))
               tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
               tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
@@ -1415,14 +1415,18 @@ def mainpage():
       ord_smsnum.delete(0, END)
       ord_smsnum.insert(0, cussel[8])
     
+    
     sql = "select businessname from customer"
     fbcursor.execute(sql)
     cusna = fbcursor.fetchall()
+    cusnadata = []
+    for i in cusna:
+      cusnadata.append(i[0])
     labelframe1 = LabelFrame(fir1Frame,text="Customers",font=("arial",15))
     labelframe1.place(x=10,y=5,width=640,height=160)
     order = Label(labelframe1, text="Order to").place(x=10,y=5)
     ord_to = ttk.Combobox(labelframe1,width=28)
-    ord_to["values"] = cusna
+    ord_to["values"] = cusnadata
     ord_to.bind("<<ComboboxSelected>>",selecombobox)
     ord_to.place(x=80,y=5)
     address=Label(labelframe1,text="Address").place(x=10,y=30)
@@ -1760,7 +1764,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[7]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1785,7 +1789,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[8]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1795,7 +1799,7 @@ def mainpage():
         totaltax2 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[7] == "🗹":
+          if checktax1[7] == "yes":
             totaltax2 =(totaltax2 + float(checktax1[8]))
             tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
             tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
@@ -1860,7 +1864,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[7]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1884,7 +1888,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[8]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1894,7 +1898,7 @@ def mainpage():
         totaltax2 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[7] == "🗹":
+          if checktax1[7] == "yes":
             totaltax2 =(totaltax2 + float(checktax1[8]))
             tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
             tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
@@ -1928,7 +1932,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[7]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1953,7 +1957,7 @@ def mainpage():
         totaltax1 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[6] == "🗹":
+          if checktax1[6] == "yes":
             totaltax1 =(totaltax1 + float(checktax1[8]))
             tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
             tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -1964,7 +1968,7 @@ def mainpage():
         totaltax2 = 0.0
         for child in ord_pro_create_tree.get_children():
           checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-          if checktax1[7] == "🗹":
+          if checktax1[7] == "yes":
             totaltax2 =(totaltax2 + float(checktax1[8]))
             tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
             tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
@@ -1991,7 +1995,7 @@ def mainpage():
       totaltax1 = 0.0
       for child in ord_pro_create_tree.get_children():
         checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-        if checktax1[6] == "🗹":
+        if checktax1[6] == "yes":
           totaltax1 =(totaltax1 + float(checktax1[8]))
           tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
           tot = (float(totaltax1)*float(ord_tax.get())/100)
@@ -2002,7 +2006,7 @@ def mainpage():
       totaltax2 = 0.0
       for child in ord_pro_create_tree.get_children():
         checktax1 = list(ord_pro_create_tree.item(child, 'values'))
-        if checktax1[7] == "🗹":
+        if checktax1[7] == "yes":
           totaltax2 =(totaltax2 + float(checktax1[8]))
           tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
           tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
@@ -2257,919 +2261,1331 @@ def mainpage():
 
   ##View/Edit order##
   def order_edit():
-    pop=Toplevel(order_midFrame)
-    pop.title("Orders")
-    pop.geometry("950x690+150+0")
+    # try:
+      pop=Toplevel(order_midFrame)
+      pop.title("Orders")
+      pop.geometry("950x690+150+0")
+      ord_editid = ordtree.item(ordtree.focus())["values"][1]
+      sql = 'select * from orders where order_number = %s'
+      val =  (ord_editid,)
+      fbcursor.execute(sql,val)
+      edit_ord = fbcursor.fetchone()
 
 
-    #select customer
-    def order_custom():
-      cuselection=Toplevel()
-      cuselection.title("Select Customer")
-      cuselection.geometry("930x650+240+10")
-      cuselection.resizable(False, False)
+      #select customer
+      def order_custom():
+        cuselection=Toplevel()
+        cuselection.title("Select Customer")
+        cuselection.geometry("930x650+240+10")
+        cuselection.resizable(False, False)
 
 
-      #add new customer
-      def order_create_customer():
-        ven=Toplevel(order_midFrame)
-        ven.title("Add new Customer")
-        ven.geometry("930x650+240+10")
-        checkvar1=IntVar()
-        checkvar2=IntVar()
-        radio=IntVar()
-        createFrame=Frame(ven, bg="#f5f3f2", height=650)
-        createFrame.pack(side="top", fill="both")
-        labelframe1 = LabelFrame(createFrame,text="Customer",bg="#f5f3f2",font=("arial",15))
-        labelframe1.place(x=10,y=5,width=910,height=600)
-        text1=Label(labelframe1, text="Customer ID:",bg="#f5f3f2",fg="blue").place(x=5 ,y=10)
-        e1=Entry(labelframe1,width=25).place(x=150,y=10)
-        text2=Label(labelframe1, text="Category:",bg="#f5f3f2").place(x=390 ,y=10)
-        e2=ttk.Combobox(labelframe1,width=25,value="Default").place(x=460 ,y=10)
-        text3=Label(labelframe1, text="Status:",bg="#f5f3f2").place(x=710 ,y=10)
-        Checkbutton(labelframe1,text="Active",variable=checkvar1,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=760 ,y=10)
-        
-        labelframe2 = LabelFrame(labelframe1,text="Invoice to (appears on invoices)",bg="#f5f3f2")
-        labelframe2.place(x=5,y=40,width=420,height=150)
-        name = Label(labelframe2, text="Ship to name:",bg="#f5f3f2",fg="blue").place(x=5,y=5)
-        e1 = Entry(labelframe2,width=28).place(x=130,y=5)
-        addr = Label(labelframe2, text="Address:",bg="#f5f3f2",fg="blue").place(x=5,y=40)
-        e2 = Entry(labelframe2,width=28).place(x=130,y=40,height=80)
-        
-        btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=90)
-
-        labelframe3 = LabelFrame(labelframe1,text="Ship to (appears on invoices)",bg="#f5f3f2")
-        labelframe3.place(x=480,y=40,width=420,height=150)
-        name = Label(labelframe3, text="Business name:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe3,width=28).place(x=130,y=5)
-        addr = Label(labelframe3, text="Address:",bg="#f5f3f2").place(x=5,y=40)
-        e2 = Entry(labelframe3,width=28).place(x=130,y=40,height=80)
-        
-        labelframe4 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe4.place(x=5,y=195,width=420,height=150)
-        name = Label(labelframe4, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe4,width=28).place(x=130,y=5)
-        email = Label(labelframe4, text="E-mail address:",bg="#f5f3f2",fg="blue").place(x=5,y=35)
-        e2 = Entry(labelframe4,width=28).place(x=130,y=35)
-        tel = Label(labelframe4, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
-        e3 = Entry(labelframe4,width=11).place(x=130,y=65)
-        fax = Label(labelframe4, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
-        e4 = Entry(labelframe4,width=11).place(x=280,y=65)
-        sms = Label(labelframe4, text="Mobile number for SMS notifications:",bg="#f5f3f2").place(x=5,y=95)
-        e5 = Entry(labelframe4,width=15).place(x=248,y=95)      
-
-        btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=250)
-
-        
-        labelframe5 = LabelFrame(labelframe1,text="Ship to contact",bg="#f5f3f2")
-        labelframe5.place(x=480,y=195,width=420,height=125)
-        name = Label(labelframe5, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe5,width=28).place(x=130,y=5)
-        email = Label(labelframe5, text="E-mail address:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe5,width=28).place(x=130,y=35)
-        tel = Label(labelframe5, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
-        e3 = Entry(labelframe5,width=11).place(x=130,y=65)
-        fax = Label(labelframe5, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
-        e4 = Entry(labelframe5,width=11).place(x=280,y=65)
-
-        labelframe6 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe6.place(x=5,y=350,width=420,height=100)
-        Checkbutton(labelframe6,text="Tax Exempt",variable=checkvar2,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=5 ,y=5)
-        tax = Label(labelframe6, text="Specific Tax1 %:",bg="#f5f3f2").place(x=180,y=5)
-        e1 = Entry(labelframe6,width=10).place(x=290,y=5)
-        discount = Label(labelframe6, text="Discount%:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe6,width=10).place(x=100,y=35)
-
-        labelframe7 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe7.place(x=480,y=330,width=420,height=100)
-        country = Label(labelframe7, text="country:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe7,width=28).place(x=130,y=5)
-        city = Label(labelframe7, text="City:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe7,width=28).place(x=130,y=35)
-
-        labelframe8 = LabelFrame(labelframe1,text="Customer Type",bg="#f5f3f2")
-        labelframe8.place(x=5,y=460,width=420,height=100)
-        R1=Radiobutton(labelframe8,text=" Client ",variable=radio,value=1,bg="#f5f3f2").place(x=5,y=15)
-        R2=Radiobutton(labelframe8,text=" Vendor ",variable=radio,value=2,bg="#f5f3f2").place(x=150,y=15)
-        R3=Radiobutton(labelframe8,text=" Both(client/vendor)",variable=radio,value=3,bg="#f5f3f2").place(x=250,y=15)
-        
-
-        labelframe9 = LabelFrame(labelframe1,text="Notes",bg="#f5f3f2")
-        labelframe9.place(x=480,y=430,width=420,height=150)
-        e1 = Entry(labelframe9).place(x=10,y=10,height=100,width=390)
-
-        btn1=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=tick ,text="OK").place(x=20, y=615)
-        btn2=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=cancel,text="Cancel").place(x=800, y=615)
-      
-      def order_edit_customer():
-        ven=Toplevel(order_midFrame)
-        ven.title("Add new Customer")
-        ven.geometry("930x650+240+10")
-        checkvar1=IntVar()
-        checkvar2=IntVar()
-        radio=IntVar()
-        createFrame=Frame(ven, bg="#f5f3f2", height=650)
-        createFrame.pack(side="top", fill="both")
-        labelframe1 = LabelFrame(createFrame,text="Customer",bg="#f5f3f2",font=("arial",15))
-        labelframe1.place(x=10,y=5,width=910,height=600)
-        text1=Label(labelframe1, text="Customer ID:",bg="#f5f3f2",fg="blue").place(x=5 ,y=10)
-        e1=Entry(labelframe1,width=25).place(x=150,y=10)
-        text2=Label(labelframe1, text="Category:",bg="#f5f3f2").place(x=390 ,y=10)
-        e2=ttk.Combobox(labelframe1,width=25,value="Default").place(x=460 ,y=10)
-        text3=Label(labelframe1, text="Status:",bg="#f5f3f2").place(x=710 ,y=10)
-        Checkbutton(labelframe1,text="Active",variable=checkvar1,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=760 ,y=10)
-        
-        labelframe2 = LabelFrame(labelframe1,text="Invoice to (appears on invoices)",bg="#f5f3f2")
-        labelframe2.place(x=5,y=40,width=420,height=150)
-        name = Label(labelframe2, text="Ship to name:",bg="#f5f3f2",fg="blue").place(x=5,y=5)
-        e1 = Entry(labelframe2,width=28).place(x=130,y=5)
-        addr = Label(labelframe2, text="Address:",bg="#f5f3f2",fg="blue").place(x=5,y=40)
-        e2 = Entry(labelframe2,width=28).place(x=130,y=40,height=80)
-        
-        btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=90)
-
-        labelframe3 = LabelFrame(labelframe1,text="Ship to (appears on invoices)",bg="#f5f3f2")
-        labelframe3.place(x=480,y=40,width=420,height=150)
-        name = Label(labelframe3, text="Business name:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe3,width=28).place(x=130,y=5)
-        addr = Label(labelframe3, text="Address:",bg="#f5f3f2").place(x=5,y=40)
-        e2 = Entry(labelframe3,width=28).place(x=130,y=40,height=80)
-        
-        labelframe4 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe4.place(x=5,y=195,width=420,height=150)
-        name = Label(labelframe4, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe4,width=28).place(x=130,y=5)
-        email = Label(labelframe4, text="E-mail address:",bg="#f5f3f2",fg="blue").place(x=5,y=35)
-        e2 = Entry(labelframe4,width=28).place(x=130,y=35)
-        tel = Label(labelframe4, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
-        e3 = Entry(labelframe4,width=11).place(x=130,y=65)
-        fax = Label(labelframe4, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
-        e4 = Entry(labelframe4,width=11).place(x=280,y=65)
-        sms = Label(labelframe4, text="Mobile number for SMS notifications:",bg="#f5f3f2").place(x=5,y=95)
-        e5 = Entry(labelframe4,width=15).place(x=248,y=95)      
-
-        btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=250)
-
-        
-        labelframe5 = LabelFrame(labelframe1,text="Ship to contact",bg="#f5f3f2")
-        labelframe5.place(x=480,y=195,width=420,height=125)
-        name = Label(labelframe5, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe5,width=28).place(x=130,y=5)
-        email = Label(labelframe5, text="E-mail address:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe5,width=28).place(x=130,y=35)
-        tel = Label(labelframe5, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
-        e3 = Entry(labelframe5,width=11).place(x=130,y=65)
-        fax = Label(labelframe5, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
-        e4 = Entry(labelframe5,width=11).place(x=280,y=65)
-
-        labelframe6 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe6.place(x=5,y=350,width=420,height=100)
-        Checkbutton(labelframe6,text="Tax Exempt",variable=checkvar2,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=5 ,y=5)
-        tax = Label(labelframe6, text="Specific Tax1 %:",bg="#f5f3f2").place(x=180,y=5)
-        e1 = Entry(labelframe6,width=10).place(x=290,y=5)
-        discount = Label(labelframe6, text="Discount%:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe6,width=10).place(x=100,y=35)
-
-        labelframe7 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
-        labelframe7.place(x=480,y=330,width=420,height=100)
-        country = Label(labelframe7, text="country:",bg="#f5f3f2").place(x=5,y=5)
-        e1 = Entry(labelframe7,width=28).place(x=130,y=5)
-        city = Label(labelframe7, text="City:",bg="#f5f3f2").place(x=5,y=35)
-        e2 = Entry(labelframe7,width=28).place(x=130,y=35)
-
-        labelframe8 = LabelFrame(labelframe1,text="Customer Type",bg="#f5f3f2")
-        labelframe8.place(x=5,y=460,width=420,height=100)
-        R1=Radiobutton(labelframe8,text=" Client ",variable=radio,value=1,bg="#f5f3f2").place(x=5,y=15)
-        R2=Radiobutton(labelframe8,text=" Vendor ",variable=radio,value=2,bg="#f5f3f2").place(x=150,y=15)
-        R3=Radiobutton(labelframe8,text=" Both(client/vendor)",variable=radio,value=3,bg="#f5f3f2").place(x=250,y=15)
-        
-
-        labelframe9 = LabelFrame(labelframe1,text="Notes",bg="#f5f3f2")
-        labelframe9.place(x=480,y=430,width=420,height=150)
-        e1 = Entry(labelframe9).place(x=10,y=10,height=100,width=390)
-
-        btn1=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=tick ,text="OK").place(x=20, y=615)
-        btn2=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=cancel,text="Cancel").place(x=800, y=615)
+        #add new customer
+        def order_create_customer():
+          ven=Toplevel(order_midFrame)
+          ven.title("Add new Customer")
+          ven.geometry("930x650+240+10")
+          checkvar1=IntVar()
+          checkvar2=IntVar()
+          radio=IntVar()
+          createFrame=Frame(ven, bg="#f5f3f2", height=650)
+          createFrame.pack(side="top", fill="both")
+          labelframe1 = LabelFrame(createFrame,text="Customer",bg="#f5f3f2",font=("arial",15))
+          labelframe1.place(x=10,y=5,width=910,height=600)
+          text1=Label(labelframe1, text="Customer ID:",bg="#f5f3f2",fg="blue").place(x=5 ,y=10)
+          e1=Entry(labelframe1,width=25).place(x=150,y=10)
+          text2=Label(labelframe1, text="Category:",bg="#f5f3f2").place(x=390 ,y=10)
+          e2=ttk.Combobox(labelframe1,width=25,value="Default").place(x=460 ,y=10)
+          text3=Label(labelframe1, text="Status:",bg="#f5f3f2").place(x=710 ,y=10)
+          Checkbutton(labelframe1,text="Active",variable=checkvar1,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=760 ,y=10)
           
-                
+          labelframe2 = LabelFrame(labelframe1,text="Invoice to (appears on invoices)",bg="#f5f3f2")
+          labelframe2.place(x=5,y=40,width=420,height=150)
+          name = Label(labelframe2, text="Ship to name:",bg="#f5f3f2",fg="blue").place(x=5,y=5)
+          e1 = Entry(labelframe2,width=28).place(x=130,y=5)
+          addr = Label(labelframe2, text="Address:",bg="#f5f3f2",fg="blue").place(x=5,y=40)
+          e2 = Entry(labelframe2,width=28).place(x=130,y=40,height=80)
+          
+          btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=90)
 
-      enter=Label(cuselection, text="Enter filter text").place(x=5, y=10)
-      e1=Entry(cuselection, width=20).place(x=110, y=10)
-      text=Label(cuselection, text="Filtered column").place(x=340, y=10)
-      e2=Entry(cuselection, width=20).place(x=450, y=10)
+          labelframe3 = LabelFrame(labelframe1,text="Ship to (appears on invoices)",bg="#f5f3f2")
+          labelframe3.place(x=480,y=40,width=420,height=150)
+          name = Label(labelframe3, text="Business name:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe3,width=28).place(x=130,y=5)
+          addr = Label(labelframe3, text="Address:",bg="#f5f3f2").place(x=5,y=40)
+          e2 = Entry(labelframe3,width=28).place(x=130,y=40,height=80)
+          
+          labelframe4 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe4.place(x=5,y=195,width=420,height=150)
+          name = Label(labelframe4, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe4,width=28).place(x=130,y=5)
+          email = Label(labelframe4, text="E-mail address:",bg="#f5f3f2",fg="blue").place(x=5,y=35)
+          e2 = Entry(labelframe4,width=28).place(x=130,y=35)
+          tel = Label(labelframe4, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
+          e3 = Entry(labelframe4,width=11).place(x=130,y=65)
+          fax = Label(labelframe4, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
+          e4 = Entry(labelframe4,width=11).place(x=280,y=65)
+          sms = Label(labelframe4, text="Mobile number for SMS notifications:",bg="#f5f3f2").place(x=5,y=95)
+          e5 = Entry(labelframe4,width=15).place(x=248,y=95)      
 
-      ord_edit_cusventtree=ttk.Treeview(cuselection, height=27)
-      ord_edit_cusventtree["columns"]=["1","2","3", "4"]
-      ord_edit_cusventtree.column("#0", width=35)
-      ord_edit_cusventtree.column("1", width=160)
-      ord_edit_cusventtree.column("2", width=160)
-      ord_edit_cusventtree.column("3", width=140)
-      ord_edit_cusventtree.column("4", width=140)
-      ord_edit_cusventtree.heading("#0",text="")
-      ord_edit_cusventtree.heading("1",text="Customer/Ventor ID")
-      ord_edit_cusventtree.heading("2",text="Customer/Ventor Name")
-      ord_edit_cusventtree.heading("3",text="Tel.")
-      ord_edit_cusventtree.heading("4",text="Contact Person")
-      ord_edit_cusventtree.place(x=5, y=45)
+          btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=250)
+
+          
+          labelframe5 = LabelFrame(labelframe1,text="Ship to contact",bg="#f5f3f2")
+          labelframe5.place(x=480,y=195,width=420,height=125)
+          name = Label(labelframe5, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe5,width=28).place(x=130,y=5)
+          email = Label(labelframe5, text="E-mail address:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe5,width=28).place(x=130,y=35)
+          tel = Label(labelframe5, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
+          e3 = Entry(labelframe5,width=11).place(x=130,y=65)
+          fax = Label(labelframe5, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
+          e4 = Entry(labelframe5,width=11).place(x=280,y=65)
+
+          labelframe6 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe6.place(x=5,y=350,width=420,height=100)
+          Checkbutton(labelframe6,text="Tax Exempt",variable=checkvar2,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=5 ,y=5)
+          tax = Label(labelframe6, text="Specific Tax1 %:",bg="#f5f3f2").place(x=180,y=5)
+          e1 = Entry(labelframe6,width=10).place(x=290,y=5)
+          discount = Label(labelframe6, text="Discount%:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe6,width=10).place(x=100,y=35)
+
+          labelframe7 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe7.place(x=480,y=330,width=420,height=100)
+          country = Label(labelframe7, text="country:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe7,width=28).place(x=130,y=5)
+          city = Label(labelframe7, text="City:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe7,width=28).place(x=130,y=35)
+
+          labelframe8 = LabelFrame(labelframe1,text="Customer Type",bg="#f5f3f2")
+          labelframe8.place(x=5,y=460,width=420,height=100)
+          R1=Radiobutton(labelframe8,text=" Client ",variable=radio,value=1,bg="#f5f3f2").place(x=5,y=15)
+          R2=Radiobutton(labelframe8,text=" Vendor ",variable=radio,value=2,bg="#f5f3f2").place(x=150,y=15)
+          R3=Radiobutton(labelframe8,text=" Both(client/vendor)",variable=radio,value=3,bg="#f5f3f2").place(x=250,y=15)
+          
+
+          labelframe9 = LabelFrame(labelframe1,text="Notes",bg="#f5f3f2")
+          labelframe9.place(x=480,y=430,width=420,height=150)
+          e1 = Entry(labelframe9).place(x=10,y=10,height=100,width=390)
+
+          btn1=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=tick ,text="OK").place(x=20, y=615)
+          btn2=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=cancel,text="Cancel").place(x=800, y=615)
+        
+        def order_edit_customer():
+          ven=Toplevel(order_midFrame)
+          ven.title("Add new Customer")
+          ven.geometry("930x650+240+10")
+          checkvar1=IntVar()
+          checkvar2=IntVar()
+          radio=IntVar()
+          createFrame=Frame(ven, bg="#f5f3f2", height=650)
+          createFrame.pack(side="top", fill="both")
+          labelframe1 = LabelFrame(createFrame,text="Customer",bg="#f5f3f2",font=("arial",15))
+          labelframe1.place(x=10,y=5,width=910,height=600)
+          text1=Label(labelframe1, text="Customer ID:",bg="#f5f3f2",fg="blue").place(x=5 ,y=10)
+          e1=Entry(labelframe1,width=25).place(x=150,y=10)
+          text2=Label(labelframe1, text="Category:",bg="#f5f3f2").place(x=390 ,y=10)
+          e2=ttk.Combobox(labelframe1,width=25,value="Default").place(x=460 ,y=10)
+          text3=Label(labelframe1, text="Status:",bg="#f5f3f2").place(x=710 ,y=10)
+          Checkbutton(labelframe1,text="Active",variable=checkvar1,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=760 ,y=10)
+          
+          labelframe2 = LabelFrame(labelframe1,text="Invoice to (appears on invoices)",bg="#f5f3f2")
+          labelframe2.place(x=5,y=40,width=420,height=150)
+          name = Label(labelframe2, text="Ship to name:",bg="#f5f3f2",fg="blue").place(x=5,y=5)
+          e1 = Entry(labelframe2,width=28).place(x=130,y=5)
+          addr = Label(labelframe2, text="Address:",bg="#f5f3f2",fg="blue").place(x=5,y=40)
+          e2 = Entry(labelframe2,width=28).place(x=130,y=40,height=80)
+          
+          btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=90)
+
+          labelframe3 = LabelFrame(labelframe1,text="Ship to (appears on invoices)",bg="#f5f3f2")
+          labelframe3.place(x=480,y=40,width=420,height=150)
+          name = Label(labelframe3, text="Business name:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe3,width=28).place(x=130,y=5)
+          addr = Label(labelframe3, text="Address:",bg="#f5f3f2").place(x=5,y=40)
+          e2 = Entry(labelframe3,width=28).place(x=130,y=40,height=80)
+          
+          labelframe4 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe4.place(x=5,y=195,width=420,height=150)
+          name = Label(labelframe4, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe4,width=28).place(x=130,y=5)
+          email = Label(labelframe4, text="E-mail address:",bg="#f5f3f2",fg="blue").place(x=5,y=35)
+          e2 = Entry(labelframe4,width=28).place(x=130,y=35)
+          tel = Label(labelframe4, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
+          e3 = Entry(labelframe4,width=11).place(x=130,y=65)
+          fax = Label(labelframe4, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
+          e4 = Entry(labelframe4,width=11).place(x=280,y=65)
+          sms = Label(labelframe4, text="Mobile number for SMS notifications:",bg="#f5f3f2").place(x=5,y=95)
+          e5 = Entry(labelframe4,width=15).place(x=248,y=95)      
+
+          btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=440, y=250)
+
+          
+          labelframe5 = LabelFrame(labelframe1,text="Ship to contact",bg="#f5f3f2")
+          labelframe5.place(x=480,y=195,width=420,height=125)
+          name = Label(labelframe5, text="Contact person:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe5,width=28).place(x=130,y=5)
+          email = Label(labelframe5, text="E-mail address:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe5,width=28).place(x=130,y=35)
+          tel = Label(labelframe5, text="Tel.number:",bg="#f5f3f2").place(x=5,y=65)
+          e3 = Entry(labelframe5,width=11).place(x=130,y=65)
+          fax = Label(labelframe5, text="Fax:",bg="#f5f3f2").place(x=240,y=65)
+          e4 = Entry(labelframe5,width=11).place(x=280,y=65)
+
+          labelframe6 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe6.place(x=5,y=350,width=420,height=100)
+          Checkbutton(labelframe6,text="Tax Exempt",variable=checkvar2,onvalue=1,offvalue=0,bg="#f5f3f2").place(x=5 ,y=5)
+          tax = Label(labelframe6, text="Specific Tax1 %:",bg="#f5f3f2").place(x=180,y=5)
+          e1 = Entry(labelframe6,width=10).place(x=290,y=5)
+          discount = Label(labelframe6, text="Discount%:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe6,width=10).place(x=100,y=35)
+
+          labelframe7 = LabelFrame(labelframe1,text="Contact",bg="#f5f3f2")
+          labelframe7.place(x=480,y=330,width=420,height=100)
+          country = Label(labelframe7, text="country:",bg="#f5f3f2").place(x=5,y=5)
+          e1 = Entry(labelframe7,width=28).place(x=130,y=5)
+          city = Label(labelframe7, text="City:",bg="#f5f3f2").place(x=5,y=35)
+          e2 = Entry(labelframe7,width=28).place(x=130,y=35)
+
+          labelframe8 = LabelFrame(labelframe1,text="Customer Type",bg="#f5f3f2")
+          labelframe8.place(x=5,y=460,width=420,height=100)
+          R1=Radiobutton(labelframe8,text=" Client ",variable=radio,value=1,bg="#f5f3f2").place(x=5,y=15)
+          R2=Radiobutton(labelframe8,text=" Vendor ",variable=radio,value=2,bg="#f5f3f2").place(x=150,y=15)
+          R3=Radiobutton(labelframe8,text=" Both(client/vendor)",variable=radio,value=3,bg="#f5f3f2").place(x=250,y=15)
+          
+
+          labelframe9 = LabelFrame(labelframe1,text="Notes",bg="#f5f3f2")
+          labelframe9.place(x=480,y=430,width=420,height=150)
+          e1 = Entry(labelframe9).place(x=10,y=10,height=100,width=390)
+
+          btn1=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=tick ,text="OK").place(x=20, y=615)
+          btn2=Button(ven,width=60,height=10,bg="#f5f3f2",compound = LEFT,image=cancel,text="Cancel").place(x=800, y=615)
+            
+                  
+
+        enter=Label(cuselection, text="Enter filter text").place(x=5, y=10)
+        e1=Entry(cuselection, width=20).place(x=110, y=10)
+        text=Label(cuselection, text="Filtered column").place(x=340, y=10)
+        e2=Entry(cuselection, width=20).place(x=450, y=10)
+
+        ord_edit_cusventtree=ttk.Treeview(cuselection, height=27)
+        ord_edit_cusventtree["columns"]=["1","2","3", "4"]
+        ord_edit_cusventtree.column("#0", width=35)
+        ord_edit_cusventtree.column("1", width=160)
+        ord_edit_cusventtree.column("2", width=160)
+        ord_edit_cusventtree.column("3", width=140)
+        ord_edit_cusventtree.column("4", width=140)
+        ord_edit_cusventtree.heading("#0",text="")
+        ord_edit_cusventtree.heading("1",text="Customer/Ventor ID")
+        ord_edit_cusventtree.heading("2",text="Customer/Ventor Name")
+        ord_edit_cusventtree.heading("3",text="Tel.")
+        ord_edit_cusventtree.heading("4",text="Contact Person")
+        ord_edit_cusventtree.place(x=5, y=45)
 
 
-      ctegorytree=ttk.Treeview(cuselection, height=27)
-      ctegorytree["columns"]=["1"]
-      ctegorytree.column("#0", width=35, minwidth=20)
-      ctegorytree.column("1", width=205, minwidth=25, anchor=CENTER)    
-      ctegorytree.heading("#0",text="", anchor=W)
-      ctegorytree.heading("1",text="View filter by category", anchor=CENTER)
-      ctegorytree.place(x=660, y=45)
+        ctegorytree=ttk.Treeview(cuselection, height=27)
+        ctegorytree["columns"]=["1"]
+        ctegorytree.column("#0", width=35, minwidth=20)
+        ctegorytree.column("1", width=205, minwidth=25, anchor=CENTER)    
+        ctegorytree.heading("#0",text="", anchor=W)
+        ctegorytree.heading("1",text="View filter by category", anchor=CENTER)
+        ctegorytree.place(x=660, y=45)
 
-      scrollbar = Scrollbar(cuselection)
-      scrollbar.place(x=640, y=45, height=560)
-      scrollbar.config( command=ord_edit_cusventtree.yview )
+        scrollbar = Scrollbar(cuselection)
+        scrollbar.place(x=640, y=45, height=560)
+        scrollbar.config( command=ord_edit_cusventtree.yview )
 
-      btn1=Button(cuselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
-      btn1=Button(cuselection,compound = LEFT,image=tick,text="Edit selected customer", width=150,command=order_create_customer).place(x=250, y=610)
-      btn1=Button(cuselection,compound = LEFT,image=tick, text="Add new customer", width=150,command=order_edit_customer).place(x=435, y=610)
-      btn1=Button(cuselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)   
-
-
-
-      
-
-    #add new line item
-    def order_newline():
-      newselection=Toplevel()
-      newselection.title("Select Customer")
-      newselection.geometry("930x650+240+10")
-      newselection.resizable(False, False)
+        btn1=Button(cuselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
+        btn1=Button(cuselection,compound = LEFT,image=tick,text="Edit selected customer", width=150,command=order_create_customer).place(x=250, y=610)
+        btn1=Button(cuselection,compound = LEFT,image=tick, text="Add new customer", width=150,command=order_edit_customer).place(x=435, y=610)
+        btn1=Button(cuselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)   
 
 
-      #add new product
-      #add new product
-      def order_create_product():  
-        top = Toplevel()  
-        top.title("Add a new Product/Service")
-        p2 = PhotoImage(file = 'images/fbicon.png')
-        top.iconphoto(False, p2)
-      
-        top.geometry("700x550+390+15")
-        tabControl = ttk.Notebook(top)
-        s = ttk.Style()
-        s.theme_use('default')
-        s.configure('TNotebook.Tab', background="#999999",padding=10,bd=0)
+
+        
+
+      #add new line item
+      def order_newline():
+        newselection=Toplevel()
+        newselection.title("Select Customer")
+        newselection.geometry("930x650+240+10")
+        newselection.resizable(False, False)
 
 
-        tab1 = ttk.Frame(tabControl)
-        tab2 = ttk.Frame(tabControl)
-      
-        tabControl.add(tab1,compound = LEFT, text ='Product/Service')
-        tabControl.add(tab2,compound = LEFT, text ='Product Image')
-      
-        tabControl.pack(expand = 1, fill ="both")
-      
-        innerFrame = Frame(tab1,bg="#f5f3f2", relief=GROOVE)
-        innerFrame.pack(side="top",fill=BOTH)
+        #add new product
+        #add new product
+        def order_create_product():  
+          top = Toplevel()  
+          top.title("Add a new Product/Service")
+          p2 = PhotoImage(file = 'images/fbicon.png')
+          top.iconphoto(False, p2)
+        
+          top.geometry("700x550+390+15")
+          tabControl = ttk.Notebook(top)
+          s = ttk.Style()
+          s.theme_use('default')
+          s.configure('TNotebook.Tab', background="#999999",padding=10,bd=0)
 
-        Customerlabelframe = LabelFrame(innerFrame,text="Product/Service",width=580,height=485)
-        Customerlabelframe.pack(side="top",fill=BOTH,padx=10)
 
-        code1=Label(Customerlabelframe,text="Code or SKU:",fg="blue",pady=10,padx=10)
-        code1.place(x=20,y=0)
-        codeentry = Entry(Customerlabelframe,width=35)
-        codeentry.place(x=120,y=8)
+          tab1 = ttk.Frame(tabControl)
+          tab2 = ttk.Frame(tabControl)
+        
+          tabControl.add(tab1,compound = LEFT, text ='Product/Service')
+          tabControl.add(tab2,compound = LEFT, text ='Product Image')
+        
+          tabControl.pack(expand = 1, fill ="both")
+        
+          innerFrame = Frame(tab1,bg="#f5f3f2", relief=GROOVE)
+          innerFrame.pack(side="top",fill=BOTH)
 
-        checkvarStatus=IntVar()
-        status1=Label(Customerlabelframe,text="Status:")
-        status1.place(x=500,y=8)
-        Button1 = Checkbutton(Customerlabelframe,
-                          variable = checkvarStatus,text="Active",compound="right",
-                          onvalue =0 ,
-                          offvalue = 1,
+          Customerlabelframe = LabelFrame(innerFrame,text="Product/Service",width=580,height=485)
+          Customerlabelframe.pack(side="top",fill=BOTH,padx=10)
+
+          code1=Label(Customerlabelframe,text="Code or SKU:",fg="blue",pady=10,padx=10)
+          code1.place(x=20,y=0)
+          codeentry = Entry(Customerlabelframe,width=35)
+          codeentry.place(x=120,y=8)
+
+          checkvarStatus=IntVar()
+          status1=Label(Customerlabelframe,text="Status:")
+          status1.place(x=500,y=8)
+          Button1 = Checkbutton(Customerlabelframe,
+                            variable = checkvarStatus,text="Active",compound="right",
+                            onvalue =0 ,
+                            offvalue = 1,
+                          
+                            width = 10)
+
+          Button1.place(x=550,y=5)
+
+          category1=Label(Customerlabelframe,text="Category:",pady=5,padx=10)
+          category1.place(x=20,y=40)
+          n = StringVar()
+          country = ttk.Combobox(Customerlabelframe, width = 40, textvariable = n )
+          
+          country['values'] = ('Default',' India',' China',' Australia',' Nigeria',' Malaysia',' Italy',' Turkey',)
+          
+          country.place(x=120,y=45)
+          country.current(0)
+
+
+          name1=Label(Customerlabelframe,text="Name :",fg="blue",pady=5,padx=10)
+          name1.place(x=20,y=70)
+          nameentry = Entry(Customerlabelframe,width=60)
+          nameentry.place(x=120,y=75)
+
+          des1=Label(Customerlabelframe,text="Description :",pady=5,padx=10)
+          des1.place(x=20,y=100)
+          desentry = Entry(Customerlabelframe,width=60)
+          desentry.place(x=120,y=105)
+
+          uval = IntVar(Customerlabelframe, value='$0.00')
+          unit1=Label(Customerlabelframe,text="Unit Price:",fg="blue",pady=5,padx=10)
+          unit1.place(x=20,y=130)
+          unitentry = Entry(Customerlabelframe,width=20,textvariable=uval)
+          unitentry.place(x=120,y=135)
+
+          pcsval = IntVar(Customerlabelframe, value='$0.00')
+          pcs1=Label(Customerlabelframe,text="Pcs/Weight:",fg="blue",pady=5,padx=10)
+          pcs1.place(x=320,y=140)
+          pcsentry = Entry(Customerlabelframe,width=20,textvariable=pcsval)
+          pcsentry.place(x=410,y=140)
+
+          costval = IntVar(Customerlabelframe, value='$0.00')
+          cost1=Label(Customerlabelframe,text="Cost:",pady=5,padx=10)
+          cost1.place(x=20,y=160)
+          costentry = Entry(Customerlabelframe,width=20,textvariable=costval)
+          costentry.place(x=120,y=165)
+
+          priceval = IntVar(Customerlabelframe, value='$0.00')
+          price1=Label(Customerlabelframe,text="(Price Cost):",pady=5,padx=10)
+          price1.place(x=20,y=190)
+          priceentry = Entry(Customerlabelframe,width=20,textvariable=priceval)
+          priceentry.place(x=120,y=195)
+
+          checkvarStatus2=IntVar()
+        
+          Button2 = Checkbutton(Customerlabelframe,variable = checkvarStatus2,
+                            text="Taxable Tax1rate",compound="right",
+                            onvalue =0 ,
+                            offvalue = 1,
+                            height=2,
+                            width = 12)
+
+          Button2.place(x=415,y=170)
+
+
+          checkvarStatus3=IntVar()
+        
+          Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,
+                            text="No stock Control",
+                            onvalue =1 ,
+                            offvalue = 0,
+                            height=3,
+                            width = 15)
+
+          Button3.place(x=40,y=220)
+
+
+          stockval = IntVar(Customerlabelframe, value='0')
+          stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
+          stock1.place(x=90,y=260)
+          stockentry = Entry(Customerlabelframe,width=15,textvariable=stockval)
+          stockentry.place(x=150,y=265)
+
+          lowval = IntVar(Customerlabelframe, value='0')
+          low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
+          low1.place(x=300,y=260)
+          lowentry = Entry(Customerlabelframe,width=10,textvariable=lowval)
+          lowentry.place(x=495,y=265)
+
+        
+          ware1=Label(Customerlabelframe,text="Warehouse:",pady=5,padx=10)
+          ware1.place(x=60,y=290)
+          wareentry = Entry(Customerlabelframe,width=50)
+          wareentry.place(x=150,y=295)
+
+          text1=Label(Customerlabelframe,text="Private notes(not appears on invoice):",pady=5,padx=10)
+          text1.place(x=20,y=330)
+
+          txt = scrolledtext.ScrolledText(Customerlabelframe, undo=True,width=62,height=4)
+          txt.place(x=32,y=358)
+
+
+
+
+          okButton = Button(innerFrame,compound = LEFT,image=tick , text ="Ok",width=60)
+          okButton.pack(side=LEFT)
+
+          cancelButton = Button(innerFrame,compound = LEFT,image=cancel ,text="Cancel",width=60)
+          cancelButton.pack(side=RIGHT)
+
+          imageFrame = Frame(tab2, relief=GROOVE,height=580)
+          imageFrame.pack(side="top",fill=BOTH)
+
+          browseimg=Label(imageFrame,text=" Browse for product image file(recommended image type:JPG,size 480x320 pixels) ",bg='#f5f3f2')
+          browseimg.place(x=15,y=35)
+
+          browsebutton=Button(imageFrame,text = 'Browse')
+          browsebutton.place(x=580,y=30,height=30,width=50)
+          
+          removeButton = Button(imageFrame,compound = LEFT,image=cancel, text ="Remove Product Image",width=150)
+          removeButton.place(x=400,y=450)
+        
+        def order_edit_product():  
+          top = Toplevel()  
+          top.title("Add a new Product/Service")
+          p2 = PhotoImage(file = 'images/fbicon.png')
+          top.iconphoto(False, p2)
+        
+          top.geometry("700x550+390+15")
+          tabControl = ttk.Notebook(top)
+          s = ttk.Style()
+          s.theme_use('default')
+          s.configure('TNotebook.Tab', background="#999999",padding=10,bd=0)
+
+
+          tab1 = ttk.Frame(tabControl)
+          tab2 = ttk.Frame(tabControl)
+        
+          tabControl.add(tab1,compound = LEFT, text ='Product/Service')
+          tabControl.add(tab2,compound = LEFT, text ='Product Image')
+        
+          tabControl.pack(expand = 1, fill ="both")
+        
+          innerFrame = Frame(tab1,bg="#f5f3f2", relief=GROOVE)
+          innerFrame.pack(side="top",fill=BOTH)
+
+          Customerlabelframe = LabelFrame(innerFrame,text="Product/Service",width=580,height=485)
+          Customerlabelframe.pack(side="top",fill=BOTH,padx=10)
+
+          code1=Label(Customerlabelframe,text="Code or SKU:",fg="blue",pady=10,padx=10)
+          code1.place(x=20,y=0)
+          codeentry = Entry(Customerlabelframe,width=35)
+          codeentry.place(x=120,y=8)
+
+          checkvarStatus=IntVar()
+          status1=Label(Customerlabelframe,text="Status:")
+          status1.place(x=500,y=8)
+          Button1 = Checkbutton(Customerlabelframe,
+                            variable = checkvarStatus,text="Active",compound="right",
+                            onvalue =0 ,
+                            offvalue = 1,
+                          
+                            width = 10)
+
+          Button1.place(x=550,y=5)
+
+          category1=Label(Customerlabelframe,text="Category:",pady=5,padx=10)
+          category1.place(x=20,y=40)
+          n = StringVar()
+          country = ttk.Combobox(Customerlabelframe, width = 40, textvariable = n )
+          
+          country['values'] = ('Default',' India',' China',' Australia',' Nigeria',' Malaysia',' Italy',' Turkey',)
+          
+          country.place(x=120,y=45)
+          country.current(0)
+
+
+          name1=Label(Customerlabelframe,text="Name :",fg="blue",pady=5,padx=10)
+          name1.place(x=20,y=70)
+          nameentry = Entry(Customerlabelframe,width=60)
+          nameentry.place(x=120,y=75)
+
+          des1=Label(Customerlabelframe,text="Description :",pady=5,padx=10)
+          des1.place(x=20,y=100)
+          desentry = Entry(Customerlabelframe,width=60)
+          desentry.place(x=120,y=105)
+
+          uval = IntVar(Customerlabelframe, value='$0.00')
+          unit1=Label(Customerlabelframe,text="Unit Price:",fg="blue",pady=5,padx=10)
+          unit1.place(x=20,y=130)
+          unitentry = Entry(Customerlabelframe,width=20,textvariable=uval)
+          unitentry.place(x=120,y=135)
+
+          pcsval = IntVar(Customerlabelframe, value='$0.00')
+          pcs1=Label(Customerlabelframe,text="Pcs/Weight:",fg="blue",pady=5,padx=10)
+          pcs1.place(x=320,y=140)
+          pcsentry = Entry(Customerlabelframe,width=20,textvariable=pcsval)
+          pcsentry.place(x=410,y=140)
+
+          costval = IntVar(Customerlabelframe, value='$0.00')
+          cost1=Label(Customerlabelframe,text="Cost:",pady=5,padx=10)
+          cost1.place(x=20,y=160)
+          costentry = Entry(Customerlabelframe,width=20,textvariable=costval)
+          costentry.place(x=120,y=165)
+
+          priceval = IntVar(Customerlabelframe, value='$0.00')
+          price1=Label(Customerlabelframe,text="(Price Cost):",pady=5,padx=10)
+          price1.place(x=20,y=190)
+          priceentry = Entry(Customerlabelframe,width=20,textvariable=priceval)
+          priceentry.place(x=120,y=195)
+
+          checkvarStatus2=IntVar()
+        
+          Button2 = Checkbutton(Customerlabelframe,variable = checkvarStatus2,
+                            text="Taxable Tax1rate",compound="right",
+                            onvalue =0 ,
+                            offvalue = 1,
+                            height=2,
+                            width = 12)
+
+          Button2.place(x=415,y=170)
+
+
+          checkvarStatus3=IntVar()
+        
+          Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,
+                            text="No stock Control",
+                            onvalue =1 ,
+                            offvalue = 0,
+                            height=3,
+                            width = 15)
+
+          Button3.place(x=40,y=220)
+
+
+          stockval = IntVar(Customerlabelframe, value='0')
+          stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
+          stock1.place(x=90,y=260)
+          stockentry = Entry(Customerlabelframe,width=15,textvariable=stockval)
+          stockentry.place(x=150,y=265)
+
+          lowval = IntVar(Customerlabelframe, value='0')
+          low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
+          low1.place(x=300,y=260)
+          lowentry = Entry(Customerlabelframe,width=10,textvariable=lowval)
+          lowentry.place(x=495,y=265)
+
+        
+          ware1=Label(Customerlabelframe,text="Warehouse:",pady=5,padx=10)
+          ware1.place(x=60,y=290)
+          wareentry = Entry(Customerlabelframe,width=50)
+          wareentry.place(x=150,y=295)
+
+          text1=Label(Customerlabelframe,text="Private notes(not appears on invoice):",pady=5,padx=10)
+          text1.place(x=20,y=330)
+
+          txt = scrolledtext.ScrolledText(Customerlabelframe, undo=True,width=62,height=4)
+          txt.place(x=32,y=358)
+
+
+
+
+          okButton = Button(innerFrame,compound = LEFT,image=tick , text ="Ok",width=60)
+          okButton.pack(side=LEFT)
+
+          cancelButton = Button(innerFrame,compound = LEFT,image=cancel ,text="Cancel",width=60)
+          cancelButton.pack(side=RIGHT)
+
+          imageFrame = Frame(tab2, relief=GROOVE,height=580)
+          imageFrame.pack(side="top",fill=BOTH)
+
+          browseimg=Label(imageFrame,text=" Browse for product image file(recommended image type:JPG,size 480x320 pixels) ",bg='#f5f3f2')
+          browseimg.place(x=15,y=35)
+
+          browsebutton=Button(imageFrame,text = 'Browse')
+          browsebutton.place(x=580,y=30,height=30,width=50)
+          
+          removeButton = Button(imageFrame,compound = LEFT,image=cancel, text ="Remove Product Image",width=150)
+          removeButton.place(x=400,y=450)
+
+
+
+        
                         
-                          width = 10)
+        enter=Label(newselection, text="Enter filter text").place(x=5, y=10)
+        e1=Entry(newselection, width=20).place(x=110, y=10)
+        text=Label(newselection, text="Filtered column").place(x=340, y=10)
+        e2=Entry(newselection, width=20).place(x=450, y=10)
 
-        Button1.place(x=550,y=5)
+        ord_edit_protree=ttk.Treeview(newselection, height=27)
+        ord_edit_protree["columns"]=["1","2","3", "4","5"]
+        ord_edit_protree.column("#0", width=35)
+        ord_edit_protree.column("1", width=160)
+        ord_edit_protree.column("2", width=160)
+        ord_edit_protree.column("3", width=140)
+        ord_edit_protree.column("4", width=70)
+        ord_edit_protree.column("5", width=70)
+        ord_edit_protree.heading("#0",text="")
+        ord_edit_protree.heading("1",text="ID/SKU")
+        ord_edit_protree.heading("2",text="Product/Service Name")
+        ord_edit_protree.heading("3",text="Unit price")
+        ord_edit_protree.heading("4",text="Service")
+        ord_edit_protree.heading("5",text="Stock")
+        ord_edit_protree.place(x=5, y=45)
 
-        category1=Label(Customerlabelframe,text="Category:",pady=5,padx=10)
-        category1.place(x=20,y=40)
+
+        ctegorytree=ttk.Treeview(newselection, height=27)
+        ctegorytree["columns"]=["1"]
+        ctegorytree.column("#0", width=35, minwidth=20)
+        ctegorytree.column("1", width=205, minwidth=25, anchor=CENTER)    
+        ctegorytree.heading("#0",text="", anchor=W)
+        ctegorytree.heading("1",text="View filter by category", anchor=CENTER)
+        ctegorytree.place(x=660, y=45)
+
+        scrollbar = Scrollbar(newselection)
+        scrollbar.place(x=640, y=45, height=560)
+        scrollbar.config( command=ord_edit_protree.yview )
+      
+
+        btn1=Button(newselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
+        btn1=Button(newselection,compound = LEFT,image=tick , text="Edit product/Service", width=150,command=order_edit_product).place(x=250, y=610)
+        btn1=Button(newselection,compound = LEFT,image=tick , text="Add product/Service", width=150,command=order_create_product).place(x=435, y=610)
+        btn1=Button(newselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)
+
+
+
+      #preview new line
+      def order_edit_previewline():
+        messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
+
+
+      
+      #sms notification
+      def order_edit_sms1():
+        send_SMS=Toplevel()
+        send_SMS.geometry("700x480+240+150")
+        send_SMS.title("Send SMS notification")
+
+        style = ttk.Style()
+        style.theme_use('default')
+        style.configure('TNotebook.Tab', background="#999999", padding=5)
+        sms_Notebook = ttk.Notebook(send_SMS)
+        SMS_Notification = Frame(sms_Notebook, height=470, width=700)
+        SMS_Service_Account = Frame(sms_Notebook, height=470, width=700)
+        sms_Notebook.add(SMS_Notification, text="SMS Notification")
+        sms_Notebook.add(SMS_Service_Account, text="SMS Service Account")
+        sms_Notebook.place(x=0, y=0)
+
+        numlbel=Label(SMS_Notification, text="SMS number or comma seperated SMS number list(Please start each SMS number with the country code)")
+        numlbel.place(x=10, y=10)
+        numentry=Entry(SMS_Notification, width=92).place(x=10, y=30)
+        stexbel=Label(SMS_Notification, text="SMS Text").place(x=10, y=60)
+        stex=Entry(SMS_Notification, width=40).place(x=10, y=85,height=120)
+        
+        dclbel=Label(SMS_Notification, text="Double click to insert into text")
+        dclbel.place(x=410, y=60)
+        dcl=Entry(SMS_Notification, width=30)
+        dcl.place(x=400, y=85,height=200)
+        
+        smstype=LabelFrame(SMS_Notification, text="SMS message type", width=377, height=60)
+        smstype.place(x=10, y=223)
+        snuvar=IntVar()
+        normal_rbtn=Radiobutton(smstype, text="Normal SMS(160 chars)", variable=snuvar, value=1)
+        normal_rbtn.place(x=5, y=5)
+        unicode_rbtn=Radiobutton(smstype, text="Unicode SMS(70 chars)", variable=snuvar, value=2)
+        unicode_rbtn.place(x=190, y=5)
+        tiplbf=LabelFrame(SMS_Notification, text="Tips", width=680, height=120)
+        tiplbf.place(x=10, y=290)
+        tiplabl=Label(tiplbf,justify=LEFT,fg="red",  text="Always start the SMS nymber with the country code. Do not use the + sign at the beginning(example\nUS number:8455807546). Do not use any special characters in your normal SMS text. Please use the\nstndard SMS characters or the English alphabet and numbers only. Otherwise the SMS will be\nunreadable or undeliverable. If you need to enter international characters, accents,email address, or\nspecial characters to the SMS text field then choose the Unicode SMS format.")
+        tiplabl.place(x=5, y=5)
+
+        btn1=Button(SMS_Notification, width=20, text="Send SMS notification").place(x=10, y=420)
+        btn2=Button(SMS_Notification, width=25, text="Confirm SMS cost before sending").place(x=280, y=420)
+        btn3=Button(SMS_Notification, width=15, text="Cancel").place(x=550, y=420)
+        
+
+        smstype=LabelFrame(SMS_Service_Account, text="Select the notification service provider", width=670, height=65)
+        smstype.place(x=10, y=5)
+        snumvar=IntVar()
+        normal_rbtn=Radiobutton(smstype,text="BULKSMS(www.bulksms.com)",variable=snumvar,value=1,)
+        normal_rbtn.place(x=5, y=5)
+        unicode_rbtn=Radiobutton(smstype, text="Unicode SMS(70 chars)-Recommended", variable=snumvar, value=2)
+        unicode_rbtn.place(x=290, y=5)
+
+        sms1type=LabelFrame(SMS_Service_Account, text="Your BULKSMS.COM Account", width=670, height=100)
+        sms1type.place(x=10, y=80)
+        name=Label(sms1type, text="Username").place(x=10, y=5)
+        na=Entry(sms1type, width=20).place(x=100, y=5)
+        password=Label(sms1type, text="Password").place(x=10, y=45)
+        pas=Entry(sms1type, width=20).place(x=100, y=45)
+        combo=Label(sms1type, text="Route").place(x=400, y=5)
         n = StringVar()
-        country = ttk.Combobox(Customerlabelframe, width = 40, textvariable = n )
+        combo1 = ttk.Combobox(sms1type, width = 20, textvariable = n ).place(x=450,y=5)
+        btn1=Button(sms1type, width=10, text="Save settings").place(x=550, y=45)
+
         
-        country['values'] = ('Default',' India',' China',' Australia',' Nigeria',' Malaysia',' Italy',' Turkey',)
+        tiplbf=LabelFrame(SMS_Service_Account, text="Terms of service", width=680, height=250)
+        tiplbf.place(x=10, y=190)
+        tiplabl=Label(tiplbf,justify=LEFT,fg="red",  text="The SMS notification service is not free.This service costs you creadit.You must have your own account\nat BULKSMS.COM and you need to have sufficient creadit and an active internet connection to use\nthis feature.Please review all fields in this form for accuracy")
+        tiplabl.place(x=0, y=5)
+        tiplabl1=Label(tiplbf,justify=LEFT,fg="black",  text="visit www.bulksms.com website to create your own account.please make sure the BULKSMS .COM\n service works well in your country before you busy creadit")
+        tiplabl1.place(x=0, y=60)
+        tiplabl2=Label(tiplbf,justify=LEFT,fg="black",  text="Our SMS notification tool comes without any warranty.our software only forwards your SMS message\nthe BULKSMS API server .The BULKSMS API server will try to sent SMS message your recipient")
+        tiplabl2.place(x=0, y=100)
+        tiplabl3=Label(tiplbf,justify=LEFT,fg="red",  text="Please note that you access and use the SMS notification tool your own risk.F-Billing software is not\nresponsible for any type of loss or damage or undelivered SMS massage which you may as a result\nof accessing and using the SMS notification service.")
+        tiplabl3.place(x=0, y=140)
+        checkvar1=IntVar()
+        chkbtn1=Checkbutton(tiplbf,text="I have read and agree to the terms of service above",variable=checkvar1,onvalue=1,offvalue=0).place(x=70, y=200) 
+
+
+
+      
+      #delete line item  
+      def order_edit_delete1():
+        messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
         
-        country.place(x=120,y=45)
-        country.current(0)
-
-
-        name1=Label(Customerlabelframe,text="Name :",fg="blue",pady=5,padx=10)
-        name1.place(x=20,y=70)
-        nameentry = Entry(Customerlabelframe,width=60)
-        nameentry.place(x=120,y=75)
-
-        des1=Label(Customerlabelframe,text="Description :",pady=5,padx=10)
-        des1.place(x=20,y=100)
-        desentry = Entry(Customerlabelframe,width=60)
-        desentry.place(x=120,y=105)
-
-        uval = IntVar(Customerlabelframe, value='$0.00')
-        unit1=Label(Customerlabelframe,text="Unit Price:",fg="blue",pady=5,padx=10)
-        unit1.place(x=20,y=130)
-        unitentry = Entry(Customerlabelframe,width=20,textvariable=uval)
-        unitentry.place(x=120,y=135)
-
-        pcsval = IntVar(Customerlabelframe, value='$0.00')
-        pcs1=Label(Customerlabelframe,text="Pcs/Weight:",fg="blue",pady=5,padx=10)
-        pcs1.place(x=320,y=140)
-        pcsentry = Entry(Customerlabelframe,width=20,textvariable=pcsval)
-        pcsentry.place(x=410,y=140)
-
-        costval = IntVar(Customerlabelframe, value='$0.00')
-        cost1=Label(Customerlabelframe,text="Cost:",pady=5,padx=10)
-        cost1.place(x=20,y=160)
-        costentry = Entry(Customerlabelframe,width=20,textvariable=costval)
-        costentry.place(x=120,y=165)
-
-        priceval = IntVar(Customerlabelframe, value='$0.00')
-        price1=Label(Customerlabelframe,text="(Price Cost):",pady=5,padx=10)
-        price1.place(x=20,y=190)
-        priceentry = Entry(Customerlabelframe,width=20,textvariable=priceval)
-        priceentry.place(x=120,y=195)
-
-        checkvarStatus2=IntVar()
-      
-        Button2 = Checkbutton(Customerlabelframe,variable = checkvarStatus2,
-                          text="Taxable Tax1rate",compound="right",
-                          onvalue =0 ,
-                          offvalue = 1,
-                          height=2,
-                          width = 12)
-
-        Button2.place(x=415,y=170)
-
-
-        checkvarStatus3=IntVar()
-      
-        Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,
-                          text="No stock Control",
-                          onvalue =1 ,
-                          offvalue = 0,
-                          height=3,
-                          width = 15)
-
-        Button3.place(x=40,y=220)
-
-
-        stockval = IntVar(Customerlabelframe, value='0')
-        stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
-        stock1.place(x=90,y=260)
-        stockentry = Entry(Customerlabelframe,width=15,textvariable=stockval)
-        stockentry.place(x=150,y=265)
-
-        lowval = IntVar(Customerlabelframe, value='0')
-        low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
-        low1.place(x=300,y=260)
-        lowentry = Entry(Customerlabelframe,width=10,textvariable=lowval)
-        lowentry.place(x=495,y=265)
-
-      
-        ware1=Label(Customerlabelframe,text="Warehouse:",pady=5,padx=10)
-        ware1.place(x=60,y=290)
-        wareentry = Entry(Customerlabelframe,width=50)
-        wareentry.place(x=150,y=295)
-
-        text1=Label(Customerlabelframe,text="Private notes(not appears on invoice):",pady=5,padx=10)
-        text1.place(x=20,y=330)
-
-        txt = scrolledtext.ScrolledText(Customerlabelframe, undo=True,width=62,height=4)
-        txt.place(x=32,y=358)
-
-
-
-
-        okButton = Button(innerFrame,compound = LEFT,image=tick , text ="Ok",width=60)
-        okButton.pack(side=LEFT)
-
-        cancelButton = Button(innerFrame,compound = LEFT,image=cancel ,text="Cancel",width=60)
-        cancelButton.pack(side=RIGHT)
-
-        imageFrame = Frame(tab2, relief=GROOVE,height=580)
-        imageFrame.pack(side="top",fill=BOTH)
-
-        browseimg=Label(imageFrame,text=" Browse for product image file(recommended image type:JPG,size 480x320 pixels) ",bg='#f5f3f2')
-        browseimg.place(x=15,y=35)
-
-        browsebutton=Button(imageFrame,text = 'Browse')
-        browsebutton.place(x=580,y=30,height=30,width=50)
         
-        removeButton = Button(imageFrame,compound = LEFT,image=cancel, text ="Remove Product Image",width=150)
-        removeButton.place(x=400,y=450)
+
+      firFrame=Frame(pop, bg="#f5f3f2", height=60)
+      firFrame.pack(side="top", fill=X)
+
+      w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
+      w.pack(side="left", padx=5)
+
+      create = Button(firFrame,compound="top", text="Select\nCustomer",relief=RAISED, image=customer,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_custom)
+      create.pack(side="left", pady=3, ipadx=4)
+
+
+      w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
+      w.pack(side="left", padx=5)
+
+      add= Button(firFrame,compound="top", text="Add new\nline item",relief=RAISED, image=photo,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_newline)
+      add.pack(side="left", pady=3, ipadx=4)
+
+      dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_delete1)
+      dele.pack(side="left", pady=3, ipadx=4)
+
+      w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
+      w.pack(side="left", padx=5)
+
+      prev= Button(firFrame,compound="top", text="Preview\nOrder",relief=RAISED, image=photo4,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_previewline)
+      prev.pack(side="left", pady=3, ipadx=4)
+
+      prin= Button(firFrame,compound="top", text="Print \nOrder",relief=RAISED, image=photo5,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_create_printsele)
+      prin.pack(side="left", pady=3, ipadx=4)
+
+      w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
+      w.pack(side="left", padx=5)
+
+      mail= Button(firFrame,compound="top", text="Email\nOrder",relief=RAISED, image=photo6,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_email)
+      mail.pack(side="left", pady=3, ipadx=4)
+
+      sms1= Button(firFrame,compound="top", text="Send SMS\nnotification",relief=RAISED, image=photo10,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_sms1)
+      sms1.pack(side="left", pady=3, ipadx=4)
+
+      w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
+      w.pack(side="left", padx=5)
+
+      calc= Button(firFrame,compound="top", text="Open\nCalculator",relief=RAISED, image=photo9,bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
+      calc.pack(side="left", pady=3, ipadx=4)
+
+      fir1Frame=Frame(pop, height=180,bg="#f5f3f2")
+      fir1Frame.pack(side="top", fill=X)
+
+      def selecombobox(event):
+        ord_cus = orde_name.get()
+        sql = "select * from customer where businessname = %s"
+        val = (ord_cus,)
+        fbcursor.execute(sql,val)
+        cussel = fbcursor.fetchone()
+        orde_addr.delete("1.0", END)
+        orde_addr.insert("1.0", cussel[5])
+        orde_ship.delete(0, END)
+        orde_ship.insert(0, cussel[6])
+        orde_shipaddr.delete("1.0", END)
+        orde_shipaddr.insert("1.0", cussel[7])
+        orde_email.delete(0, END)
+        orde_email.insert(0, cussel[9])
+        orde_sms.delete(0, END)
+        orde_sms.insert(0, cussel[8])
+    
+      sql = "select businessname from customer"
+      fbcursor.execute(sql)
+      cusna = fbcursor.fetchall()
+      cusnadata = []
+      for i in cusna:
+        cusnadata.append(i[0])
+      labelframe1 = LabelFrame(fir1Frame,text="Customers",font=("arial",15))
+      labelframe1.place(x=10,y=5,width=640,height=160)
+      order = Label(labelframe1, text="Order to").place(x=10,y=5)
+      orde_name = ttk.Combobox(labelframe1,width=28)
+      orde_name.place(x=80,y=5)
+      orde_name["values"] = cusnadata
+      orde_name.bind("<<ComboboxSelected>>",selecombobox)
+      orde_name.insert(0, edit_ord[3])
+      address=Label(labelframe1,text="Address").place(x=10,y=30)
+      orde_addr=Text(labelframe1,width=23)
+      orde_addr.place(x=80,y=30,height=70)
+      orde_addr.insert("1.0", edit_ord[16])
+      ship=Label(labelframe1,text="Ship to").place(x=342,y=5)
+      orde_ship=Entry(labelframe1,width=30)
+      orde_ship.place(x=402,y=3)
+      orde_ship.insert(0, edit_ord[17])
+      address1=Label(labelframe1,text="Address").place(x=340,y=30)
+      orde_shipaddr=Text(labelframe1,width=23)
+      orde_shipaddr.place(x=402,y=30,height=70)
+      orde_shipaddr.insert("1.0", edit_ord[18])
+
+      btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=280, y=50)
       
-      def order_edit_product():  
-        top = Toplevel()  
-        top.title("Add a new Product/Service")
-        p2 = PhotoImage(file = 'images/fbicon.png')
-        top.iconphoto(False, p2)
-      
-        top.geometry("700x550+390+15")
-        tabControl = ttk.Notebook(top)
-        s = ttk.Style()
-        s.theme_use('default')
-        s.configure('TNotebook.Tab', background="#999999",padding=10,bd=0)
+      labelframe2 = LabelFrame(fir1Frame,text="")
+      labelframe2.place(x=10,y=130,width=640,height=42)
+      email=Label(labelframe2,text="Email").place(x=10,y=5)
+      orde_email=Entry(labelframe2,width=30)
+      orde_email.place(x=80,y=5)
+      orde_email.insert(0, edit_ord[19])
+      sms=Label(labelframe2,text="SMS Number").place(x=328,y=5)
+      orde_sms=Entry(labelframe2,width=30)
+      orde_sms.place(x=402,y=5)
+      orde_sms.insert(0, edit_ord[20])
 
-
-        tab1 = ttk.Frame(tabControl)
-        tab2 = ttk.Frame(tabControl)
-      
-        tabControl.add(tab1,compound = LEFT, text ='Product/Service')
-        tabControl.add(tab2,compound = LEFT, text ='Product Image')
-      
-        tabControl.pack(expand = 1, fill ="both")
-      
-        innerFrame = Frame(tab1,bg="#f5f3f2", relief=GROOVE)
-        innerFrame.pack(side="top",fill=BOTH)
-
-        Customerlabelframe = LabelFrame(innerFrame,text="Product/Service",width=580,height=485)
-        Customerlabelframe.pack(side="top",fill=BOTH,padx=10)
-
-        code1=Label(Customerlabelframe,text="Code or SKU:",fg="blue",pady=10,padx=10)
-        code1.place(x=20,y=0)
-        codeentry = Entry(Customerlabelframe,width=35)
-        codeentry.place(x=120,y=8)
-
-        checkvarStatus=IntVar()
-        status1=Label(Customerlabelframe,text="Status:")
-        status1.place(x=500,y=8)
-        Button1 = Checkbutton(Customerlabelframe,
-                          variable = checkvarStatus,text="Active",compound="right",
-                          onvalue =0 ,
-                          offvalue = 1,
-                        
-                          width = 10)
-
-        Button1.place(x=550,y=5)
-
-        category1=Label(Customerlabelframe,text="Category:",pady=5,padx=10)
-        category1.place(x=20,y=40)
-        n = StringVar()
-        country = ttk.Combobox(Customerlabelframe, width = 40, textvariable = n )
         
-        country['values'] = ('Default',' India',' China',' Australia',' Nigeria',' Malaysia',' Italy',' Turkey',)
+      labelframe = LabelFrame(fir1Frame,text="Order",font=("arial",15))
+      labelframe.place(x=652,y=5,width=290,height=170)
+      order=Label(labelframe,text="Order#").place(x=5,y=5)
+      orde_orderid=Entry(labelframe,width=25)
+      orde_orderid.place(x=100,y=5,)
+      orde_orderid.insert(0, edit_ord[31])
+      orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
+      orde_date=Entry(labelframe,width=20)
+      orde_date.place(x=150,y=33)
+      orde_date.insert(0, edit_ord[1])
+      checkvarStatus5=IntVar()
+      duedate=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
+      orde_duedate=Entry(labelframe,width=20)
+      orde_duedate.place(x=150,y=62)
+      orde_duedate.insert(0, edit_ord[2])
+      terms=Label(labelframe,text="Terms").place(x=5,y=92)
+      orde_terms=ttk.Combobox(labelframe, value="",width=25)
+      orde_terms.place(x=100,y=92)
+      orde_terms.insert(0, edit_ord[32])
+      ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
+      orde_order_ref=Entry(labelframe,width=27)
+      orde_order_ref.place(x=100,y=118)
+
+      fir2Frame=Frame(pop, height=150,width=100,bg="#f5f3f2")
+      fir2Frame.pack(side="top", fill=X)
+      listFrame = Frame(fir2Frame, bg="white", height=140,borderwidth=5,  relief=RIDGE)
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      edit_maintree = fbcursor.fetchone()
+      
+      if not edit_maintree:
+        edit_pro_tree=ttk.Treeview(listFrame)
+        edit_pro_tree["columns"]=["1","2","3","4","5","6","7"]
+  
+        edit_pro_tree.column("#0", width=40)
+        edit_pro_tree.column("1", width=80)
+        edit_pro_tree.column("2", width=190)
+        edit_pro_tree.column("3", width=190)
+        edit_pro_tree.column("4", width=80)
+        edit_pro_tree.column("5", width=60)
+        edit_pro_tree.column("6", width=60)
+        edit_pro_tree.column("7", width=80)
         
-        country.place(x=120,y=45)
-        country.current(0)
-
-
-        name1=Label(Customerlabelframe,text="Name :",fg="blue",pady=5,padx=10)
-        name1.place(x=20,y=70)
-        nameentry = Entry(Customerlabelframe,width=60)
-        nameentry.place(x=120,y=75)
-
-        des1=Label(Customerlabelframe,text="Description :",pady=5,padx=10)
-        des1.place(x=20,y=100)
-        desentry = Entry(Customerlabelframe,width=60)
-        desentry.place(x=120,y=105)
-
-        uval = IntVar(Customerlabelframe, value='$0.00')
-        unit1=Label(Customerlabelframe,text="Unit Price:",fg="blue",pady=5,padx=10)
-        unit1.place(x=20,y=130)
-        unitentry = Entry(Customerlabelframe,width=20,textvariable=uval)
-        unitentry.place(x=120,y=135)
-
-        pcsval = IntVar(Customerlabelframe, value='$0.00')
-        pcs1=Label(Customerlabelframe,text="Pcs/Weight:",fg="blue",pady=5,padx=10)
-        pcs1.place(x=320,y=140)
-        pcsentry = Entry(Customerlabelframe,width=20,textvariable=pcsval)
-        pcsentry.place(x=410,y=140)
-
-        costval = IntVar(Customerlabelframe, value='$0.00')
-        cost1=Label(Customerlabelframe,text="Cost:",pady=5,padx=10)
-        cost1.place(x=20,y=160)
-        costentry = Entry(Customerlabelframe,width=20,textvariable=costval)
-        costentry.place(x=120,y=165)
-
-        priceval = IntVar(Customerlabelframe, value='$0.00')
-        price1=Label(Customerlabelframe,text="(Price Cost):",pady=5,padx=10)
-        price1.place(x=20,y=190)
-        priceentry = Entry(Customerlabelframe,width=20,textvariable=priceval)
-        priceentry.place(x=120,y=195)
-
-        checkvarStatus2=IntVar()
-      
-        Button2 = Checkbutton(Customerlabelframe,variable = checkvarStatus2,
-                          text="Taxable Tax1rate",compound="right",
-                          onvalue =0 ,
-                          offvalue = 1,
-                          height=2,
-                          width = 12)
-
-        Button2.place(x=415,y=170)
-
-
-        checkvarStatus3=IntVar()
-      
-        Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,
-                          text="No stock Control",
-                          onvalue =1 ,
-                          offvalue = 0,
-                          height=3,
-                          width = 15)
-
-        Button3.place(x=40,y=220)
-
-
-        stockval = IntVar(Customerlabelframe, value='0')
-        stock1=Label(Customerlabelframe,text="Stock:",pady=5,padx=10)
-        stock1.place(x=90,y=260)
-        stockentry = Entry(Customerlabelframe,width=15,textvariable=stockval)
-        stockentry.place(x=150,y=265)
-
-        lowval = IntVar(Customerlabelframe, value='0')
-        low1=Label(Customerlabelframe,text="Low Stock Warning Limit:",pady=5,padx=10)
-        low1.place(x=300,y=260)
-        lowentry = Entry(Customerlabelframe,width=10,textvariable=lowval)
-        lowentry.place(x=495,y=265)
-
-      
-        ware1=Label(Customerlabelframe,text="Warehouse:",pady=5,padx=10)
-        ware1.place(x=60,y=290)
-        wareentry = Entry(Customerlabelframe,width=50)
-        wareentry.place(x=150,y=295)
-
-        text1=Label(Customerlabelframe,text="Private notes(not appears on invoice):",pady=5,padx=10)
-        text1.place(x=20,y=330)
-
-        txt = scrolledtext.ScrolledText(Customerlabelframe, undo=True,width=62,height=4)
-        txt.place(x=32,y=358)
-
-
-
-
-        okButton = Button(innerFrame,compound = LEFT,image=tick , text ="Ok",width=60)
-        okButton.pack(side=LEFT)
-
-        cancelButton = Button(innerFrame,compound = LEFT,image=cancel ,text="Cancel",width=60)
-        cancelButton.pack(side=RIGHT)
-
-        imageFrame = Frame(tab2, relief=GROOVE,height=580)
-        imageFrame.pack(side="top",fill=BOTH)
-
-        browseimg=Label(imageFrame,text=" Browse for product image file(recommended image type:JPG,size 480x320 pixels) ",bg='#f5f3f2')
-        browseimg.place(x=15,y=35)
-
-        browsebutton=Button(imageFrame,text = 'Browse')
-        browsebutton.place(x=580,y=30,height=30,width=50)
+        edit_pro_tree.heading("#0")
+        edit_pro_tree.heading("1",text="ID/SKU")
+        edit_pro_tree.heading("2",text="Product/Service")
+        edit_pro_tree.heading("3",text="Description")
+        edit_pro_tree.heading("4",text="Unit Price")
+        edit_pro_tree.heading("5",text="Quality")
+        edit_pro_tree.heading("6",text="Pcs/Weight")
+        edit_pro_tree.heading("7",text="Price")
+        edit_pro_tree.pack(fill="both", expand=1)
+      elif edit_maintree[12] == '1':
+        edit_pro_tree=ttk.Treeview(listFrame)
+        edit_pro_tree["columns"]=["1","2","3","4","5","6","7"]
+  
+        edit_pro_tree.column("#0", width=40)
+        edit_pro_tree.column("1", width=80)
+        edit_pro_tree.column("2", width=190)
+        edit_pro_tree.column("3", width=190)
+        edit_pro_tree.column("4", width=80)
+        edit_pro_tree.column("5", width=60)
+        edit_pro_tree.column("6", width=60)
+        edit_pro_tree.column("7", width=80)
         
-        removeButton = Button(imageFrame,compound = LEFT,image=cancel, text ="Remove Product Image",width=150)
-        removeButton.place(x=400,y=450)
+        edit_pro_tree.heading("#0")
+        edit_pro_tree.heading("1",text="ID/SKU")
+        edit_pro_tree.heading("2",text="Product/Service")
+        edit_pro_tree.heading("3",text="Description")
+        edit_pro_tree.heading("4",text="Unit Price")
+        edit_pro_tree.heading("5",text="Quality")
+        edit_pro_tree.heading("6",text="Pcs/Weight")
+        edit_pro_tree.heading("7",text="Price")
+        edit_pro_tree.pack(fill="both", expand=1)
+      elif edit_maintree[12] == '2':
+        edit_pro_tree=ttk.Treeview(listFrame)
+        edit_pro_tree["columns"]=["1","2","3","4","5","6","7","8"]
+        edit_pro_tree.column("#0", width=40)
+        edit_pro_tree.column("1", width=80)
+        edit_pro_tree.column("2", width=190)
+        edit_pro_tree.column("3", width=190)
+        edit_pro_tree.column("4", width=80)
+        edit_pro_tree.column("5", width=60)
+        edit_pro_tree.column("6", width=60)
+        edit_pro_tree.column("7", width=60)
+        edit_pro_tree.column("8", width=80)
+        
+        edit_pro_tree.heading("#0")
+        edit_pro_tree.heading("1",text="ID/SKU")
+        edit_pro_tree.heading("2",text="Product/Service")
+        edit_pro_tree.heading("3",text="Description")
+        edit_pro_tree.heading("4",text="Unit Price")
+        edit_pro_tree.heading("5",text="Quality")
+        edit_pro_tree.heading("6",text="Pcs/Weight")
+        edit_pro_tree.heading("7",text="Tax1")
+        edit_pro_tree.heading("8",text="Price")
+        edit_pro_tree.pack(fill="both", expand=1)
+      elif edit_maintree[12] == '3':
+        edit_pro_tree=ttk.Treeview(listFrame)
+        edit_pro_tree["columns"]=["1","2","3","4","5","6","7","8","9"]
+  
+        edit_pro_tree.column("#0", width=40)
+        edit_pro_tree.column("1", width=80)
+        edit_pro_tree.column("2", width=190)
+        edit_pro_tree.column("3", width=190)
+        edit_pro_tree.column("4", width=80)
+        edit_pro_tree.column("5", width=60)
+        edit_pro_tree.column("6", width=60)
+        edit_pro_tree.column("7", width=60)
+        edit_pro_tree.column("8", width=60)
+        edit_pro_tree.column("9", width=80)
+        
+        edit_pro_tree.heading("#0")
+        edit_pro_tree.heading("1",text="ID/SKU")
+        edit_pro_tree.heading("2",text="Product/Service")
+        edit_pro_tree.heading("3",text="Description")
+        edit_pro_tree.heading("4",text="Unit Price")
+        edit_pro_tree.heading("5",text="Quality")
+        edit_pro_tree.heading("6",text="Pcs/Weight")
+        edit_pro_tree.heading("7",text="Tax1")
+        edit_pro_tree.heading("8",text="Tax2")
+        edit_pro_tree.heading("9",text="Price")
+        edit_pro_tree.pack(fill="both", expand=1)
+      
+      priceview = Label(listFrame,bg="#f5f3f2")
+      priceview.place(x=850,y=200,width=78,height=18)
+      listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
 
+      fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
+      fir3Frame.place(x=0,y=490)
 
+      tabStyle = ttk.Style()
+      tabStyle.theme_use('default')
+      tabStyle.configure('TNotebook.Tab', background="#999999", width=12, padding=5)
+      myNotebook=ttk.Notebook(fir3Frame)
+      orderFrame = Frame(myNotebook, height=200, width=800)
+      headerFrame = Frame(myNotebook, height=200, width=800)
+      commentFrame = Frame(myNotebook, height=200, width=800)
+      termsFrame = Frame(myNotebook, height=200, width=800)
+      noteFrame = Frame(myNotebook, height=200, width=800)
+      documentFrame = Frame(myNotebook, height=200, width=800)
+      
+      myNotebook.add(orderFrame,compound="left", text="Order")
+      myNotebook.add(headerFrame,compound="left",  text="Header/Footer")
+      myNotebook.add(commentFrame,compound="left",  text="Comments")
+      myNotebook.add(termsFrame,compound="left", text="Terms")
+      myNotebook.add(noteFrame,compound="left",  text="Private notes")
+      myNotebook.add(documentFrame,compound="left",  text="Documents")
+      myNotebook.pack(expand = 1, fill ="both")  
+
+      labelframe1 = LabelFrame(orderFrame,text="",font=("arial",15))
+      labelframe1.place(x=1,y=1,width=800,height=170)
+      cost1=Label(labelframe1,text="Extra cost name").place(x=2,y=5)
+      orde_extracostname=ttk.Combobox(labelframe1, value="",width=20)
+      orde_extracostname.place(x=115,y=5)
+      orde_extracostname.insert(0, edit_ord[9])
+      rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
+      orde_disrate=Entry(labelframe1,width=6)
+      orde_disrate.place(x=460,y=5)
+      orde_disrate.insert(0, edit_ord[13])
+      cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
+      orde_extracost=Entry(labelframe1,width=10)
+      orde_extracost.place(x=115,y=35)
+      orde_extracost.insert(0, edit_ord[10])
+      
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      taxdis = fbcursor.fetchone()
+      if not taxdis:
+        pass
+      elif taxdis[12] == "1":
+        pass
+      elif taxdis[12] == "2":
+        tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
+        orde_tax1=Entry(labelframe1,width=7)
+        orde_tax1.place(x=460,y=35)
+        orde_tax1.insert(0, edit_ord[14])
+      elif taxdis[12] == "3":
+        tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
+        orde_tax1=Entry(labelframe1,width=7)
+        orde_tax1.place(x=460,y=35)
+        orde_tax1.insert(0, edit_ord[14])
+        
+        tax22=Label(labelframe1,text="Tax2").place(x=420,y=67)
+        orde_tax2=Entry(labelframe1,width=7)
+        orde_tax2.place(x=460,y=67)
+        orde_tax2.insert(0, edit_ord[29])
+        
+      
+      template=Label(labelframe1,text="Template").place(x=37,y=70)
+      orde_templ=ttk.Combobox(labelframe1, value="",width=25)
+      orde_templ.place(x=115,y=70)
+      orde_templ.insert(0, edit_ord[11])
+      sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
+      orde_sales=Entry(labelframe1,width=18)
+      orde_sales.place(x=115,y=100)
+      orde_sales.insert(0, edit_ord[12])
+      category=Label(labelframe1,text="Category").place(x=300,y=100)
+      orde_cat=Entry(labelframe1,width=22)
+      orde_cat.place(x=370,y=100)
+      orde_cat.insert(0, edit_ord[12])
+
+      statusfrme = LabelFrame(labelframe1,text="Status",font=("arial",15))
+      statusfrme.place(x=540,y=0,width=160,height=160)
+      draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey").place(x=50, y=3)
+      on1=Label(statusfrme, text="Emailed on:").place( y=50)
+      nev1=Label(statusfrme, text="Never").place(x=100,y=50)
+      on2=Label(statusfrme, text="Printed on:").place( y=90)
+      nev2=Label(statusfrme, text="Never").place(x=100,y=90)
+
+      text1=Label(headerFrame,text="Title text").place(x=50,y=5)
+      orde_titletext=ttk.Combobox(headerFrame, value="",width=60)
+      orde_titletext.place(x=125,y=5)
+      orde_titletext.insert(0, edit_ord[33])
+      text2=Label(headerFrame,text="Page header text").place(x=2,y=45)
+      orde_pageheadertext=ttk.Combobox(headerFrame, value="",width=60)
+      orde_pageheadertext.place(x=125,y=45)
+      orde_pageheadertext.insert(0, edit_ord[34])
+      text3=Label(headerFrame,text="Footer text").place(x=35,y=85)
+      orde_footertext=ttk.Combobox(headerFrame, value="",width=60)
+      orde_footertext.place(x=125,y=85)
+      orde_footertext.insert(0, edit_ord[35])
+
+      text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
+      orde_privatenotes=Text(noteFrame,width=100,height=7)
+      orde_privatenotes.place(x=10,y=32)
+      orde_privatenotes.insert('1.0', edit_ord[27])
+
+      orde_termsnotes=Text(termsFrame,width=100,height=9)
+      orde_termsnotes.place(x=10,y=10)
+      orde_termsnotes.insert('1.0', edit_ord[36])
+
+      orde_commands=Text(commentFrame,width=100,height=9)
+      orde_commands.place(x=10,y=10)
+      orde_commands.insert('1.0', edit_ord[37])
+
+      btn1=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
+      btn2=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
+      text=Label(documentFrame,text="Attached documents or image files.If you attach large email then email taken long time to send").place(x=50,y=10)
+      ord_edit_doc_tree=ttk.Treeview(documentFrame, height=5)
+      ord_edit_doc_tree["columns"]=["1","2","3"]
+      ord_edit_doc_tree.column("#0", width=20)
+      ord_edit_doc_tree.column("1", width=250)
+      ord_edit_doc_tree.column("2", width=250)
+      ord_edit_doc_tree.column("2", width=200)
+      ord_edit_doc_tree.heading("#0",text="", anchor=W)
+      ord_edit_doc_tree.heading("1",text="Attach to Email")
+      ord_edit_doc_tree.heading("2",text="Filename")
+      ord_edit_doc_tree.heading("3",text="Filesize")  
+      ord_edit_doc_tree.place(x=50, y=45)
+      
+      def doc_check_convertion(B):
+        BYTE = float(B)
+        KB = float(1024)
+        MB = float(KB**2)
+        if BYTE < KB:
+          return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
+        elif KB <= BYTE < MB:
+          return '{0:.2f} KB'.format(BYTE / KB)
+        elif MB <= BYTE:
+          return '{0:.2f} MB'.format(BYTE / MB)
+
+      sql = 'select * from documents where order_number = %s'
+      val = (ord_editid,)
+      fbcursor.execute(sql,val)
+      docum = fbcursor.fetchall()
+      countd = 0
+      for i in docum:
+        file_size = doc_check_convertion(os.path.getsize('images/'+i[6]))
+        ord_edit_doc_tree.insert(parent='', index='end',text='', values=('',i[6],file_size))
+        countd += 1
 
       
-                      
-      enter=Label(newselection, text="Enter filter text").place(x=5, y=10)
-      e1=Entry(newselection, width=20).place(x=110, y=10)
-      text=Label(newselection, text="Filtered column").place(x=340, y=10)
-      e2=Entry(newselection, width=20).place(x=450, y=10)
 
-      ord_edit_protree=ttk.Treeview(newselection, height=27)
-      ord_edit_protree["columns"]=["1","2","3", "4","5"]
-      ord_edit_protree.column("#0", width=35)
-      ord_edit_protree.column("1", width=160)
-      ord_edit_protree.column("2", width=160)
-      ord_edit_protree.column("3", width=140)
-      ord_edit_protree.column("4", width=70)
-      ord_edit_protree.column("5", width=70)
-      ord_edit_protree.heading("#0",text="")
-      ord_edit_protree.heading("1",text="ID/SKU")
-      ord_edit_protree.heading("2",text="Product/Service Name")
-      ord_edit_protree.heading("3",text="Unit price")
-      ord_edit_protree.heading("4",text="Service")
-      ord_edit_protree.heading("5",text="Stock")
-      ord_edit_protree.place(x=5, y=45)
-
-
-      ctegorytree=ttk.Treeview(newselection, height=27)
-      ctegorytree["columns"]=["1"]
-      ctegorytree.column("#0", width=35, minwidth=20)
-      ctegorytree.column("1", width=205, minwidth=25, anchor=CENTER)    
-      ctegorytree.heading("#0",text="", anchor=W)
-      ctegorytree.heading("1",text="View filter by category", anchor=CENTER)
-      ctegorytree.place(x=660, y=45)
-
-      scrollbar = Scrollbar(newselection)
-      scrollbar.place(x=640, y=45, height=560)
-      scrollbar.config( command=ord_edit_protree.yview )
-    
-
-      btn1=Button(newselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
-      btn1=Button(newselection,compound = LEFT,image=tick , text="Edit product/Service", width=150,command=order_edit_product).place(x=250, y=610)
-      btn1=Button(newselection,compound = LEFT,image=tick , text="Add product/Service", width=150,command=order_create_product).place(x=435, y=610)
-      btn1=Button(newselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)
-
-
-
-    #preview new line
-    def order_edit_previewline():
-      messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
-
-
-    
-    #sms notification
-    def order_edit_sms1():
-      send_SMS=Toplevel()
-      send_SMS.geometry("700x480+240+150")
-      send_SMS.title("Send SMS notification")
-
-      style = ttk.Style()
-      style.theme_use('default')
-      style.configure('TNotebook.Tab', background="#999999", padding=5)
-      sms_Notebook = ttk.Notebook(send_SMS)
-      SMS_Notification = Frame(sms_Notebook, height=470, width=700)
-      SMS_Service_Account = Frame(sms_Notebook, height=470, width=700)
-      sms_Notebook.add(SMS_Notification, text="SMS Notification")
-      sms_Notebook.add(SMS_Service_Account, text="SMS Service Account")
-      sms_Notebook.place(x=0, y=0)
-
-      numlbel=Label(SMS_Notification, text="SMS number or comma seperated SMS number list(Please start each SMS number with the country code)")
-      numlbel.place(x=10, y=10)
-      numentry=Entry(SMS_Notification, width=92).place(x=10, y=30)
-      stexbel=Label(SMS_Notification, text="SMS Text").place(x=10, y=60)
-      stex=Entry(SMS_Notification, width=40).place(x=10, y=85,height=120)
-      
-      dclbel=Label(SMS_Notification, text="Double click to insert into text")
-      dclbel.place(x=410, y=60)
-      dcl=Entry(SMS_Notification, width=30)
-      dcl.place(x=400, y=85,height=200)
-      
-      smstype=LabelFrame(SMS_Notification, text="SMS message type", width=377, height=60)
-      smstype.place(x=10, y=223)
-      snuvar=IntVar()
-      normal_rbtn=Radiobutton(smstype, text="Normal SMS(160 chars)", variable=snuvar, value=1)
-      normal_rbtn.place(x=5, y=5)
-      unicode_rbtn=Radiobutton(smstype, text="Unicode SMS(70 chars)", variable=snuvar, value=2)
-      unicode_rbtn.place(x=190, y=5)
-      tiplbf=LabelFrame(SMS_Notification, text="Tips", width=680, height=120)
-      tiplbf.place(x=10, y=290)
-      tiplabl=Label(tiplbf,justify=LEFT,fg="red",  text="Always start the SMS nymber with the country code. Do not use the + sign at the beginning(example\nUS number:8455807546). Do not use any special characters in your normal SMS text. Please use the\nstndard SMS characters or the English alphabet and numbers only. Otherwise the SMS will be\nunreadable or undeliverable. If you need to enter international characters, accents,email address, or\nspecial characters to the SMS text field then choose the Unicode SMS format.")
-      tiplabl.place(x=5, y=5)
-
-      btn1=Button(SMS_Notification, width=20, text="Send SMS notification").place(x=10, y=420)
-      btn2=Button(SMS_Notification, width=25, text="Confirm SMS cost before sending").place(x=280, y=420)
-      btn3=Button(SMS_Notification, width=15, text="Cancel").place(x=550, y=420)
-      
-
-      smstype=LabelFrame(SMS_Service_Account, text="Select the notification service provider", width=670, height=65)
-      smstype.place(x=10, y=5)
-      snumvar=IntVar()
-      normal_rbtn=Radiobutton(smstype,text="BULKSMS(www.bulksms.com)",variable=snumvar,value=1,)
-      normal_rbtn.place(x=5, y=5)
-      unicode_rbtn=Radiobutton(smstype, text="Unicode SMS(70 chars)-Recommended", variable=snumvar, value=2)
-      unicode_rbtn.place(x=290, y=5)
-
-      sms1type=LabelFrame(SMS_Service_Account, text="Your BULKSMS.COM Account", width=670, height=100)
-      sms1type.place(x=10, y=80)
-      name=Label(sms1type, text="Username").place(x=10, y=5)
-      na=Entry(sms1type, width=20).place(x=100, y=5)
-      password=Label(sms1type, text="Password").place(x=10, y=45)
-      pas=Entry(sms1type, width=20).place(x=100, y=45)
-      combo=Label(sms1type, text="Route").place(x=400, y=5)
-      n = StringVar()
-      combo1 = ttk.Combobox(sms1type, width = 20, textvariable = n ).place(x=450,y=5)
-      btn1=Button(sms1type, width=10, text="Save settings").place(x=550, y=45)
+      fir4Frame=Frame(pop,height=190,width=210,bg="#f5f3f2")
+      fir4Frame.place(x=740,y=520)
+      summaryfrme = LabelFrame(fir4Frame,text="Summary",font=("arial",15))
+      summaryfrme.place(x=0,y=0,width=200,height=170)
+      discount=Label(summaryfrme, text="Discount")
+      discount1=Label(summaryfrme, text="0.00")
+      sub=Label(summaryfrme, text="Subtotal")
+      sub1=Label(summaryfrme, text="0.00")
+      tax=Label(summaryfrme, text="Tax1")
+      tax1sum=Label(summaryfrme, text="0.00")
+      tax22=Label(summaryfrme, text="Tax2")
+      tax2sum=Label(summaryfrme, text="0.00")
+      cost=Label(summaryfrme, text="Extra cost")
+      cost1=Label(summaryfrme, text="0.00")
+      order=Label(summaryfrme, text="Order total")
+      order1=Label(summaryfrme, text="0.00")
+      total=Label(summaryfrme, text="Total paid")
+      total1=Label(summaryfrme, text="0.00")
+      balance=Label(summaryfrme, text="Balance")
+      balance1=Label(summaryfrme, text="0.00")
 
       
-      tiplbf=LabelFrame(SMS_Service_Account, text="Terms of service", width=680, height=250)
-      tiplbf.place(x=10, y=190)
-      tiplabl=Label(tiplbf,justify=LEFT,fg="red",  text="The SMS notification service is not free.This service costs you creadit.You must have your own account\nat BULKSMS.COM and you need to have sufficient creadit and an active internet connection to use\nthis feature.Please review all fields in this form for accuracy")
-      tiplabl.place(x=0, y=5)
-      tiplabl1=Label(tiplbf,justify=LEFT,fg="black",  text="visit www.bulksms.com website to create your own account.please make sure the BULKSMS .COM\n service works well in your country before you busy creadit")
-      tiplabl1.place(x=0, y=60)
-      tiplabl2=Label(tiplbf,justify=LEFT,fg="black",  text="Our SMS notification tool comes without any warranty.our software only forwards your SMS message\nthe BULKSMS API server .The BULKSMS API server will try to sent SMS message your recipient")
-      tiplabl2.place(x=0, y=100)
-      tiplabl3=Label(tiplbf,justify=LEFT,fg="red",  text="Please note that you access and use the SMS notification tool your own risk.F-Billing software is not\nresponsible for any type of loss or damage or undelivered SMS massage which you may as a result\nof accessing and using the SMS notification service.")
-      tiplabl3.place(x=0, y=140)
-      checkvar1=IntVar()
-      chkbtn1=Checkbutton(tiplbf,text="I have read and agree to the terms of service above",variable=checkvar1,onvalue=1,offvalue=0).place(x=70, y=200) 
+      sql = "select taxtype from company"
+      fbcursor.execute(sql)
+      taxsummarysym = fbcursor.fetchone()
+      sql = "select currencysign,currsignplace from company"
+      fbcursor.execute(sql)
+      symbollabal = fbcursor.fetchone()
+      discountsym = Label(summaryfrme,text=symbollabal[0])
+      subsym = Label(summaryfrme,text=symbollabal[0])
+      tax1sym = Label(summaryfrme,text=symbollabal[0])
+      tax2sym = Label(summaryfrme,text=symbollabal[0])
+      costsym = Label(summaryfrme,text=symbollabal[0])
+      ordersym = Label(summaryfrme,text=symbollabal[0])
+      totalsym = Label(summaryfrme,text=symbollabal[0])
+      balsym = Label(summaryfrme,text=symbollabal[0])
+      if not taxsummarysym:
+        discountsym.place(x=105,y=7)
+        subsym.place(x=105,y=28)
+        costsym.place(x=105,y=54)
+        ordersym.place(x=105,y=77)
+        totalsym.place(x=105,y=98)
+        balsym.place(x=105,y=119)
+      elif taxsummarysym[0] == "1":
+        discountsym.place(x=105,y=7)
+        subsym.place(x=105,y=28)
+        costsym.place(x=105,y=54)
+        ordersym.place(x=105,y=77)
+        totalsym.place(x=105,y=98)
+        balsym.place(x=105,y=119)
+      elif taxsummarysym[0] == "2":
+        discountsym.place(x=105,y=0)
+        subsym.place(x=105,y=21)
+        tax1sym.place(x=105,y=42)
+        costsym.place(x=105,y=63)
+        ordersym.place(x=105,y=84)
+        totalsym.place(x=105,y=105)
+        balsym.place(x=105,y=126)
+      elif taxsummarysym[0] == "3":
+        discountsym.place(x=105,y=0)
+        subsym.place(x=105,y=16)
+        tax1sym.place(x=105,y=36)
+        tax2sym.place(x=105,y=52)
+        costsym.place(x=105,y=69)
+        ordersym.place(x=105,y=89)
+        totalsym.place(x=105,y=110)
+        balsym.place(x=105,y=126)
 
-
-
-    
-    #delete line item  
-    def order_edit_delete1():
-      messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
       
-      
+      sql = "select taxtype from company"
+      fbcursor.execute(sql)
+      taxsummary = fbcursor.fetchone()
+      if not taxsummary:
+        discount.place(x=0 ,y=7)
+        discount1.place(x=130 ,y=7)
+        sub.place(x=0 ,y=28)
+        sub1.place(x=130 ,y=28)
+        cost.place(x=0 ,y=54)
+        cost1.place(x=130 ,y=54)
+        order.place(x=0 ,y=77)
+        order1.place(x=130 ,y=77)
+        total.place(x=0 ,y=98)
+        total1.place(x=130 ,y=98)
+        balance.place(x=0 ,y=119)
+        balance1.place(x=130 ,y=119)
+      elif taxsummary[0] == "1":
+        discount.place(x=0 ,y=7)
+        discount1.place(x=130 ,y=7)
+        sub.place(x=0 ,y=28)
+        sub1.place(x=130 ,y=28)
+        cost.place(x=0 ,y=54)
+        cost1.place(x=130 ,y=54)
+        order.place(x=0 ,y=77)
+        order1.place(x=130 ,y=77)
+        total.place(x=0 ,y=98)
+        total1.place(x=130 ,y=98)
+        balance.place(x=0 ,y=119)
+        balance1.place(x=130 ,y=119)
+      elif taxsummary[0] == "2":
+        tax.place(x=0 ,y=42)
+        tax1sum.place(x=130 ,y=42)
+        discount.place(x=0 ,y=0)
+        discount1.place(x=130 ,y=0)
+        sub.place(x=0 ,y=21)
+        sub1.place(x=130 ,y=21)
+        cost.place(x=0 ,y=63)
+        cost1.place(x=130 ,y=63)
+        order.place(x=0 ,y=84)
+        order1.place(x=130 ,y=84)
+        total.place(x=0 ,y=105)
+        total1.place(x=130 ,y=105)
+        balance.place(x=0 ,y=126)
+        balance1.place(x=130 ,y=126)
+      elif taxsummary[0] == "3":
+        tax.place(x=0 ,y=36)
+        tax1sum.place(x=130 ,y=36)
+        tax22.place(x=0 ,y=52)
+        tax2sum.place(x=130 ,y=52)
+        discount.place(x=0 ,y=0)
+        discount1.place(x=130 ,y=0)
+        sub.place(x=0 ,y=16)
+        sub1.place(x=130 ,y=16)
+        cost.place(x=0 ,y=69)
+        cost1.place(x=130 ,y=69)
+        order.place(x=0 ,y=89)
+        order1.place(x=130 ,y=89)
+        total.place(x=0 ,y=110)
+        total1.place(x=130 ,y=110)
+        balance.place(x=0 ,y=126)
+        balance1.place(x=130 ,y=126)
 
-    firFrame=Frame(pop, bg="#f5f3f2", height=60)
-    firFrame.pack(side="top", fill=X)
+      coutp = 0
+      sql = "select * from storingproduct where order_number = %s"
+      val = (ord_editid,)
+      fbcursor.execute(sql,val)
+      dispro = fbcursor.fetchall()
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      display_editprotree = fbcursor.fetchone()
+      for i in dispro:
+        if not display_editprotree:
+          edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[13]))
+          coutp += 1
+        elif display_editprotree[12] == "1":
+          edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[13]))
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[6])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = (extracs+float(orde_extracost.get()))
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+          coutp += 1
+        elif display_editprotree[12] == "2":
+          edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[13]))
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[7])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = (extracs+float(orde_extracost.get()))
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+          
 
-    w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
-    w.pack(side="left", padx=5)
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[7]))
+              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tot = (float(totaltax1)*float(orde_tax1.get())/100)
+            else:
+              pass
+          order1.config(text=total+tot-discou+extracs)
+          balance1.config(text=total+tot-discou+extracs)
+          coutp += 1  
+        elif display_editprotree[12] == "3":
+          edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[12],i[13]))
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[8])
+          extracs = (extracs+float(orde_extracost.get()))
+          cost1.config(text=orde_extracost.get())
+          discou = (total*float(orde_disrate.get())/100)
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[8]))
+              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tot = (float(totaltax1)*float(orde_tax1.get())/100)
+            else:
+              pass
+          
+          tot2 = 0.0
+          totaltax2 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[7] == "yes":
+              totaltax2 =(totaltax2 + float(checktax1[8]))
+              tax2sum.config(text=(float(totaltax2)*float(orde_tax2.get())/100))
+              
+              tot2 = (float(totaltax2)*float(orde_tax2.get())/100)
+            else:
+              pass
+          
+          order1.config(text=total+tot+tot2-discou+extracs)
+          balance1.config(text=total+tot+tot2-discou+extracs)
+          coutp += 1
 
-    create = Button(firFrame,compound="top", text="Select\nCustomer",relief=RAISED, image=customer,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_custom)
-    create.pack(side="left", pady=3, ipadx=4)
+      fir5Frame=Frame(pop,height=38,width=210)
+      fir5Frame.place(x=735,y=485)
+      btndown=Button(fir5Frame, compound="left", text="Line Down").place(x=75, y=0)
+      btnup=Button(fir5Frame, compound="left", text="Line Up").place(x=150, y=0)
+    # except:
+    #   try:
+    #     pop.destroy()
+    #   except:
+    #     pass
+    #   messagebox.showerror('F-Billing Revolution', 'Select a record to edit.')
 
-
-    w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
-    w.pack(side="left", padx=5)
-
-    add= Button(firFrame,compound="top", text="Add new\nline item",relief=RAISED, image=photo,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_newline)
-    add.pack(side="left", pady=3, ipadx=4)
-
-    dele= Button(firFrame,compound="top", text="Delete line\nitem",relief=RAISED, image=photo2,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_delete1)
-    dele.pack(side="left", pady=3, ipadx=4)
-
-    w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
-    w.pack(side="left", padx=5)
-
-    prev= Button(firFrame,compound="top", text="Preview\nOrder",relief=RAISED, image=photo4,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_previewline)
-    prev.pack(side="left", pady=3, ipadx=4)
-
-    prin= Button(firFrame,compound="top", text="Print \nOrder",relief=RAISED, image=photo5,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_create_printsele)
-    prin.pack(side="left", pady=3, ipadx=4)
-
-    w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
-    w.pack(side="left", padx=5)
-
-    mail= Button(firFrame,compound="top", text="Email\nOrder",relief=RAISED, image=photo6,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_email)
-    mail.pack(side="left", pady=3, ipadx=4)
-
-    sms1= Button(firFrame,compound="top", text="Send SMS\nnotification",relief=RAISED, image=photo10,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=order_edit_sms1)
-    sms1.pack(side="left", pady=3, ipadx=4)
-
-    w = Canvas(firFrame, width=1, height=65, bg="#b3b3b3", bd=0)
-    w.pack(side="left", padx=5)
-
-    calc= Button(firFrame,compound="top", text="Open\nCalculator",relief=RAISED, image=photo9,bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
-    calc.pack(side="left", pady=3, ipadx=4)
-
-    fir1Frame=Frame(pop, height=180,bg="#f5f3f2")
-    fir1Frame.pack(side="top", fill=X)
-
-    labelframe1 = LabelFrame(fir1Frame,text="Customers",font=("arial",15))
-    labelframe1.place(x=10,y=5,width=640,height=160)
-    order = Label(labelframe1, text="Order to").place(x=10,y=5)
-    e1 = ttk.Combobox(labelframe1, value="Hello",width=28).place(x=80,y=5)
-    address=Label(labelframe1,text="Address").place(x=10,y=30)
-    e2=Text(labelframe1,width=23).place(x=80,y=30,height=70)
-    ship=Label(labelframe1,text="Ship to").place(x=342,y=5)
-    e3=Entry(labelframe1,width=30).place(x=402,y=3)
-    address1=Label(labelframe1,text="Address").place(x=340,y=30)
-    e4=Text(labelframe1,width=23).place(x=402,y=30,height=70)
-
-    btn1=Button(labelframe1,width=3,height=2,compound = LEFT,text=">>").place(x=280, y=50)
-    
-    labelframe2 = LabelFrame(fir1Frame,text="")
-    labelframe2.place(x=10,y=130,width=640,height=42)
-    email=Label(labelframe2,text="Email").place(x=10,y=5)
-    e5=Entry(labelframe2,width=30).place(x=80,y=5)
-    sms=Label(labelframe2,text="SMS Number").place(x=328,y=5)
-    e6=Entry(labelframe2,width=30).place(x=402,y=5)
-      
-    labelframe = LabelFrame(fir1Frame,text="Order",font=("arial",15))
-    labelframe.place(x=652,y=5,width=290,height=170)
-    order=Label(labelframe,text="Order#").place(x=5,y=5)
-    e1=Entry(labelframe,width=25).place(x=100,y=5,)
-    orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
-    e2=Entry(labelframe,width=20).place(x=150,y=33)
-    checkvarStatus5=IntVar()
-    duedate=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
-    e3=Entry(labelframe,width=20).place(x=150,y=62)
-    terms=Label(labelframe,text="Terms").place(x=5,y=92)
-    e4=ttk.Combobox(labelframe, value="",width=25).place(x=100,y=92)
-    ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
-    e1=Entry(labelframe,width=27).place(x=100,y=118)
-
-    fir2Frame=Frame(pop, height=150,width=100,bg="#f5f3f2")
-    fir2Frame.pack(side="top", fill=X)
-    listFrame = Frame(fir2Frame, bg="white", height=140,borderwidth=5,  relief=RIDGE)
-    
-    edit_pro_tree=ttk.Treeview(listFrame)
-    edit_pro_tree["columns"]=["1","2","3","4","5","6","7","8"]
-
-    edit_pro_tree.column("#0", width=40)
-    edit_pro_tree.column("1", width=80)
-    edit_pro_tree.column("2", width=190)
-    edit_pro_tree.column("3", width=190)
-    edit_pro_tree.column("4", width=80)
-    edit_pro_tree.column("5", width=60)
-    edit_pro_tree.column("6", width=60)
-    edit_pro_tree.column("7", width=60)
-    edit_pro_tree.column("8", width=80)
-    
-    edit_pro_tree.heading("#0")
-    edit_pro_tree.heading("1",text="ID/SKU")
-    edit_pro_tree.heading("2",text="Product/Service")
-    edit_pro_tree.heading("3",text="Description")
-    edit_pro_tree.heading("4",text="Unit Price")
-    edit_pro_tree.heading("5",text="Quality")
-    edit_pro_tree.heading("6",text="Pcs/Weight")
-    edit_pro_tree.heading("7",text="Tax1")
-    edit_pro_tree.heading("8",text="Price")
-    
-    edit_pro_tree.pack(fill="both", expand=1)
-    listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
-
-    fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
-    fir3Frame.place(x=0,y=490)
-
-    tabStyle = ttk.Style()
-    tabStyle.theme_use('default')
-    tabStyle.configure('TNotebook.Tab', background="#999999", width=12, padding=5)
-    myNotebook=ttk.Notebook(fir3Frame)
-    orderFrame = Frame(myNotebook, height=200, width=800)
-    headerFrame = Frame(myNotebook, height=200, width=800)
-    commentFrame = Frame(myNotebook, height=200, width=800)
-    termsFrame = Frame(myNotebook, height=200, width=800)
-    noteFrame = Frame(myNotebook, height=200, width=800)
-    documentFrame = Frame(myNotebook, height=200, width=800)
-    
-    myNotebook.add(orderFrame,compound="left", text="Order")
-    myNotebook.add(headerFrame,compound="left",  text="Header/Footer")
-    myNotebook.add(commentFrame,compound="left",  text="Comments")
-    myNotebook.add(termsFrame,compound="left", text="Terms")
-    myNotebook.add(noteFrame,compound="left",  text="Private notes")
-    myNotebook.add(documentFrame,compound="left",  text="Documents")
-    myNotebook.pack(expand = 1, fill ="both")  
-
-    labelframe1 = LabelFrame(orderFrame,text="",font=("arial",15))
-    labelframe1.place(x=1,y=1,width=800,height=170)
-    cost1=Label(labelframe1,text="Extra cost name").place(x=2,y=5)
-    e1=ttk.Combobox(labelframe1, value="",width=20).place(x=115,y=5)
-    rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
-    e2=Entry(labelframe1,width=6).place(x=460,y=5)
-    cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
-    e3=Entry(labelframe1,width=10).place(x=115,y=35)
-    tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
-    e4=Entry(labelframe1,width=7).place(x=460,y=35)
-    template=Label(labelframe1,text="Template").place(x=37,y=70)
-    e5=ttk.Combobox(labelframe1, value="",width=25).place(x=115,y=70)
-    sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
-    e6=Entry(labelframe1,width=18).place(x=115,y=100)
-    category=Label(labelframe1,text="Category").place(x=300,y=100)
-    e7=Entry(labelframe1,width=22).place(x=370,y=100)
-    
-    statusfrme = LabelFrame(labelframe1,text="Status",font=("arial",15))
-    statusfrme.place(x=540,y=0,width=160,height=160)
-    draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey").place(x=50, y=3)
-    on1=Label(statusfrme, text="Emailed on:").place( y=50)
-    nev1=Label(statusfrme, text="Never").place(x=100,y=50)
-    on2=Label(statusfrme, text="Printed on:").place( y=90)
-    nev2=Label(statusfrme, text="Never").place(x=100,y=90)
-
-    text1=Label(headerFrame,text="Title text").place(x=50,y=5)
-    e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=5)
-    text2=Label(headerFrame,text="Page header text").place(x=2,y=45)
-    e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=45)
-    text3=Label(headerFrame,text="Footer text").place(x=35,y=85)
-    e1=ttk.Combobox(headerFrame, value="",width=60).place(x=125,y=85)
-
-    text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
-    e1=Text(noteFrame,width=100,height=7).place(x=10,y=32)
-
-    e1=Text(termsFrame,width=100,height=9).place(x=10,y=10)
-
-    e1=Text(commentFrame,width=100,height=9).place(x=10,y=10)
-
-    btn1=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
-    btn2=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
-    text=Label(documentFrame,text="Attached documents or image files.If you attach large email then email taken long time to send").place(x=50,y=10)
-    ord_edit_doc_tree=ttk.Treeview(documentFrame, height=5)
-    ord_edit_doc_tree["columns"]=["1","2","3"]
-    ord_edit_doc_tree.column("#0", width=20)
-    ord_edit_doc_tree.column("1", width=250)
-    ord_edit_doc_tree.column("2", width=250)
-    ord_edit_doc_tree.column("2", width=200)
-    ord_edit_doc_tree.heading("#0",text="", anchor=W)
-    ord_edit_doc_tree.heading("1",text="Attach to Email")
-    ord_edit_doc_tree.heading("2",text="Filename")
-    ord_edit_doc_tree.heading("3",text="Filesize")  
-    ord_edit_doc_tree.place(x=50, y=45)
-    
-
-    fir4Frame=Frame(pop,height=190,width=210,bg="#f5f3f2")
-    fir4Frame.place(x=740,y=520)
-    summaryfrme = LabelFrame(fir4Frame,text="Summary",font=("arial",15))
-    summaryfrme.place(x=0,y=0,width=200,height=170)
-    discount=Label(summaryfrme, text="Discount").place(x=0 ,y=0)
-    discount1=Label(summaryfrme, text="$0.00").place(x=130 ,y=0)
-    sub=Label(summaryfrme, text="Subtotal").place(x=0 ,y=21)
-    sub1=Label(summaryfrme, text="$0.00").place(x=130 ,y=21)
-    tax=Label(summaryfrme, text="Tax1").place(x=0 ,y=42)
-    tax1=Label(summaryfrme, text="$0.00").place(x=130 ,y=42)
-    cost=Label(summaryfrme, text="Extra cost").place(x=0 ,y=63)
-    cost=Label(summaryfrme, text="$0.00").place(x=130 ,y=63)
-    order=Label(summaryfrme, text="Order total").place(x=0 ,y=84)
-    order1=Label(summaryfrme, text="$0.00").place(x=130 ,y=84)
-    total=Label(summaryfrme, text="Total paid").place(x=0 ,y=105)
-    total1=Label(summaryfrme, text="$0.00").place(x=130 ,y=105)
-    balance=Label(summaryfrme, text="Balance").place(x=0 ,y=126)
-    balance1=Label(summaryfrme, text="$0.00").place(x=130 ,y=126)
-
-    fir5Frame=Frame(pop,height=38,width=210)
-    fir5Frame.place(x=735,y=485)
-    btndown=Button(fir5Frame, compound="left", text="Line Down").place(x=75, y=0)
-    btnup=Button(fir5Frame, compound="left", text="Line Up").place(x=150, y=0)
-
-  ### End View or Edit Order ###
+    ### End View or Edit Order ###
 
   
   #printselected order
@@ -3687,25 +4103,26 @@ def mainpage():
     #___Documents_____#
     for record in ord_doc_tree.get_children():
        ord_doc_tree.delete(record)
+    def check_convertion(B):
+      BYTE = float(B)
+      KB = float(1024)
+      MB = float(KB**2)
+      if BYTE < KB:
+        return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
+      elif KB <= BYTE < MB:
+        return '{0:.2f} KB'.format(BYTE / KB)
+      elif MB <= BYTE:
+        return '{0:.2f} MB'.format(BYTE / MB)
     sql = 'select * from documents where order_number = %s'
     val = (orderitemnumber,)
     fbcursor.execute(sql,val)
     docu = fbcursor.fetchall()
     countd = 0
     for i in docu:
-      file_size = check_convertion(os.path.getsize('images'+i[6]))
+      file_size = check_convertion(os.path.getsize('images/'+i[6]))
       ord_doc_tree.insert(parent='', index='end',text='', values=('',i[6],file_size))
       countd += 1
-      def check_convertion(B):
-        BYTE = float(B)
-        KB = float(1024)
-        MB = float(KB**2)
-        if BYTE < KB:
-          return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
-        elif KB <= BYTE < MB:
-          return '{0:.2f} KB'.format(BYTE / KB)
-        elif MB <= BYTE:
-          return '{0:.2f} MB'.format(BYTE / MB)
+    
     
 
 
