@@ -262,7 +262,7 @@ def mainpage():
       ord_cus_num  = ord_smsnum.get()
       ord_order_id = ord_orderid.get()
       ord_order_date = ord_date.get_date()
-      # ord_duedatecheck = checkvarStatus522.get()
+      ord_duedatecheck = checkvarStatus522.get()
       ord_due_date = ord_duedate.get_date()
       ord_terms_pay = ord_terms.get()
       # ord_order_ref = ord_orderref.get()
@@ -290,8 +290,8 @@ def mainpage():
       # total_paid = total1.cget()
       # balance = balance1.cget()
       #________________ Order Insert___________________#
-      sql = 'insert into orders(businessname,businessaddress,shipname,shipaddress,cpemail,cpmobileforsms,order_number,order_date,due_date,terms_of_payment,extra_cost_name,discount_rate,extra_cost,tax1,tax2,template,sales_person,category,status,title_text,page_header_text,footer_text,private_notes,terms_notes,comments,sum_discount,sum_subtotal,sum_tax,sum_tax2,Order_total) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-      val = (ord_cus_name,ord_cus_address,ord_ship_name,ord_ship_address,ord_cus_email,ord_cus_num,ord_order_id,ord_order_date,ord_due_date,ord_terms_pay,ord_extra_costname,ord_discountrate,ord_extra_cost,ord_tax_1,ord_tax_2,ord_templat,ord_sales_person,ord_category,ord_status,ord_title_text,ord_pageheader_text,ord_footer_text,ord_private_notes,ord_terms_notes,ord_comm_notes,sum_discount,sum_subtotal,sum_tax1,sum_tax2,order_total)
+      sql = 'insert into orders(businessname,businessaddress,shipname,shipaddress,cpemail,cpmobileforsms,order_number,order_date,due_date,terms_of_payment,extra_cost_name,discount_rate,extra_cost,tax1,tax2,template,sales_person,category,status,title_text,page_header_text,footer_text,private_notes,terms_notes,comments,sum_discount,sum_subtotal,sum_tax,sum_tax2,Order_total,due_datecheck) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+      val = (ord_cus_name,ord_cus_address,ord_ship_name,ord_ship_address,ord_cus_email,ord_cus_num,ord_order_id,ord_order_date,ord_due_date,ord_terms_pay,ord_extra_costname,ord_discountrate,ord_extra_cost,ord_tax_1,ord_tax_2,ord_templat,ord_sales_person,ord_category,ord_status,ord_title_text,ord_pageheader_text,ord_footer_text,ord_private_notes,ord_terms_notes,ord_comm_notes,sum_discount,sum_subtotal,sum_tax1,sum_tax2,order_total,ord_duedatecheck)
       fbcursor.execute(sql, val)
       fbilldb.commit()
       
@@ -1162,150 +1162,6 @@ def mainpage():
       # messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
       previewcreate = Toplevel()
       previewcreate.geometry("1360x730")
-      frame = Frame(previewcreate, width=153, height=700)
-      frame.pack(expand=True, fill=BOTH)
-      frame.place(x=30,y=30)
-      canvas=Canvas(frame, bg='grey', width=953, height=300, scrollregion=(0,0,700,700))
-            
-      vertibar=Scrollbar(frame, orient=VERTICAL)
-      vertibar.pack(side=RIGHT,fill=Y)
-      vertibar.config(command=canvas.yview)
-        
-      canvas.config(width=1270,height=600)
-      canvas.config(yscrollcommand=vertibar.set)
-      canvas.pack(expand=True,side=LEFT,fill=BOTH)
-      canvas.create_rectangle(100, 8, 850, 687 , outline='yellow',fill='white')
-      canvas.create_text(500, 50, text="Title text goes here...", fill="black", font=('Helvetica 10'))
-    
-      #canvas.create_image(120,0, anchor=NW, image=est_logo)  
-      canvas.create_text(285, 110, text="Your Company Logo", fill="black", font=('Helvetica 18 bold'))
-        
-      canvas.create_text(202, 160, text="", fill="black", font=('Helvetica 11'))
-      canvas.create_text(215, 180, text="", fill="black", font=('Helvetica 11'))
-      canvas.create_text(200, 200, text="", fill="black", font=('Helvetica 11'))
-      canvas.create_text(191, 220, text="Terms", fill="black", font=('Helvetica 11'))
-      canvas.create_text(205, 240, text="Order ref.#", fill="black", font=('Helvetica 11'))
-      canvas.create_text(350, 160, text="EST1/2022", fill="black", font=('Helvetica 11'))
-      canvas.create_text(350, 180, text="05-05-2022", fill="black", font=('Helvetica 11'))
-      canvas.create_text(350, 200, text="20-05-2022", fill="black", font=('Helvetica 11'))
-      canvas.create_text(340, 220, text="NET 15", fill="black", font=('Helvetica 11'))
-        
-      canvas.create_text(720, 60, text=" "+comname.get(), fill="black", font=('Helvetica 12 '))
-      # canvas.create_text(700, 200, text=""+caddent.get('1.0', 'end-1c'), fill="black", font=('Helvetica 10'), width=125)
-      # T_address = Text(canvas, height=5, width=20 , font=('Helvetica 10'))
-      # T_address.insert(END, estdata[2])
-      # T_address_window = canvas.create_window(645, 80, anchor="nw", window=T_address)
-      canvas.create_text(700, 180, text=" ", fill="black", font=('Helvetica 10'))
-      canvas.create_text(700, 205, text=" ", fill="black", font=('Helvetica 14 bold'))
-      canvas.create_text(706, 225, text="TAX EXEMPTED", fill="black", font=('Helvetica 10'))
-        
-      canvas.create_text(210, 260, text="", fill="black", font=('Helvetica 10 underline'))
-      canvas.create_text(203, 280, text="John Doe", fill="black", font=('Helvetica 10 '))
-      canvas.create_text(246, 295, text="381 South Bedford Road", fill="black", font=('Helvetica 10'))
-      canvas.create_text(255, 310, text="Bedford Corners, NY 10549", fill="black", font=('Helvetica 10'))
-      canvas.create_text(215, 325, text="United States", fill="black", font=('Helvetica 10'))
-      canvas.create_text(550, 260, text="Ship to", fill="black", font=('Helvetica 10 underline'))
-      canvas.create_text(556, 280, text="John Doe", fill="black", font=('Helvetica 10 '))
-      canvas.create_text(598, 295, text="381 South Bedford Road", fill="black", font=('Helvetica 10'))
-      canvas.create_text(608, 310, text="Bedford Corners, NY 10549", fill="black", font=('Helvetica 10'))
-      canvas.create_text(568, 325, text="United States", fill="black", font=('Helvetica 10'))
-        
-      s = ttk.Style()
-      s.configure('mystyle_1.Treeview.Heading', background='',State='DISABLE')
-
-      tree=ttk.Treeview(canvas, column=("c1", "c2","c3", "c4", "c5"), show='headings',height= 0, style='mystyle_1.Treeview')
-
-      tree.column("# 1", anchor=E, stretch=NO, width=100)
-      tree.heading("# 1", text="ID/SKU")
-      tree.column("# 2", anchor=E, stretch=NO, width=350)
-      tree.heading("# 2", text="Product/Service - Description")
-      tree.column("# 3", anchor=E, stretch=NO, width=80)
-      tree.heading("# 3", text="Quantity")
-      tree.column("# 4", anchor=E, stretch=NO, width=90)
-      tree.heading("# 4", text="Unit Price")
-      tree.column("# 5", anchor=E, stretch=NO, width=80)
-      tree.heading("# 5", text="Price")
-        
-      window = canvas.create_window(120, 340, anchor="nw", window=tree)
-
-      canvas.create_line(120, 390, 820, 390 )
-      canvas.create_line(120, 340, 120, 365 )
-      canvas.create_line(120, 365, 120, 390 )
-      canvas.create_line(820, 340, 820, 540 )
-      canvas.create_line(740, 340, 740, 540 )
-      canvas.create_line(570, 340, 570, 540 )
-      canvas.create_line(570, 415, 820, 415 )
-      canvas.create_line(570, 440, 820, 440 )
-      canvas.create_line(570, 465, 820, 465 )
-      canvas.create_line(570, 490, 820, 490 )
-      canvas.create_line(570, 515, 820, 515 )
-      canvas.create_line(650, 340, 650, 390 )
-      canvas.create_line(220, 340, 220, 390 )
-      canvas.create_line(570, 540, 820, 540 )
-
-      canvas.create_text(165, 372, text="PROD-0001", fill="black", font=('Helvetica 10'))
-      canvas.create_text(370, 372, text="Example product - Description text...", fill="black", font=('Helvetica 10'))
-      canvas.create_text(610, 372, text="1", fill="black", font=('Helvetica 10'))
-      
-      if comcursignpla.get() == "before amount":
-        canvas.create_text(704, 372, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "after amount":
-        canvas.create_text(704, 372, text="200"+""+comdecsep.get()+"00"+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "before amount with space":
-        canvas.create_text(704, 372, text=""+comcursign.get()+" 200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "after amount with space":
-        canvas.create_text(704, 372, text="200"+""+comdecsep.get()+"00 "+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-
-      else:
-        pass
-      # canvas.create_text(704, 372, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-      if comcursignpla.get() == "before amount":
-        canvas.create_text(784, 372, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "after amount":
-        canvas.create_text(784, 372, text="200"+""+comdecsep.get()+"00"+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "before amount with space":
-        canvas.create_text(784, 372, text=""+comcursign.get()+" 200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "after amount with space":
-        canvas.create_text(784, 372, text="200"+""+comdecsep.get()+"00 "+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-      else:
-        pass
-      # canvas.create_text(784, 372, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      canvas.create_text(650, 404, text="Subtotal", fill="black", font=('Helvetica 10'))
-      if comcursignpla.get() == "before amount":
-        canvas.create_text(784, 404, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-      elif comcursignpla.get() == "after amount":
-        canvas.create_text(784, 404, text="200"+""+comdecsep.get()+"00"+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-
-      elif comcursignpla.get() == "before amount with space":
-        canvas.create_text(784, 404, text=""+comcursign.get()+" 200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-      elif comcursignpla.get() == "after amount with space":
-        canvas.create_text(784, 404, text="200"+""+comdecsep.get()+"00 "+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-      else:
-        pass
-      # canvas.create_text(784, 404, text=""+comcursign.get()+"200"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      canvas.create_text(650, 428, text="TAX1", fill="black", font=('Helvetica 10'))
-
-      if comcursignpla.get() == "before amount":
-        canvas.create_text(786, 428, text=""+comcursign.get()+"18"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-      elif comcursignpla.get() == "after amount":
-        canvas.create_text(786, 428, text="18"+""+comdecsep.get()+"00"+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-      elif comcursignpla.get() == "before amount with space":
-        canvas.create_text(786, 428, text=""+comcursign.get()+" 18"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-      elif comcursignpla.get() == "after amount with space":
-        canvas.create_text(786, 428, text="18"+""+comdecsep.get()+"00 "+""+comcursign.get(), fill="black", font=('Helvetica 10'))
-      else:
-        pass
-      # canvas.create_text(786, 428, text=""+comcursign.get()+"18"+""+comdecsep.get()+"00", fill="black", font=('Helvetica 10'))
-
-      canvas.create_text(650, 454, text="Shipping and handling", fill="black", font=('Helvetica 10'))
 
 
     
@@ -1755,72 +1611,48 @@ def mainpage():
     priceview = Label(listFrame,bg="#f5f3f2")
     priceview.place(x=850,y=200,width=78,height=18)
 
-    new_value = StringVar()
-    def edit_window_box(val):
-        
-        edit_window = Toplevel()
-        edit_window.title("Edit the value or cancel")
-        edit_window.geometry("400x200+350+300")
-        label_edit = Label(edit_window , text='Enter value to edit', 
-        font = ("Times New Roman", 10)).place(x=68,y=60)
-        #create edit box
-        edit_box = Entry(edit_window)
+    #_____________create product service table quantity update________#
+    ord_pro_quant = StringVar()
+    def ord_quaproedit_box(val):
+        quantitychangewin = Toplevel()
+        quantitychangewin.title("Edit the value or cancel")
+        quantitychangewin.geometry("400x200+350+300")
+        root.resizable(False, False)
+        label_edit = Label(quantitychangewin , text='Quality', 
+        font = ("Times New Roman", 10)).place(x=80,y=60)
+        edit_box = Entry(quantitychangewin)
         edit_box.insert(0,val)
-        edit_box.place(x=200,y=63)
-        #auto select edit window 
-        edit_window.focus()
+        edit_box.place(x=180,y=63)
+        quantitychangewin.focus()
         
         def value_assignment(event):
             printing = edit_box.get()
-            new_value.set(printing)
-            #only destroy will not update the value (perhaps event keeps running in background)
-            #quit allows event to stop n update value in tree but does not close the window in single click 
-            #rather on dbl click shuts down entire app 
-            edit_window.quit()
-            edit_window.destroy()
+            ord_pro_quant.set(printing)
+            quantitychangewin.quit()
+            quantitychangewin.destroy()
+            
         
-        edit_window.bind('<Return>', value_assignment )
+        quantitychangewin.bind('<Return>', value_assignment )
     
-        B1 = Button(edit_window, text="Okay")
+        B1 = Button(quantitychangewin, text="Okay")
         B1.bind('<Button-1>',value_assignment)
         B1.place(x=70,y=130)
         
-        B2 = Button(edit_window, text="Cancel", command = edit_window.destroy).place(x=276,y=130)
-        edit_window.mainloop()
-        
-    #will explain
-    #variable to hold col value (col clicked)
-    shape1 = IntVar()
-    #tracks both col , row on mouse click
-    def tree_click_handler(event):
-        cur_item = ord_pro_create_tree.item(ord_pro_create_tree.focus())
-        col = ord_pro_create_tree.identify_column(event.x)[1:]
-        rowid = ord_pro_create_tree.identify_row(event.y)[1:]
-        #updates list
-        shape1.set(col)
-        try:
-            x,y,w,h = ord_pro_create_tree.bbox('I'+rowid,'#'+col)
-        except:pass
-        #tree.tag_configure("highlight", background="yellow")
-        return(col)
-        
-    #code linked to event    
-    ord_pro_create_tree.bind('<ButtonRelease-1>', tree_click_handler)
+        B2 = Button(quantitychangewin, text="Cancel", command = quantitychangewin.destroy).place(x=276,y=130)
+        quantitychangewin.mainloop()
+  
     def edit(event):
       try:
         selected_item = ord_pro_create_tree.selection()[0]
         temp = list(ord_pro_create_tree.item(selected_item , 'values'))
-        tree_click_handler
-        col_selected = int(shape1.get())-1
-        edit_window_box(temp[col_selected])
-        #do not run if edit window is open
-        #use edit_window.mainloop() so value assign after window closes
-        temp[col_selected] = new_value.get()
+        ord_quaproedit_box(temp[4])
+        temp[4] = ord_pro_quant.get()
         ord_pro_create_tree.item(selected_item, values= temp)
+        # print(temp[2])
+        # ord_pro_create_tree.item(selected_item, '#7', (temp[3]*temp[4]))
+          # ord_pro_create_tree.set(priceuodate[6], '#7', (float(priceuodate[3])*float(priceuodate[4])))
+        
       except: pass
-    
-     
-#binding allows to edit on screen double click
     ord_pro_create_tree.bind('<Double-Button-1>' , edit)
 
     fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
@@ -2454,7 +2286,7 @@ def mainpage():
           ord_cus_num  = orde_sms.get()
           ord_order_id = orde_orderid.get()
           ord_order_date = orde_date.get_date()
-          # ord_duedatecheck = checkvarStatus522.get()
+          ord_duedatecheck = checkvarStatus5due.get()
           ord_due_date = orde_duedate.get_date()
           ord_terms_pay = orde_terms.get()
           # ord_order_ref = ord_orderref.get()
@@ -2483,8 +2315,8 @@ def mainpage():
           # balance = balance1.cget()
 
           #________________ Order Update___________________#
-          sql = 'update orders set businessname=%s,businessaddress=%s,shipname=%s,shipaddress=%s,cpemail=%s,cpmobileforsms=%s,order_number=%s,order_date=%s,due_date=%s,terms_of_payment=%s,extra_cost_name=%s,discount_rate=%s,extra_cost=%s,tax1=%s,tax2=%s,template=%s,sales_person=%s,category=%s,status=%s,title_text=%s,page_header_text=%s,footer_text=%s,private_notes=%s,terms_notes=%s,comments=%s,sum_discount=%s,sum_subtotal=%s,sum_tax=%s,sum_tax2=%s,Order_total=%s where order_number = %s'
-          val = (ord_cus_name,ord_cus_address,ord_ship_name,ord_ship_address,ord_cus_email,ord_cus_num,ord_order_id,ord_order_date,ord_due_date,ord_terms_pay,ord_extra_costname,ord_discountrate,ord_extra_cost,ord_tax_1,ord_tax_2,ord_templat,ord_sales_person,ord_category,ord_status,ord_title_text,ord_pageheader_text,ord_footer_text,ord_private_notes,ord_terms_notes,ord_comm_notes,sum_discount,sum_subtotal,sum_tax1,sum_tax2,order_total,ord_editid)
+          sql = 'update orders set businessname=%s,businessaddress=%s,shipname=%s,shipaddress=%s,cpemail=%s,cpmobileforsms=%s,order_number=%s,order_date=%s,due_date=%s,terms_of_payment=%s,extra_cost_name=%s,discount_rate=%s,extra_cost=%s,tax1=%s,tax2=%s,template=%s,sales_person=%s,category=%s,status=%s,title_text=%s,page_header_text=%s,footer_text=%s,private_notes=%s,terms_notes=%s,comments=%s,sum_discount=%s,sum_subtotal=%s,sum_tax=%s,sum_tax2=%s,Order_total=%s,due_datecheck=%s where order_number = %s'
+          val = (ord_cus_name,ord_cus_address,ord_ship_name,ord_ship_address,ord_cus_email,ord_cus_num,ord_order_id,ord_order_date,ord_due_date,ord_terms_pay,ord_extra_costname,ord_discountrate,ord_extra_cost,ord_tax_1,ord_tax_2,ord_templat,ord_sales_person,ord_category,ord_status,ord_title_text,ord_pageheader_text,ord_footer_text,ord_private_notes,ord_terms_notes,ord_comm_notes,sum_discount,sum_subtotal,sum_tax1,sum_tax2,order_total,ord_duedatecheck,ord_editid)
           fbcursor.execute(sql, val)
           fbilldb.commit()
 
@@ -3670,12 +3502,29 @@ def mainpage():
       orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
       orde_date=DateEntry(labelframe,width=20)
       orde_date.place(x=150,y=33)
+      orde_date.delete(0, END)
       orde_date.insert(0, edit_ord[1])
-      checkvarStatus5=IntVar()
-      duedate=Checkbutton(labelframe,variable = checkvarStatus5,text="Due date",onvalue =0 ,offvalue = 1).place(x=5,y=62)
+      def ord_duetick():
+        if checkvarStatus5due.get():
+          orde_duedate["state"] = NORMAL
+        else:
+          orde_duedate["state"] = DISABLED
+          orde_duedate.delete(0, END)
+      checkvarStatus5due=BooleanVar()
+      orde_check_duedate=Checkbutton(labelframe,variable = checkvarStatus5due,text="Due date",onvalue =1 ,offvalue= 0,command=ord_duetick)
+      orde_check_duedate.place(x=5,y=62)
       orde_duedate=DateEntry(labelframe,width=20)
       orde_duedate.place(x=150,y=62)
+      orde_duedate.delete(0, END)
       orde_duedate.insert(0, edit_ord[2])
+      if edit_ord[38] == "1":
+        orde_duedate["state"] = NORMAL
+        orde_check_duedate.select
+      elif edit_ord[38] == "0":
+        orde_duedate["state"] = DISABLED
+        orde_check_duedate.deselect
+      else:
+        pass
       terms=Label(labelframe,text="Terms").place(x=5,y=92)
       orde_terms=ttk.Combobox(labelframe, value="",width=25)
       orde_terms.place(x=100,y=92)
@@ -4834,7 +4683,30 @@ def mainpage():
 
   #delete orders  
   def order_delete():  
-    messagebox.askyesno("Delete order", "Are you sure to delete this order? All products will be placed back into stock")
+    ord_del = messagebox.askyesno("Delete order", "Are you sure to delete this order? All products will be placed back into stock")
+    #__________Delete order___________#
+    if ord_del == True:
+      ord_delid = ordtree.item(ordtree.focus())["values"][1]
+      sql = 'delete from orders where order_number=%s'
+      val = (ord_delid,)
+      fbcursor.execute(sql, val)
+      fbilldb.commit()
+      ordtree.delete(ordtree.selection()[0])
+    #__________Delete storingproduct___________#
+      sql = 'delete from storingproduct where order_number=%s'
+      val = (ord_delid,)
+      fbcursor.execute(sql, val)
+      fbilldb.commit()
+    #__________Delete documents___________#
+      sql = 'delete from documents where order_number=%s'
+      val = (ord_delid,)
+      fbcursor.execute(sql, val)
+      fbilldb.commit()
+    else:
+      pass
+  
+
+    
 
 
 
