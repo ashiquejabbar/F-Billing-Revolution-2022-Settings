@@ -1162,6 +1162,108 @@ def mainpage():
       # messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
       previewcreate = Toplevel()
       previewcreate.geometry("1360x730")
+      frame = Frame(previewcreate, width=953, height=300)
+      frame.pack(expand=True, fill=BOTH)
+      frame.place(x=5,y=30)
+      canvas=Canvas(frame, bg='grey', width=953, height=300, scrollregion=(0,0,700,1200))
+      
+      vertibar=Scrollbar(frame, orient=VERTICAL)
+      vertibar.pack(side=RIGHT,fill=Y)
+      vertibar.config(command=canvas.yview)
+      
+      canvas.config(width=1315,height=640)
+      canvas.config(yscrollcommand=vertibar.set)
+      canvas.pack(expand=True,side=LEFT,fill=BOTH)
+      canvas.create_rectangle(235, 25, 1035, 1430, outline='yellow',fill='white')
+      canvas.create_text(640, 80, text="Title text goes here...", fill="black", font=('Helvetica 10'))
+      canvas.create_text(385, 210, text="Your Company Logo", fill="black", font=('Helvetica 18 bold'))
+      
+      canvas.create_text(295, 250, text="Order#", fill="black", font=('Helvetica 11'))
+      canvas.create_text(305, 270, text="Order date", fill="black", font=('Helvetica 11'))
+      canvas.create_text(300, 290, text="Due date", fill="black", font=('Helvetica 11'))
+      canvas.create_text(291, 310, text="Terms", fill="black", font=('Helvetica 11'))
+      canvas.create_text(305, 230, text="Order ref.#", fill="black", font=('Helvetica 11'))
+      canvas.create_text(450, 250, text="ORD1/2022", fill="black", font=('Helvetica 11'))
+      canvas.create_text(450, 270, text="03-05-2022", fill="black", font=('Helvetica 11'))
+      canvas.create_text(450, 290, text="18-05-2022", fill="black", font=('Helvetica 11'))
+      canvas.create_text(440, 310, text="NET 15", fill="black", font=('Helvetica 11'))      
+
+      canvas.create_text(920, 180, text="Your Company Name", fill="black", font=('Helvetica 12 '))
+      canvas.create_text(950, 210, text="Address line 1", fill="black", font=('Helvetica 10'))
+      canvas.create_text(950, 225, text="Address line 2", fill="black", font=('Helvetica 10'))
+      canvas.create_text(950, 240, text="Address line 3", fill="black", font=('Helvetica 10'))
+      canvas.create_text(950, 255, text="Address line 4", fill="black", font=('Helvetica 10'))
+      canvas.create_text(945, 270, text="Phone: 555-5555", fill="black", font=('Helvetica 10'))
+      canvas.create_text(945, 285, text="Sales tax reg No.", fill="black", font=('Helvetica 10'))
+      canvas.create_text(950, 305, text="Order", fill="black", font=('Helvetica 14 bold'))
+      canvas.create_text(946, 325, text="TAX EXEMPTED", fill="black", font=('Helvetica 10'))
+        
+      canvas.create_text(310, 360, text="Order to", fill="black", font=('Helvetica 10 underline'))
+      canvas.create_text(303, 380, text="John Doe", fill="black", font=('Helvetica 10 '))
+      canvas.create_text(346, 395, text="381 South Bedford Road", fill="black", font=('Helvetica 10'))
+      canvas.create_text(355, 410, text="Bedford Corners, NY 10549", fill="black", font=('Helvetica 10'))
+      canvas.create_text(315, 425, text="United States", fill="black", font=('Helvetica 10'))
+      canvas.create_text(650, 360, text="Ship to", fill="black", font=('Helvetica 10 underline'))
+      canvas.create_text(656, 380, text="John Doe", fill="black", font=('Helvetica 10 '))
+      canvas.create_text(698, 395, text="381 South Bedford Road", fill="black", font=('Helvetica 10'))
+      canvas.create_text(708, 425, text="Bedford Corners, NY 10549", fill="black", font=('Helvetica 10'))
+      canvas.create_text(668, 4755, text="United States", fill="black", font=('Helvetica 10'))
+      s = ttk.Style()
+      s.configure('Treeview.Heading', background='',State='DISABLE')
+
+      tree=ttk.Treeview(canvas, column=("c1", "c2","c3", "c4", "c5"), show='headings',height= 0, style='mystyle.Treeview')
+
+      tree.column("# 1", anchor=E, stretch=NO, width=100)
+      tree.heading("# 1", text="ID/SKU")
+      tree.column("# 2", anchor=E, stretch=NO, width=350)
+      tree.heading("# 2", text="Product/Service - Description")
+      tree.column("# 3", anchor=E, stretch=NO, width=80)
+      tree.heading("# 3", text="Quantity")
+      tree.column("# 4", anchor=E, stretch=NO, width=90)
+      tree.heading("# 4", text="Unit Price")
+      tree.column("# 5", anchor=E, stretch=NO, width=80)
+      tree.heading("# 5", text="Price")
+      
+      window = canvas.create_window(280, 450, anchor="nw", window=tree)
+
+      
+
+      # canvas.create_text(165, 572, text="PROD-0001", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(370, 572, text="Example product - Description text...", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(610, 572, text="1", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(710, 572, text="$200.00", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(790, 572, text="$200.00", fill="black", font=('Helvetica 10'))
+
+      # canvas.create_text(650, 404, text="Subtotal", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(790, 404, text="$200.00", fill="black", font=('Helvetica 10'))
+
+      # canvas.create_text(650, 428, text="TAX1", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(792, 428, text="$18.00", fill="black", font=('Helvetica 10'))
+
+      # canvas.create_text(650, 454, text="Shipping and handling", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(792, 454, text="$20.00", fill="black", font=('Helvetica 10'))
+
+      # canvas.create_text(790, 479, text="$238.00", fill="black", font=('Helvetica 10 bold'))
+      # canvas.create_text(650, 479, text="Estimate total", fill="black", font=('Helvetica 10 bold'))
+
+      # canvas.create_text(790, 502, text="$100.00", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(650, 502, text="Total Paid", fill="black", font=('Helvetica 10'))
+
+      # canvas.create_text(790, 526, text="$138.00", fill="black", font=('Helvetica 10'))
+      # canvas.create_text(650, 526, text="Balance", fill="black", font=('Helvetica 10'))
+
+      canvas.create_text(375, 850, text="Multiline comment text goes here..", fill="black", font=('Helvetica 10'))
+      canvas.create_text(282, 860, text="...", fill="black", font=('Helvetica 10'))
+      canvas.create_text(282, 870, text="...", fill="black", font=('Helvetica 10'))
+      canvas.create_text(282, 880, text="...", fill="black", font=('Helvetica 10'))
+      
+      canvas.create_text(600, 1050, text="Terms and Conditions", fill="black", font=('Helvetica 10'))
+      canvas.create_line(250, 1070, 1015, 1070)
+      
+     
+      canvas.create_text(380, 2040, text= "", fill="black", font=('Helvetica 10'))
+      canvas.create_text(380, 2055, text="Page footer text goes here...", fill="black", font=('Helvetica 10'))
+      canvas.create_text(920, 2055, text="Page 1 of 1", fill="black", font=('Helvetica 10'))
 
 
     
@@ -1642,17 +1744,118 @@ def mainpage():
         quantitychangewin.mainloop()
   
     def edit(event):
-      try:
         selected_item = ord_pro_create_tree.selection()[0]
         temp = list(ord_pro_create_tree.item(selected_item , 'values'))
         ord_quaproedit_box(temp[4])
         temp[4] = ord_pro_quant.get()
         ord_pro_create_tree.item(selected_item, values= temp)
-        # print(temp[2])
-        # ord_pro_create_tree.item(selected_item, '#7', (temp[3]*temp[4]))
-          # ord_pro_create_tree.set(priceuodate[6], '#7', (float(priceuodate[3])*float(priceuodate[4])))
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        priceupdate = fbcursor.fetchone()
+        if not priceupdate:
+         ord_pro_create_tree.set(selected_item, '#7', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="1":
+          ord_pro_create_tree.set(selected_item, '#7', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="2":
+          ord_pro_create_tree.set(selected_item, '#8', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="3":
+          ord_pro_create_tree.set(selected_item, '#9', (float(temp[3])*float(temp[4])))
         
-      except: pass
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        delrefresh = fbcursor.fetchone()
+        if not delrefresh:
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[6])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "1":
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[6])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "2":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[7])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[7]))
+              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tot = (float(totaltax1)*float(ord_tax.get())/100)
+            else:
+              pass
+          order1.config(text=total+tot-discou+extracs)
+          balance1.config(text=total+tot-discou+extracs)
+        elif delrefresh[12] == "3":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in ord_pro_create_tree.get_children():
+            total += float(ord_pro_create_tree.item(child, 'values')[8])
+          discou = (total*float(ord_disrate.get())/100)
+          extracs = extracs + float(ord_extracost.get())
+          cost1.config(text=ord_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[8]))
+              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tot = (float(totaltax1)*float(ord_tax.get())/100)
+            else:
+              pass
+          
+          tot2 = 0.0
+          totaltax2 = 0.0
+          for child in ord_pro_create_tree.get_children():
+            checktax1 = list(ord_pro_create_tree.item(child, 'values'))
+            if checktax1[7] == "yes":
+              totaltax2 =(totaltax2 + float(checktax1[8]))
+              tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+              tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
+            else:
+              pass
+
+          order1.config(text=total+tot+tot2-discou+extracs)
+          balance1.config(text=total+tot+tot2-discou+extracs)
+        
+      
     ord_pro_create_tree.bind('<Double-Button-1>' , edit)
 
     fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
@@ -3199,7 +3402,127 @@ def mainpage():
 
       #preview new line
       def order_edit_previewline():
-        messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
+        # messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
+        previewcreate = Toplevel()
+        previewcreate.geometry("1360x730")
+        frame = Frame(previewcreate, width=953, height=300)
+        frame.pack(expand=True, fill=BOTH)
+        frame.place(x=5,y=30)
+        canvas=Canvas(frame, bg='grey', width=953, height=300, scrollregion=(0,0,700,1200))
+        
+        vertibar=Scrollbar(frame, orient=VERTICAL)
+        vertibar.pack(side=RIGHT,fill=Y)
+        vertibar.config(command=canvas.yview)
+        
+        canvas.config(width=1315,height=640)
+        canvas.config(yscrollcommand=vertibar.set)
+        canvas.pack(expand=True,side=LEFT,fill=BOTH)
+        canvas.create_rectangle(235, 25, 1035, 1430, outline='yellow',fill='white')
+        canvas.create_text(640, 80, text="Title text goes here...", fill="black", font=('Helvetica 10'))
+        canvas.create_text(385, 210, text="Your Company Logo", fill="black", font=('Helvetica 18 bold'))
+        
+        canvas.create_text(295, 250, text="Order#", fill="black", font=('Helvetica 11'))
+        canvas.create_text(305, 270, text="Order date", fill="black", font=('Helvetica 11'))
+        canvas.create_text(300, 290, text="Due date", fill="black", font=('Helvetica 11'))
+        canvas.create_text(291, 310, text="Terms", fill="black", font=('Helvetica 11'))
+        canvas.create_text(305, 330, text="Order ref.#", fill="black", font=('Helvetica 11'))
+        canvas.create_text(450, 250, text=""+orde_orderid.get(), fill="black", font=('Helvetica 11'))
+        canvas.create_text(450, 270, text=orde_date.get_date(), fill="black", font=('Helvetica 11'))
+        canvas.create_text(450, 290, text=orde_date.get_date(), fill="black", font=('Helvetica 11'))
+        canvas.create_text(440, 310, text=""+orde_terms.get(), fill="black", font=('Helvetica 11'))      
+
+        canvas.create_text(920, 180, text="Your Company Name", fill="black", font=('Helvetica 12 '))
+        canvas.create_text(950, 210, text="Address line 1", fill="black", font=('Helvetica 10'))
+        canvas.create_text(950, 225, text="Address line 2", fill="black", font=('Helvetica 10'))
+        canvas.create_text(950, 240, text="Address line 3", fill="black", font=('Helvetica 10'))
+        canvas.create_text(950, 255, text="Address line 4", fill="black", font=('Helvetica 10'))
+        canvas.create_text(945, 270, text="Phone: 555-5555", fill="black", font=('Helvetica 10'))
+        canvas.create_text(945, 285, text="Sales tax reg No.", fill="black", font=('Helvetica 10'))
+        canvas.create_text(950, 305, text="Order", fill="black", font=('Helvetica 14 bold'))
+        canvas.create_text(946, 325, text="TAX EXEMPTED", fill="black", font=('Helvetica 10'))
+        canvas.create_text(310, 350, text="Order to", fill="black", font=('Helvetica 10 underline'))
+        ord_canvas_name = Label(canvas, font=('Helvetica 10 '),width=30)
+        ord_canvas_name.config(text=orde_name.get(),anchor="w",bg="white")
+        canvas.create_window(400, 370,window=ord_canvas_name)
+        addr_can_lab = Text(canvas,font=('Helvetica 10'),width=30,height=4,bd=0,fg= "black",
+        bg="white",cursor="arrow")
+        addr_can_lab.insert("1.0",orde_addr.get("1.0",END))
+        addr_can_lab.config(state=DISABLED)
+        canvas.create_window(386, 412, window=addr_can_lab)
+        canvas.create_text(650, 350, text="Ship to", fill="black", font=('Helvetica 10 underline'))
+        ord_canvas_ship = Label(canvas, font=('Helvetica 10 '),width=30)
+        ord_canvas_ship.config(text=orde_ship.get(),anchor="w",bg="white")
+        canvas.create_window(750, 370, window=ord_canvas_ship)
+        shipaddr_can_lab = Text(canvas,font=('Helvetica 10'),width=30,height=4,bd=0,fg= "black",
+        bg="white",cursor="arrow")
+        shipaddr_can_lab.insert("1.0",orde_shipaddr.get("1.0",END))
+        shipaddr_can_lab.config(state=DISABLED)
+        canvas.create_window(737, 413,window=shipaddr_can_lab)
+
+        s = ttk.Style()
+        s.configure('Treeview.Heading', background='',State='DISABLE')
+
+        # tree=ttk.Treeview(canvas, column=("c1", "c2","c3", "c4", "c5"), show='headings',height= 0, style='mystyle.Treeview')
+
+        # tree.column("# 1", anchor=E, stretch=NO, width=100)
+        # tree.heading("# 1", text="ID/SKU")
+        # tree.column("# 2", anchor=E, stretch=NO, width=350)
+        # tree.heading("# 2", text="Product/Service - Description")
+        # tree.column("# 3", anchor=E, stretch=NO, width=80)
+        # tree.heading("# 3", text="Quantity")
+        # tree.column("# 4", anchor=E, stretch=NO, width=90)
+        # tree.heading("# 4", text="Unit Price")
+        # tree.column("# 5", anchor=E, stretch=NO, width=80)
+        # tree.heading("# 5", text="Price")
+        ord_previewtree=ttk.Treeview(canvas, height=10,style='mystyle.Treeview')
+        ord_previewtree["columns"]=["1","2","3", "4","5"]
+        ord_previewtree.column("#0", width=1)
+        ord_previewtree.column("1", width=100)
+        ord_previewtree.column("2", width=350)
+        ord_previewtree.column("3", width=80)
+        ord_previewtree.column("4", width=90)
+        ord_previewtree.column("5", width=80)
+        ord_previewtree.heading("#0",text="")
+        ord_previewtree.heading("1",text="ID/SKU")
+        ord_previewtree.heading("2",text="Product/Service")
+        ord_previewtree.heading("3",text="Quantity")
+        ord_previewtree.heading("4",text="Unit Price")
+        ord_previewtree.heading("5",text="Price")
+        
+        window = canvas.create_window(280, 450, anchor="nw", window=ord_previewtree)
+
+        for child in edit_pro_tree.get_children():
+          previewdata = list(edit_pro_tree.item(child, 'values'))
+          ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[0],previewdata[1],previewdata[4],previewdata[3],previewdata[6]))
+        ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[0],previewdata[1],previewdata[4],previewdata[3],previewdata[6]))
+        
+        canvas.create_text(650, 850, text="Subtotal", fill="black", font=('Helvetica 10'))
+        canvas.create_text(790, 850, text=""+sub1.cget('text'), fill="black", font=('Helvetica 10'))
+
+        canvas.create_text(650, 870, text="TAX1", fill="black", font=('Helvetica 10'))
+        canvas.create_text(792, 870, text="$18.00", fill="black", font=('Helvetica 10'))
+
+        canvas.create_text(650, 890, text="TAX2", fill="black", font=('Helvetica 10'))
+        canvas.create_text(792, 890, text="$20.00", fill="black", font=('Helvetica 10'))
+
+        canvas.create_text(790, 910, text="$238.00", fill="black", font=('Helvetica 10 bold'))
+        canvas.create_text(650, 910, text="Extra Cost", fill="black", font=('Helvetica 10 bold'))
+
+        canvas.create_text(790, 930, text="$100.00", fill="black", font=('Helvetica 10'))
+        canvas.create_text(650, 930, text="Total Paid", fill="black", font=('Helvetica 10'))
+
+        canvas.create_text(375, 850, text="Multiline comment text goes here..", fill="black", font=('Helvetica 10'))
+        canvas.create_text(282, 860, text="...", fill="black", font=('Helvetica 10'))
+        canvas.create_text(282, 870, text="...", fill="black", font=('Helvetica 10'))
+        canvas.create_text(282, 880, text="...", fill="black", font=('Helvetica 10'))
+        
+        canvas.create_text(600, 1050, text="Terms and Conditions", fill="black", font=('Helvetica 10'))
+        canvas.create_line(250, 1070, 1015, 1070)
+        
+      
+        canvas.create_text(380, 2040, text= "", fill="black", font=('Helvetica 10'))
+        canvas.create_text(380, 2055, text="Page footer text goes here...", fill="black", font=('Helvetica 10'))
+        canvas.create_text(920, 2055, text="Page 1 of 1", fill="black", font=('Helvetica 10'))
 
 
       
@@ -3502,8 +3825,8 @@ def mainpage():
       orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
       orde_date=DateEntry(labelframe,width=20)
       orde_date.place(x=150,y=33)
-      orde_date.delete(0, END)
-      orde_date.insert(0, edit_ord[1])
+      # orde_date.delete(0, END)
+      orde_date.set_date(edit_ord[1])
       def ord_duetick():
         if checkvarStatus5due.get():
           orde_duedate["state"] = NORMAL
@@ -3515,8 +3838,7 @@ def mainpage():
       orde_check_duedate.place(x=5,y=62)
       orde_duedate=DateEntry(labelframe,width=20)
       orde_duedate.place(x=150,y=62)
-      orde_duedate.delete(0, END)
-      orde_duedate.insert(0, edit_ord[2])
+      orde_duedate.set_date(edit_ord[2])
       if edit_ord[38] == "1":
         orde_duedate["state"] = NORMAL
         orde_check_duedate.select
@@ -3637,6 +3959,149 @@ def mainpage():
       priceview = Label(listFrame,bg="#f5f3f2")
       priceview.place(x=850,y=200,width=78,height=18)
       listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
+
+      #_____________create product service table quantity update________#
+      ord_pro_quant = StringVar()
+      def ord_quaproedit_box(val):
+        quantitychangewin = Toplevel()
+        quantitychangewin.title("Edit the value or cancel")
+        quantitychangewin.geometry("400x200+350+300")
+        root.resizable(False, False)
+        label_edit = Label(quantitychangewin , text='Quality', 
+        font = ("Times New Roman", 10)).place(x=80,y=60)
+        edit_box = Entry(quantitychangewin)
+        edit_box.insert(0,val)
+        edit_box.place(x=180,y=63)
+        quantitychangewin.focus()
+        
+        def value_assignment(event):
+            printing = edit_box.get()
+            ord_pro_quant.set(printing)
+            quantitychangewin.quit()
+            quantitychangewin.destroy()
+            
+        
+        quantitychangewin.bind('<Return>', value_assignment )
+    
+        B1 = Button(quantitychangewin, text="Okay")
+        B1.bind('<Button-1>',value_assignment)
+        B1.place(x=70,y=130)
+        
+        B2 = Button(quantitychangewin, text="Cancel", command = quantitychangewin.destroy).place(x=276,y=130)
+        quantitychangewin.mainloop()
+  
+      def edit(event):
+        selected_item = edit_pro_tree.selection()[0]
+        temp = list(edit_pro_tree.item(selected_item , 'values'))
+        ord_quaproedit_box(temp[4])
+        temp[4] = ord_pro_quant.get()
+        edit_pro_tree.item(selected_item, values= temp)
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        priceupdate = fbcursor.fetchone()
+        if not priceupdate:
+          edit_pro_tree.set(selected_item, '#7', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="1":
+          edit_pro_tree.set(selected_item, '#7', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="2":
+          edit_pro_tree.set(selected_item, '#8', (float(temp[3])*float(temp[4])))
+        elif priceupdate[12] =="3":
+          edit_pro_tree.set(selected_item, '#9', (float(temp[3])*float(temp[4])))
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        delrefresh = fbcursor.fetchone()
+        if not delrefresh:
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[6])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = extracs + float(orde_extracost.get())
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "1":
+          extracs = 0.0
+          discou = 0.0
+          total= 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[6])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = extracs + float(orde_extracost.get())
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          order1.config(text=total-discou+extracs)
+          balance1.config(text=total-discou+extracs)
+          sub1.config(text=total-discou)
+        elif delrefresh[12] == "2":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[7])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = extracs + float(orde_extracost.get())
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[7]))
+              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tot = (float(totaltax1)*float(orde_tax1.get())/100)
+            else:
+              pass
+          order1.config(text=total+tot-discou+extracs)
+          balance1.config(text=total+tot-discou+extracs)
+        elif delrefresh[12] == "3":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in edit_pro_tree.get_children():
+            total += float(edit_pro_tree.item(child, 'values')[8])
+          discou = (total*float(orde_disrate.get())/100)
+          extracs = extracs + float(orde_extracost.get())
+          cost1.config(text=orde_extracost.get())
+          discount1.config(text=discou)
+          priceview.config(text=total)
+          sub1.config(text=total-discou)
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[8]))
+              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tot = (float(totaltax1)*float(orde_tax1.get())/100)
+            else:
+              pass
+          
+          tot2 = 0.0
+          totaltax2 = 0.0
+          for child in edit_pro_tree.get_children():
+            checktax1 = list(edit_pro_tree.item(child, 'values'))
+            if checktax1[7] == "yes":
+              totaltax2 =(totaltax2 + float(checktax1[8]))
+              tax2sum.config(text=(float(totaltax2)*float(orde_tax2.get())/100))
+              tot2 = (float(totaltax2)*float(orde_tax2.get())/100)
+            else:
+              pass
+
+          order1.config(text=total+tot+tot2-discou+extracs)
+          balance1.config(text=total+tot+tot2-discou+extracs)
+      
+      edit_pro_tree.bind('<Double-Button-1>' , edit)
 
       fir3Frame=Frame(pop,height=200,width=700,bg="#f5f3f2")
       fir3Frame.place(x=0,y=490)
@@ -3765,6 +4230,7 @@ def mainpage():
       orde_disrate=Spinbox(labelframe1,width=6,from_=0 ,to=100)
       orde_disrate.place(x=460,y=5)
       orde_disrate.bind('<Button-1>', binddisce)
+      orde_disrate.delete(0, END)
       orde_disrate.insert(0, edit_ord[13])
 
       def extracoste(event):
@@ -3976,24 +4442,27 @@ def mainpage():
       sql = "select * from company"
       fbcursor.execute(sql)
       taxdis = fbcursor.fetchone()
+      tax=Label(labelframe1,text="Tax1")
+      orde_tax1=Entry(labelframe1,width=7)
+      tax22=Label(labelframe1,text="Tax2")
+      orde_tax2=Entry(labelframe1,width=7)
       if not taxdis:
-        pass
+        orde_tax1.insert(0, 0)
+        orde_tax2.insert(0, 0)
       elif taxdis[12] == "1":
-        pass
+        orde_tax1.insert(0, 0)
+        orde_tax2.insert(0, 0)
       elif taxdis[12] == "2":
-        tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
-        orde_tax1=Entry(labelframe1,width=7)
+        tax.place(x=420,y=35)
         orde_tax1.place(x=460,y=35)
         orde_tax1.insert(0, edit_ord[14])
+        orde_tax2.insert(0, 0)
         orde_tax1.bind('<KeyRelease>', bindtax1e)
       elif taxdis[12] == "3":
-        tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
-        orde_tax1=Entry(labelframe1,width=7)
+        tax.place(x=420,y=35)
         orde_tax1.place(x=460,y=35)
         orde_tax1.insert(0, edit_ord[14])
-        
-        tax22=Label(labelframe1,text="Tax2").place(x=420,y=67)
-        orde_tax2=Entry(labelframe1,width=7)
+        tax22.place(x=420,y=67)
         orde_tax2.place(x=460,y=67)
         orde_tax2.insert(0, edit_ord[29])
         orde_tax1.bind('<KeyRelease>', bindtax1e)
