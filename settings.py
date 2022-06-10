@@ -4527,7 +4527,7 @@ def mainpage():
       exd._set_text(exd._date.strftime('%d.%m.%Y'))
     elif dafget == "yyyy/mm/dd":
       exd._set_text(exd._date.strftime('%Y/%m/%d'))
-    
+
   
   comdaf = StringVar()
   daf = ttk.Combobox(secondtab,textvariable=comdaf)
@@ -4540,13 +4540,15 @@ def mainpage():
   daf.place(x=60,y=380)
   
   
-  exd = DateEntry(secondtab,)
+  exd = DateEntry(secondtab)
   exd.place(x=280,y=380)
   if  not sectab:
     pass
   elif sectab[11]:
     exd.delete(0, END)
     exd.insert(0, sectab[11])
+
+  
   
   tnr=LabelFrame(secondtab,text="Tax name and rate", height=200, width=500)
   tnr.place(x=560, y=15)
