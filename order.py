@@ -3484,18 +3484,6 @@ def mainpage():
           s = ttk.Style()
           s.configure('Treeview.Heading', background='',State='DISABLE')
 
-          # tree=ttk.Treeview(canvas, column=("c1", "c2","c3", "c4", "c5"), show='headings',height= 0, style='mystyle.Treeview')
-
-          # tree.column("# 1", anchor=E, stretch=NO, width=100)
-          # tree.heading("# 1", text="ID/SKU")
-          # tree.column("# 2", anchor=E, stretch=NO, width=350)
-          # tree.heading("# 2", text="Product/Service - Description")
-          # tree.column("# 3", anchor=E, stretch=NO, width=80)
-          # tree.heading("# 3", text="Quantity")
-          # tree.column("# 4", anchor=E, stretch=NO, width=90)
-          # tree.heading("# 4", text="Unit Price")
-          # tree.column("# 5", anchor=E, stretch=NO, width=80)
-          # tree.heading("# 5", text="Price")
           ord_previewtree=ttk.Treeview(canvas, height=12,style='mystyle.Treeview')
           ord_previewtree["columns"]=["1","2","3", "4","5"]
           ord_previewtree.column("#0", width=1)
@@ -5601,105 +5589,540 @@ def mainpage():
           previewcreate.geometry("1360x730")
           frame = Frame(previewcreate, width=953, height=300)
           frame.pack(expand=True, fill=BOTH)
-          frame.place(x=247,y=90)
+          frame.place(x=5,y=30)
           
-          canvas=Canvas(frame, bg='grey', width=953, height=300, scrollregion=(0,0,700,700))
+          canvas=Canvas(frame, bg='grey', width=953, height=300, scrollregion=(0,0,700,1200))
           
           vertibar=Scrollbar(frame, orient=VERTICAL)
           vertibar.pack(side=RIGHT,fill=Y)
           vertibar.config(command=canvas.yview)
-          canvas.config(width=953,height=300)
+          canvas.config(width=1315,height=640)
           
           canvas.config(yscrollcommand=vertibar.set)
           canvas.pack(expand=True,side=LEFT,fill=BOTH)
-          canvas.create_rectangle(100, 10, 850, 687 , outline='yellow',fill='white')
-          canvas.create_text(500, 50, text="Title text goes here...", fill="black", font=('Helvetica 10'))
-          canvas.create_line(150, 70, 800, 70, fill='orange')
-          canvas.create_text(300, 150, text="Your Company Logo", fill="black", font=('Helvetica 18 bold'))
+          canvas.create_rectangle(235, 25, 1035, 1430 , outline='yellow',fill='white')
+          canvas.create_text(600, 110, text="Title text goes here...", fill="black", font=('Helvetica 10'))
+          canvas.create_line(260, 130, 1000, 130, fill='orange')
 
-          canvas.create_text(500, 115, text="Your Company Name", fill="black", font=('Helvetica 12 '))
-          canvas.create_text(525, 140, text="Address line 1", fill="black", font=('Helvetica 10'))
-          canvas.create_text(525, 155, text="Address line 2", fill="black", font=('Helvetica 10'))
-          canvas.create_text(525, 170, text="Address line 3", fill="black", font=('Helvetica 10'))
-          canvas.create_text(525, 185, text="Address line 4", fill="black", font=('Helvetica 10'))
-          canvas.create_text(534, 200, text="Phone: 555-5555", fill="black", font=('Helvetica 10'))
-          canvas.create_text(534, 215, text="Sales tax reg No.", fill="black", font=('Helvetica 10'))
+          try:
+            image = Image.open("images/"+compdataord[13])
+            resize_image = image.resize((250, 125))
+            loimg = ImageTk.PhotoImage(resize_image)
+            b2 = Label(canvas,image=loimg, height=125, width=250,)
+            b2.photo = loimg
+            canvas.create_window(400, 250,window=b2)
+          except:
+            pass
+          
+          companyname_canvas = Label(canvas, font=('Helvetica 14 bold'),width=30,bg="white")
+          companyname_canvas.config(text=compdataord[1],anchor="w")
+          canvas.create_window(741, 195,window=companyname_canvas)        
+         
+          compadress = Text(canvas,font=('Helvetica 10'),width=30,height=5,fg= "black",
+          bg="white",cursor="arrow",bd=0)
+          compadress.insert("1.0",compdataord[2])
+          compadress.tag_configure("tag_name", justify='left')
+          compadress.tag_add("tag_name", "1.0", "end")
+          compadress.config(state=DISABLED)
+          canvas.create_window(670, 260, window =compadress)
+          
+          taxcanvas = Label(canvas, font=('Helvetica 10 '),width=30,bg="white")
+          taxcanvas.config(text=compdataord[4],anchor="w")
+          canvas.create_window(686, 305, window=taxcanvas)
+       
+          ord_canvas_name = Label(canvas, font=('Helvetica 10 '),width=25,bg="white")
+          ord_canvas_name.config(text=orde_name.get(),anchor="w")
+          canvas.create_window(910, 198,window=ord_canvas_name)
 
+          addr_can_lab = Text(canvas,font=('Helvetica 10'),width=30,height=4,fg= "black",
+          bg="white",cursor="arrow",bd=0)
+          addr_can_lab.insert("1.0",orde_addr.get("1.0",END))
+          addr_can_lab.config(state=DISABLED) 
+          canvas.create_window(915, 250, window=addr_can_lab)
+          
+          canvas.create_text(816, 330, text="Order#", fill="black", font=('Helvetica 11'))
+          canvas.create_text(810, 360, text="Order date", fill="black", font=('Helvetica 11'))
+          canvas.create_text(812, 390, text="Due date", fill="black", font=('Helvetica 11'))
+
+          canvas_ordid = Label(canvas, font=('Helvetica 10 '),width=15,bg="white")
+          canvas_ordid.config(text=orde_orderid.get(),anchor="w")
+          canvas.create_window(962, 330,window=canvas_ordid)
+          # canvas.create_text(930, 240, text="ORD1/2022", fill="black", font=('Helvetica 11'))
+          canvas.create_text(930, 360, text=orde_date.get(), fill="black", font=('Helvetica 11'))
+          canvas.create_text(930, 390, text=orde_duedate.get(), fill="black", font=('Helvetica 11'))
+
+          ord_previewtree=ttk.Treeview(canvas, height=12,style='mystyle.Treeview')
+          ord_previewtree["columns"]=["1","2","3", "4","5"]
+          ord_previewtree.column("#0", width=1)
+          ord_previewtree.column("1", width=200)
+          ord_previewtree.column("2", width=250)
+          ord_previewtree.column("3", width=80)
+          ord_previewtree.column("4", width=80)
+          ord_previewtree.column("5", width=80)
+          ord_previewtree.heading("#0",text="")
+          ord_previewtree.heading("1",text="Product/Service")
+          ord_previewtree.heading("2",text="Description")
+          ord_previewtree.heading("3",text="Quantity")
+          ord_previewtree.heading("4",text="Unit Price")
+          ord_previewtree.heading("5",text="Price")
+          
+          window = canvas.create_window(280, 452, anchor="nw", window=ord_previewtree)
+
+          sql = "select * from company"
+          fbcursor.execute(sql)
+          taxcheck = fbcursor.fetchone()
+
+          sql = "select currsignplace,currencysign from company"
+          fbcursor.execute(sql)
+          symbolcheck = fbcursor.fetchone()
           
 
-          canvas.create_text(659, 180, text="Order", fill="black", font=('Helvetica 11'))
-          canvas.create_text(675, 210, text="Order date", fill="black", font=('Helvetica 11'))
-          canvas.create_text(659, 240, text="Due date", fill="black", font=('Helvetica 11'))
+
+          for child in edit_pro_tree.get_children():
+            previewdata = list(edit_pro_tree.item(child, 'values'))
+            if not taxcheck:
+              ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[1],previewdata[2],previewdata[4],previewdata[3],previewdata[6]))
+            elif taxcheck[12] == "1":
+              ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[1],previewdata[2],previewdata[4],previewdata[3],previewdata[6]))
+            elif taxcheck[12] == "2":
+              ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[1],previewdata[2],previewdata[4],previewdata[3],previewdata[7]))
+            elif taxcheck[12] == "3":
+              ord_previewtree.insert(parent='', index='end',text='', values=(previewdata[1],previewdata[2],previewdata[4],previewdata[3],previewdata[8]))
+
+        
+          if not taxcheck:
+            canvas.create_line(980, 715, 980, 815 )
+            canvas.create_line(720, 715, 720, 815 )
+            canvas.create_line(860, 715, 860, 815 )#1st
+            canvas.create_line(980, 715, 720, 715 )
+            canvas.create_line(980, 740, 720, 740 )
+            canvas.create_line(980, 765, 720, 765 ) 
+            canvas.create_line(980, 790, 720, 790 )
+            canvas.create_line(980, 815, 720, 815 )
+            
+            canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+            canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+            canvas_disc.config(text=str(discount1.cget("text")),anchor="e",bg="white")
+            canvas.create_window(920, 728,window=canvas_disc)
+
+            canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+            canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+            canvas_sub.config(text=str(sub1.cget("text")),anchor="e",bg="white")
+            canvas.create_window(920, 753,window=canvas_sub)
+            
+            
+            canvas_extra = Label(canvas, font=('Helvetica 10 '),width=13)
+            canvas_extra.config(text=str(orde_extracost.get()),anchor="e",bg="white")
+            canvas.create_window(920, 778,window=canvas_extra)
+            canvas.create_text(780, 780, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+            
+            canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+            canvas_total.config(text=str(order1.cget("text")),anchor="e",bg="white")
+            canvas.create_window(920, 803,window=canvas_total)
+            canvas.create_text(780, 805, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+          elif taxcheck[12] == "1":
+            canvas.create_line(980, 715, 980, 815 )
+            canvas.create_line(720, 715, 720, 815 )
+            canvas.create_line(860, 715, 860, 815 )#1st
+            canvas.create_line(980, 715, 720, 715 )
+            canvas.create_line(980, 740, 720, 740 )
+            canvas.create_line(980, 765, 720, 765 ) 
+            canvas.create_line(980, 790, 720, 790 )
+            canvas.create_line(980, 815, 720, 815 )
+
+            if symbolcheck[0] == "before amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+             
+              
+              canvas_extra = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extra.config(text=symbolcheck[1]+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_extra)
+              canvas.create_text(780, 780, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_total)
+              canvas.create_text(780, 805, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+            elif symbolcheck[0] == "before amount with space":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+" "+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+" "+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+             
+              
+              canvas_extra = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extra.config(text=symbolcheck[1]+" "+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_extra)
+              canvas.create_text(780, 780, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+" "+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_total)
+              canvas.create_text(780, 805, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+             
+              
+            elif symbolcheck[0] == "after amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+             
+              
+              canvas_extra = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extra.config(text=str(orde_extracost.get())+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_extra)
+              canvas.create_text(780, 780, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_total)
+              canvas.create_text(780, 805, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+            elif symbolcheck[0] == "after amount with space":
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+             
+              
+              canvas_extra = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extra.config(text=str(orde_extracost.get())+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_extra)
+              canvas.create_text(780, 780, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_total)
+              canvas.create_text(780, 805, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+          elif taxcheck[12] == "2":
+            canvas.create_line(980, 715, 980, 840 )
+            canvas.create_line(720, 715, 720, 840 )
+            canvas.create_line(860, 715, 860, 840 )#1st
+            canvas.create_line(980, 815, 720, 815 )
+            canvas.create_line(980, 715, 720, 715 )
+            canvas.create_line(980, 740, 720, 740 )
+            canvas.create_line(980, 765, 720, 765 ) 
+            canvas.create_line(980, 790, 720, 790 )
+            canvas.create_line(980, 815, 720, 815 )
+            canvas.create_line(980, 840, 720, 840 )
+
+            if symbolcheck[0] == "before amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=symbolcheck[1]+str(tax1sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+              
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=symbolcheck[1]+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_extacost)
+              canvas.create_text(780, 805, text="Extra Cost", fill="black", font=('Helvetica 10'))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_total)
+              canvas.create_text(780, 830, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+        
+            elif symbolcheck[0] == "before amount with space":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+" "+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+" "+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=symbolcheck[1]+" "+str(tax1sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+              
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=symbolcheck[1]+" "+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_extacost)
+              canvas.create_text(780, 805, text="Extra Cost", fill="black", font=('Helvetica 10'))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+" "+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_total)
+              canvas.create_text(780, 830, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+            
+            elif symbolcheck[0] == "after amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=str(tax1sum.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+              
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=str(orde_extracost.get())+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_extacost)
+              canvas.create_text(780, 805, text="Extra Cost", fill="black", font=('Helvetica 10'))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_total)
+              canvas.create_text(780, 830, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+            
+            elif symbolcheck[0] == "after amount with space":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=str(tax1sum.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+              
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=str(orde_extracost.get())+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_extacost)
+              canvas.create_text(780, 805, text="Extra Cost", fill="black", font=('Helvetica 10'))
+              
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_total)
+              canvas.create_text(780, 830, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+               
+              
+          elif taxcheck[12] == "3":
+            canvas.create_line(980, 715, 980, 870 )
+            canvas.create_line(720, 715, 720, 870 )
+            canvas.create_line(860, 715, 860, 870 )#1st
+            canvas.create_line(980, 815, 720, 815 )
+            canvas.create_line(980, 715, 720, 715 )
+            canvas.create_line(980, 740, 720, 740 )
+            canvas.create_line(980, 765, 720, 765 ) 
+            canvas.create_line(980, 790, 720, 790 )
+            canvas.create_line(980, 815, 720, 815 )
+            canvas.create_line(980, 840, 720, 840 )
+            canvas.create_line(980, 870, 720, 870 )  
+            if symbolcheck[0] == "before amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=symbolcheck[1]+str(tax1sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+    
+              canvas.create_text(780, 805, text="TAX2", fill="black", font=('Helvetica 10'))
+              canvas_tax2 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax2.config(text=symbolcheck[1]+str(tax2sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_tax2)
+            
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=symbolcheck[1]+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_extacost)
+              canvas.create_text(780, 830, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 853,window=canvas_total)
+              canvas.create_text(780, 855, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+            
+            elif symbolcheck[0] == "before amount with space":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=symbolcheck[1]+" "+str(discount1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=symbolcheck[1]+" "+str(sub1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=symbolcheck[1]+" "+str(tax1sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+    
+              canvas.create_text(780, 805, text="TAX2", fill="black", font=('Helvetica 10'))
+              canvas_tax2 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax2.config(text=symbolcheck[1+" "]+str(tax2sum.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_tax2)
+            
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=symbolcheck[1]+" "+str(orde_extracost.get()),anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_extacost)
+              canvas.create_text(780, 830, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=symbolcheck[1]+" "+str(order1.cget("text")),anchor="e",bg="white")
+              canvas.create_window(920, 853,window=canvas_total)
+              canvas.create_text(780, 855, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+              
+            elif symbolcheck[0] == "after amount":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=str(tax1sum.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+    
+              canvas.create_text(780, 805, text="TAX2", fill="black", font=('Helvetica 10'))
+              canvas_tax2 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax2.config(text=str(tax2sum.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_tax2)
+            
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=str(orde_extracost.get())+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_extacost)
+              canvas.create_text(780, 830, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 853,window=canvas_total)
+              canvas.create_text(780, 855, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+              
+            elif symbolcheck[0] == "after amount with space":
+
+              canvas.create_text(780, 730, text="Discount", fill="black", font=('Helvetica 10'))
+              canvas_disc = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_disc.config(text=str(discount1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 728,window=canvas_disc)
+
+              canvas.create_text(780, 755, text="Subtotal", fill="black", font=('Helvetica 10'))
+              canvas_sub = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_sub.config(text=str(sub1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 753,window=canvas_sub)
+    
+              canvas.create_text(780, 780, text="TAX1", fill="black", font=('Helvetica 10'))
+              canvas_tax1 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax1.config(text=str(tax1sum.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 778,window=canvas_tax1)
+    
+              canvas.create_text(780, 805, text="TAX2", fill="black", font=('Helvetica 10'))
+              canvas_tax2 = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_tax2.config(text=str(tax2sum.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 803,window=canvas_tax2)
+            
+              
+              canvas_extacost = Label(canvas, font=('Helvetica 10 '),width=13)
+              canvas_extacost.config(text=str(orde_extracost.get())+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 828,window=canvas_extacost)
+              canvas.create_text(780, 830, text="Extra Cost", fill="black", font=('Helvetica 10 '))
+              
+
+              canvas_total = Label(canvas, font=('Helvetica 10 bold'),width=13)
+              canvas_total.config(text=str(order1.cget("text"))+" "+symbolcheck[1],anchor="e",bg="white")
+              canvas.create_window(920, 853,window=canvas_total)
+              canvas.create_text(780, 855, text="Total Order", fill="black", font=('Helvetica 10 bold'))
+
+         
+          comments = Text(canvas,font=('Helvetica 10'),width=100,height=9,fg= "black",
+          bg="white",cursor="arrow",bd=0)
+          comments.insert("1.0",orde_commands.get("1.0",END))
+          comments.config(state=DISABLED)
 
           
-
+          canvas.create_window(630, 970,window=comments)
           
-
-          canvas.create_text(776, 180, text="ORD1/2022", fill="black", font=('Helvetica 11'))
-          canvas.create_text(776, 210, text="05 May 2022", fill="black", font=('Helvetica 11'))
-          canvas.create_text(776, 240, text="20-05-2022", fill="black", font=('Helvetica 11'))
-          tree=ttk.Treeview(canvas, column=("c1", "c2","c3", "c4", "c5"), show='headings',height= 0, style='mystyle.Treeview')
           
-          tree.column("# 1", anchor=E, stretch=NO, width=200)
-          tree.heading("# 1", text="Product/Service")
-          tree.column("# 2", anchor=E, stretch=NO, width=250)
-          tree.heading("# 2", text="Description")
-          tree.column("# 3", anchor=E, stretch=NO, width=90)
-          tree.heading("# 3", text="Unit Price")
-          tree.column("# 4", anchor=E, stretch=NO, width=80)
-          tree.heading("# 4", text="Quantity")
-          tree.column("# 5", anchor=E, stretch=NO, width=80)
-          tree.heading("# 5", text="Price")
+          canvas.create_text(620, 1051, text="Terms and Conditions", fill="black", font=('Helvetica 10'))
+          canvas.create_line(250, 1070, 1015, 1070)
           
-          window = canvas.create_window(120, 255, anchor="nw", window=tree)
-
-          canvas.create_line(120, 295, 820, 295 )
-          canvas.create_line(120, 255, 120, 295 )
-          canvas.create_line(320, 255, 320, 295 )
-          canvas.create_line(570, 255, 570, 295 )
-          canvas.create_line(660, 255, 660, 295 )
-          canvas.create_line(740, 255, 740, 295 )
-          canvas.create_line(820, 255, 820, 445 )
-          canvas.create_line(570, 320, 820, 320 )
-          canvas.create_line(570, 345, 820, 345 )
-          canvas.create_line(570, 370, 820, 370 )
-          canvas.create_line(570, 395, 820, 395 )
-          canvas.create_line(570, 420, 820, 420 )
-          canvas.create_line(570, 445, 820, 445 )
+          pre_terms = Text(canvas,font=('Helvetica 10'),width=105,height=4,fg= "black",
+          bg="white",cursor="arrow",bd=0)
+          pre_terms.insert("1.0",orde_termsnotes.get("1.0",END))
+          pre_terms.config(state=DISABLED)
+          canvas.create_window(630, 1110,window=pre_terms)
+          canvas.create_text(338, 1170, text="Sale Person:", fill="black", font=('Helvetica 10'))
+          ord_saleper = Label(canvas, font=('Helvetica 10 '),width=30)
+          ord_saleper.config(text=orde_sales.get(),anchor="w",bg="white")
+          canvas.create_window(510, 1170, window = ord_saleper)
           
-          canvas.create_text(160, 285, text="PROD-0001", fill="black", font=('Helvetica 10'))
-          canvas.create_text(450, 285, text="Example product - Description text...", fill="black", font=('Helvetica 10'))
-          canvas.create_text(630, 285, text="$200.00", fill="black", font=('Helvetica 10'))
-          canvas.create_text(700, 285, text="1", fill="black", font=('Helvetica 10'))
-          canvas.create_text(790, 285, text="$200.00", fill="black", font=('Helvetica 10'))
-
-          canvas.create_text(790, 310, text="$200.00", fill="black", font=('Helvetica 10'))
-          canvas.create_text(795, 335, text="$18.00", fill="black", font=('Helvetica 10'))
-          canvas.create_text(795, 360, text="$20.00", fill="black", font=('Helvetica 10'))
-          canvas.create_text(790, 385, text="$238.00", fill="black", font=('Helvetica 10 bold'))
-          canvas.create_text(790, 410, text="$100.00", fill="black", font=('Helvetica 10'))
-          canvas.create_text(790, 435, text="$138.00", fill="black", font=('Helvetica 10'))
-
-          canvas.create_text(595, 310, text="Subtotal", fill="black", font=('Helvetica 10'))
-          canvas.create_text(585, 335, text="TAX1", fill="black", font=('Helvetica 10'))
-          canvas.create_text(635, 360, text="Shipping and handling", fill="black", font=('Helvetica 10'))
-          canvas.create_text(615, 385, text="Estimate total", fill="black", font=('Helvetica 10 bold'))
-          canvas.create_text(600, 410, text="Total Paid", fill="black", font=('Helvetica 10'))
-          canvas.create_text(595, 435, text="Balance", fill="black", font=('Helvetica 10'))
-
-          canvas.create_line(150, 470, 800, 470, fill='orange')
-          canvas.create_text(275, 500, text="Multiline comment text goes here..", fill="black", font=('Helvetica 10'))
-          canvas.create_text(182, 510, text="...", fill="black", font=('Helvetica 10'))
-          canvas.create_text(182, 520, text="...", fill="black", font=('Helvetica 10'))
-          canvas.create_text(182, 530, text="...", fill="black", font=('Helvetica 10'))
-          
-          canvas.create_text(500, 600, text="Terms and Conditions", fill="black", font=('Helvetica 10'))
-          canvas.create_line(150, 620, 795, 620, fill='orange')
-          canvas.create_text(280, 655, text="Page footer text goes here...", fill="black", font=('Helvetica 10'))
-          canvas.create_text(720, 655, text="Page 1 of 1", fill="black", font=('Helvetica 10'))
         else:
             pass
-
 
       
       #sms notification
