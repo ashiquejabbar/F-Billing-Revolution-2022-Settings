@@ -1910,8 +1910,7 @@ def mainpage():
         lowentry["state"] = NORMAL
         wareentry["state"] = NORMAL
     checkvarStatus3=BooleanVar()
-    Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,command=switch, 
-                      text="This is a service(no stock control)", 
+    Button3 = Checkbutton(Customerlabelframe,variable = checkvarStatus3,command=switch,text="This is a service(no stock control)", 
                       onvalue =1 ,
                       offvalue = 0,
                       height=3)
