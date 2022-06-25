@@ -39,6 +39,7 @@ import json
 import win32api
 from textwrap import wrap
 import re
+import datetime as dt
 
 fbilldb = mysql.connector.connect(
     host="localhost", user="root", password="", database="fbillingsintgrtd", port="3306"
@@ -356,7 +357,7 @@ def mainpage():
       #add new customer
       def order_create_customer():
         def cancel_add():
-          print(scll.get("1.0", END))
+      
           add_customer.destroy()
         def cus_add_cst():
           cst_id=b1sd.get()#id
@@ -1710,7 +1711,7 @@ def mainpage():
                 b2 = Label(imageFrame,image=image,width=350,height=350)
                 b2.photo = image
                 b2.place(x=130, y=80)
-                print(image)
+          
               except:
                 pass
 
@@ -2186,7 +2187,9 @@ def mainpage():
     def order_create_printsele():
         from reportlab.pdfgen import canvas
         from reportlab.lib.pagesizes import letter
-        pdf = canvas.Canvas("Order Documents/"+ord_orderid.get()+".pdf", pagesize=letter)
+       
+        savename = ord_orderid.get().split('/')[0]
+        pdf = canvas.Canvas("Order Documents/"+savename+".pdf", pagesize=letter)
         sql = "select * from company"
         fbcursor.execute(sql)
         company_data = fbcursor.fetchone()
@@ -2286,7 +2289,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -2406,11 +2409,11 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = ord_commnotes.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -2441,7 +2444,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -2477,7 +2480,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -2513,7 +2516,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -2560,7 +2563,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -2618,7 +2621,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -2676,7 +2679,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -2734,7 +2737,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -2800,7 +2803,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -2813,7 +2816,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -2852,7 +2855,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -2891,7 +2894,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -2930,7 +2933,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -2969,7 +2972,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+      
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -2982,7 +2985,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -3043,7 +3046,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -3104,7 +3107,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -3165,7 +3168,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -3247,7 +3250,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -3289,7 +3292,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -3331,7 +3334,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -3373,7 +3376,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -3427,7 +3430,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -3490,7 +3493,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -3556,7 +3559,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -3619,7 +3622,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -3725,7 +3728,7 @@ def mainpage():
             pdf.drawString(115,30,ord_sales.get())
             pdf.drawString(32,15,ord_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_template.get() == 'Professional 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -3941,7 +3944,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -3976,7 +3979,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -4012,7 +4015,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -4048,7 +4051,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -4095,7 +4098,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -4153,7 +4156,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -4211,7 +4214,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -4269,7 +4272,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -4335,7 +4338,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+           
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -4348,7 +4351,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -4387,7 +4390,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -4426,7 +4429,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -4465,7 +4468,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -4504,7 +4507,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+         
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -4517,7 +4520,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -4578,7 +4581,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -4639,7 +4642,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -4700,7 +4703,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -4782,7 +4785,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -4824,7 +4827,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -4866,7 +4869,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -4908,7 +4911,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -4962,7 +4965,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -5025,7 +5028,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -5091,7 +5094,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -5154,7 +5157,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -5260,7 +5263,7 @@ def mainpage():
             pdf.drawString(115,30,ord_sales.get())
             pdf.drawString(32,15,ord_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_template.get() == 'Simplified 1 (logo on left side)':
           pdf.setFont('Helvetica',12)
@@ -5358,7 +5361,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "Order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -5464,7 +5467,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -5499,7 +5502,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -5535,7 +5538,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -5571,7 +5574,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -5618,7 +5621,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -5676,7 +5679,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -5734,7 +5737,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -5792,7 +5795,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -5858,7 +5861,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+             
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -5871,7 +5874,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -5910,7 +5913,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -5949,7 +5952,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -5988,7 +5991,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -6027,7 +6030,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+        
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -6040,7 +6043,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -6101,7 +6104,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -6162,7 +6165,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -6223,7 +6226,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -6305,7 +6308,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -6347,7 +6350,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -6389,7 +6392,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -6431,7 +6434,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -6485,7 +6488,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -6548,7 +6551,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -6614,7 +6617,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -6677,7 +6680,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -6783,7 +6786,7 @@ def mainpage():
             pdf.drawString(115,30,ord_sales.get())
             pdf.drawString(32,15,ord_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_template.get() == 'Simplified 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -6985,7 +6988,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -7020,7 +7023,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -7056,7 +7059,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -7092,7 +7095,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -7139,7 +7142,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -7197,7 +7200,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -7255,7 +7258,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -7313,7 +7316,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -7379,7 +7382,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+          
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -7392,7 +7395,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -7431,7 +7434,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -7470,7 +7473,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -7509,7 +7512,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -7548,7 +7551,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+            
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -7561,7 +7564,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -7622,7 +7625,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -7683,7 +7686,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -7744,7 +7747,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -7826,7 +7829,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -7868,7 +7871,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -7910,7 +7913,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -7952,7 +7955,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -8006,7 +8009,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -8069,7 +8072,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -8135,7 +8138,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -8198,7 +8201,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -8304,7 +8307,7 @@ def mainpage():
             pdf.drawString(115,30,ord_sales.get())
             pdf.drawString(32,15,ord_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
         
         elif ord_template.get() == 'Business Classic':
           pdf.setStrokeColorRGB(255,10,0)
@@ -8341,11 +8344,11 @@ def mainpage():
 
           pdf.drawString(240,650, company_data[4])
 
-          pdf.drawString(390,665,"Invoice#")
-          pdf.drawString(390,650,"Invoice date")
+          pdf.drawString(390,665,"Order#")
+          pdf.drawString(390,650,"Order date")
           pdf.drawString(390,635,"Due date")
           pdf.drawString(390,620,"Terms")
-          pdf.drawString(390,605,"Invoice ref#")
+          pdf.drawString(390,605,"Order ref#")
 
           pdf.drawString(480,665,ord_sales.get())
           pdf.drawString(480,650,str(ord_date.get_date()))
@@ -8484,7 +8487,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -8519,7 +8522,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -8555,7 +8558,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -8591,7 +8594,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -8638,7 +8641,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -8696,7 +8699,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -8754,7 +8757,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -8812,7 +8815,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -8878,7 +8881,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+       
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -8891,7 +8894,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -8930,7 +8933,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -8969,7 +8972,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -9008,7 +9011,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -9047,7 +9050,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+    
                 pdf.drawString(352,calc_y1+5,discount.cget("text"))
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(discount1.cget("text")))
 
@@ -9060,7 +9063,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -9121,7 +9124,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -9182,7 +9185,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -9243,7 +9246,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -9325,7 +9328,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -9367,7 +9370,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -9409,7 +9412,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -9451,7 +9454,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -9505,7 +9508,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -9568,7 +9571,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -9634,7 +9637,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -9697,7 +9700,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -9803,7 +9806,7 @@ def mainpage():
             pdf.drawString(115,30,ord_sales.get())
             pdf.drawString(32,15,ord_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
     #preview new line
     def order_create_previewline():
       # messagebox.showerror("F-Billing Revolution","line is required,please select customer for this order before printing.")
@@ -13075,31 +13078,43 @@ def mainpage():
     order=Label(labelframe,text="Order#").place(x=5,y=5)
     ord_orderid=Entry(labelframe,width=25)
     ord_orderid.place(x=100,y=5,)
-    def inv_num_increment(inum):
+    
+    def inv_num_increment(onum):
       result = ""
       numberStr = ""
-      print(inum)
-      i = len(inum) - 1
+      ordnum = onum
+      ono = str(ordnum).split("/")[0]
+      i = len(ono) - 1
       while i > 0:
-        c = inum[i]
+        c = ono[i]
         if not c.isdigit():
           break
         numberStr = c + numberStr
         i -= 1
       number = int(numberStr)
       number += 1
-      result += inum[0 : i + 1]
-      result += "0000" if number < 10 else ""
+      result += ono[0 : i + 1]
+      result += "0000" if number < 1000 else ""
       result += str(number)
+      y = dt.datetime.today().date()
+      year = "/" + "" + str(y.year)
+      result += year
       return result
-    fbcursor.execute("SELECT order_number FROM orders ORDER BY orderid DESC LIMIT 1")
+    
+    fbcursor.execute("SELECT * FROM Orders ORDER BY orderid DESC LIMIT 1")
     ord_number_data = fbcursor.fetchone()
+    
     if not ord_number_data == None:
-      a = ord_number_data[0]
+      a = ord_number_data[31]
       ord_no = inv_num_increment(a)
     else:
-      ord_no = 1
-    ord_orderid.insert(0, ord_no)
+      y = dt.datetime.today().date()
+      year = "/" + "" + str(y.year)
+      ord_no = "INV00001" + "" + year
+    
+    ord_orderid.insert(0,ord_no)
+
+
     orderdate=Label(labelframe,text="Order date").place(x=5,y=33)
     ord_date=DateEntry(labelframe,width=20)
     ord_date.place(x=150,y=33)
@@ -14335,7 +14350,6 @@ def mainpage():
         ##### add customer deatils to ordertree ####
         def selectcuse():
           cusid = ord_edit_cusventtree.item(ord_edit_cusventtree.focus())["values"][0]
-          print(cusid)
           sql = "select * from customer where customerid = %s"
           val = (cusid,)
           fbcursor.execute(sql,val)
@@ -15620,7 +15634,8 @@ def mainpage():
       def order_edit_printsele():
         from reportlab.pdfgen import canvas
         from reportlab.lib.pagesizes import letter
-        pdf = canvas.Canvas("Order Documents/"+orde_orderid.get()+".pdf", pagesize=letter)
+        savename = orde_orderid.get().split('/')[0]
+        pdf = canvas.Canvas("Order Documents/"+savename+".pdf", pagesize=letter)
         sql = "select * from company"
         fbcursor.execute(sql)
         company_data = fbcursor.fetchone()
@@ -15720,7 +15735,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "Order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -15840,7 +15855,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -15875,7 +15890,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -15911,7 +15926,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -15947,7 +15962,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -15994,7 +16009,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -16052,7 +16067,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -16110,7 +16125,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -16168,7 +16183,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -16247,7 +16262,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -16286,7 +16301,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -16325,7 +16340,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -16364,7 +16379,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -16416,7 +16431,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -16477,7 +16492,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -16538,7 +16553,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -16599,7 +16614,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -16681,7 +16696,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -16723,7 +16738,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -16765,7 +16780,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -16807,7 +16822,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -16861,7 +16876,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -16924,7 +16939,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -16990,7 +17005,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -17053,7 +17068,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -17159,7 +17174,7 @@ def mainpage():
             pdf.drawString(115,30,orde_sales.get())
             pdf.drawString(32,15,orde_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+orde_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif orde_templ.get() == 'Professional 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -17375,7 +17390,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -17410,7 +17425,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -17446,7 +17461,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -17482,7 +17497,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -17529,7 +17544,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -17587,7 +17602,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -17645,7 +17660,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -17703,7 +17718,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -17782,7 +17797,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -17821,7 +17836,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -17860,7 +17875,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -17899,7 +17914,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -17951,7 +17966,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -18012,7 +18027,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -18073,7 +18088,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -18134,7 +18149,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -18216,7 +18231,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -18258,7 +18273,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -18300,7 +18315,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -18342,7 +18357,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -18396,7 +18411,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -18459,7 +18474,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -18525,7 +18540,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -18588,7 +18603,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -18694,7 +18709,7 @@ def mainpage():
             pdf.drawString(115,30,orde_sales.get())
             pdf.drawString(32,15,orde_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+orde_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif orde_templ.get() == 'Simplified 1 (logo on left side)':
           pdf.setFont('Helvetica',12)
@@ -18792,7 +18807,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "Order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -18898,7 +18913,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -18933,7 +18948,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -18969,7 +18984,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -19005,7 +19020,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -19052,7 +19067,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -19110,7 +19125,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -19168,7 +19183,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -19226,7 +19241,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -19305,7 +19320,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -19344,7 +19359,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -19383,7 +19398,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -19422,7 +19437,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -19474,7 +19489,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -19535,7 +19550,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -19596,7 +19611,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -19657,7 +19672,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -19739,7 +19754,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -19781,7 +19796,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -19823,7 +19838,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -19865,7 +19880,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -19919,7 +19934,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -19982,7 +19997,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -20048,7 +20063,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -20111,7 +20126,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -20217,7 +20232,7 @@ def mainpage():
             pdf.drawString(115,30,orde_sales.get())
             pdf.drawString(32,15,orde_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+orde_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif orde_templ.get() == 'Simplified 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -20419,7 +20434,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -20454,7 +20469,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -20490,7 +20505,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -20526,7 +20541,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -20573,7 +20588,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -20631,7 +20646,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -20689,7 +20704,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -20747,7 +20762,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -20826,7 +20841,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -20865,7 +20880,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -20904,7 +20919,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -20943,7 +20958,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -20995,7 +21010,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -21056,7 +21071,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -21117,7 +21132,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -21178,7 +21193,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -21260,7 +21275,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -21302,7 +21317,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -21344,7 +21359,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -21386,7 +21401,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -21440,7 +21455,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -21503,7 +21518,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -21569,7 +21584,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -21632,7 +21647,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -21738,7 +21753,7 @@ def mainpage():
             pdf.drawString(115,30,orde_sales.get())
             pdf.drawString(32,15,orde_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+orde_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
         
         elif orde_templ.get() == 'Business Classic':
           pdf.setStrokeColorRGB(255,10,0)
@@ -21775,11 +21790,11 @@ def mainpage():
 
           pdf.drawString(240,650, company_data[4])
 
-          pdf.drawString(390,665,"Invoice#")
-          pdf.drawString(390,650,"Invoice date")
+          pdf.drawString(390,665,"Order#")
+          pdf.drawString(390,650,"Order date")
           pdf.drawString(390,635,"Due date")
           pdf.drawString(390,620,"Terms")
-          pdf.drawString(390,605,"Invoice ref#")
+          pdf.drawString(390,605,"Order ref#")
 
           pdf.drawString(480,665,orde_orderid.get())
           pdf.drawString(480,650,str(orde_date.get_date()))
@@ -21918,7 +21933,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -21953,7 +21968,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -21989,7 +22004,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
                 
@@ -22025,7 +22040,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
           
@@ -22072,7 +22087,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -22130,7 +22145,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -22188,7 +22203,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -22246,7 +22261,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -22325,7 +22340,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -22364,7 +22379,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
   
@@ -22403,7 +22418,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -22442,7 +22457,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -22494,7 +22509,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -22555,7 +22570,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -22616,7 +22631,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(tax1sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -22677,7 +22692,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(tax1sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -22759,7 +22774,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -22801,7 +22816,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -22843,7 +22858,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -22885,7 +22900,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -22939,7 +22954,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
@@ -23002,7 +23017,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + "" + company_data[6])
 
 
@@ -23068,7 +23083,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(tax2sum.cget("text")))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
@@ -23131,7 +23146,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(tax2sum.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
@@ -23237,7 +23252,7 @@ def mainpage():
             pdf.drawString(115,30,orde_sales.get())
             pdf.drawString(32,15,orde_footertext.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+orde_orderid.get()+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
           
         
       #preview new line
@@ -27523,7 +27538,8 @@ def mainpage():
 
         from reportlab.pdfgen import canvas
         from reportlab.lib.pagesizes import letter
-        pdf = canvas.Canvas("Order Documents/"+ord_data[31]+".pdf", pagesize=letter)
+        savename = ord_data[31].split('/')[0]
+        pdf = canvas.Canvas("Order Documents/"+savename+".pdf", pagesize=letter)
 
         sql = "select * from company"
         fbcursor.execute(sql)
@@ -27628,7 +27644,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "Order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -27748,7 +27764,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -27783,7 +27799,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -27819,7 +27835,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
                 
@@ -27855,7 +27871,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
           
@@ -27902,7 +27918,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -27960,7 +27976,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -28018,7 +28034,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -28076,7 +28092,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -28155,7 +28171,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -28194,7 +28210,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
   
@@ -28233,7 +28249,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -28272,7 +28288,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -28324,7 +28340,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -28385,7 +28401,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -28446,7 +28462,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -28507,7 +28523,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -28589,7 +28605,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -28631,7 +28647,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -28673,7 +28689,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -28715,7 +28731,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -28769,7 +28785,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -28832,7 +28848,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -28898,7 +28914,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -28961,7 +28977,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -29067,7 +29083,7 @@ def mainpage():
             pdf.drawString(115,30,ord_data[12])
             pdf.drawString(32,15,ord_data[35])
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_data[31]+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_data[11] == 'Professional 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -29283,7 +29299,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -29318,7 +29334,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -29354,7 +29370,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
                 
@@ -29390,7 +29406,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
           
@@ -29437,7 +29453,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -29495,7 +29511,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -29553,7 +29569,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -29611,7 +29627,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -29690,7 +29706,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -29729,7 +29745,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
   
@@ -29768,7 +29784,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -29807,7 +29823,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -29859,7 +29875,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -29920,7 +29936,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -29981,7 +29997,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -30042,7 +30058,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -30124,7 +30140,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -30166,7 +30182,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -30208,7 +30224,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -30250,7 +30266,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -30304,7 +30320,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -30367,7 +30383,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -30433,7 +30449,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -30496,7 +30512,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -30602,7 +30618,7 @@ def mainpage():
             pdf.drawString(115,30,ord_data[12])
             pdf.drawString(32,15,ord_data[35])
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_data[31]+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_data[11] == 'Simplified 1 (logo on left side)':
           pdf.setFont('Helvetica',12)
@@ -30700,7 +30716,7 @@ def mainpage():
 
           pdf.drawAlignedString(582,660, company_data[4])
           pdf.setFont('Helvetica-Bold',16)
-          pdf.drawAlignedString(582,620, "Invoice")
+          pdf.drawAlignedString(582,620, "Order")
 
           pdf.setFont('Helvetica',12)
           pdf.drawAlignedString(582,580,"TAX EXEMPTED")
@@ -30806,7 +30822,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -30841,7 +30857,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -30877,7 +30893,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
                 
@@ -30913,7 +30929,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
           
@@ -30960,7 +30976,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -31018,7 +31034,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -31076,7 +31092,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -31134,7 +31150,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -31213,7 +31229,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -31252,7 +31268,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
   
@@ -31291,7 +31307,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -31330,7 +31346,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -31382,7 +31398,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -31443,7 +31459,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -31504,7 +31520,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -31565,7 +31581,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -31647,7 +31663,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -31689,7 +31705,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -31731,7 +31747,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -31773,7 +31789,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -31827,7 +31843,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -31890,7 +31906,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -31956,7 +31972,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -32019,7 +32035,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -32125,7 +32141,7 @@ def mainpage():
             pdf.drawString(115,30,ord_data[12])
             pdf.drawString(32,15,ord_data[35])
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_data[31]+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
         elif ord_data[11] == 'Simplified 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -32327,7 +32343,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -32362,7 +32378,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -32398,7 +32414,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
                 
@@ -32434,7 +32450,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
           
@@ -32481,7 +32497,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -32539,7 +32555,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -32597,7 +32613,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -32655,7 +32671,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -32734,7 +32750,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -32773,7 +32789,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
   
@@ -32812,7 +32828,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -32851,7 +32867,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -32903,7 +32919,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -32964,7 +32980,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -33025,7 +33041,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -33086,7 +33102,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -33168,7 +33184,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -33210,7 +33226,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -33252,7 +33268,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -33294,7 +33310,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -33348,7 +33364,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -33411,7 +33427,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -33477,7 +33493,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -33540,7 +33556,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -33646,7 +33662,7 @@ def mainpage():
             pdf.drawString(115,30,ord_data[12])
             pdf.drawString(32,15,ord_data[35])
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_data[31]+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
         
         elif ord_data[11] == 'Business Classic':
           pdf.setStrokeColorRGB(255,10,0)
@@ -33683,11 +33699,11 @@ def mainpage():
 
           pdf.drawString(240,650, company_data[4])
 
-          pdf.drawString(390,665,"Invoice#")
-          pdf.drawString(390,650,"Invoice date")
+          pdf.drawString(390,665,"Order#")
+          pdf.drawString(390,650,"Order date")
           pdf.drawString(390,635,"Due date")
           pdf.drawString(390,620,"Terms")
-          pdf.drawString(390,605,"Invoice ref#")
+          pdf.drawString(390,605,"Order ref#")
 
           pdf.drawString(480,665,ord_data[31])
           pdf.drawString(480,650,str(ord_data[1]))
@@ -33826,7 +33842,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -33861,7 +33877,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -33897,7 +33913,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
                 
@@ -33933,7 +33949,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
           
@@ -33980,7 +33996,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -34038,7 +34054,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -34096,7 +34112,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(ord_data[10]))
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -34154,7 +34170,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-40)+5,ord_data[9])
                 pdf.drawRightString(578,(calc_y1-40)+5,str(ord_data[10]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-60)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -34233,7 +34249,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -34272,7 +34288,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
   
@@ -34311,7 +34327,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -34350,7 +34366,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -34389,7 +34405,7 @@ def mainpage():
               # pdf.line(350,calc_y1-100,580,calc_y2-100)
               # pdf.line(350,calc_y1-120,580,calc_y2-120)
               if company_data[7] == "before amount":
-                print(company_data[6])
+             
                 pdf.drawString(352,calc_y1+5,str(ord_data[13])+"Discount")
                 pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(ord_data[24]))
 
@@ -34402,7 +34418,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -34463,7 +34479,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -34524,7 +34540,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(ord_data[14]))
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -34585,7 +34601,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
                 pdf.drawRightString(578,(calc_y1-60)+5,str(ord_data[14]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-80)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -34667,7 +34683,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -34709,7 +34725,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -34751,7 +34767,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -34793,7 +34809,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -34847,7 +34863,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(ord_data[8]))
 
 
@@ -34910,7 +34926,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + "" + company_data[6])
 
 
@@ -34976,7 +34992,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(ord_data[29]))
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(ord_data[8]))
 
 
@@ -35039,7 +35055,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-80)+5,"TAX2")
                 pdf.drawRightString(578,(calc_y1-80)+5,str(ord_data[29]) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-100)+5,"Invoice Total")
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-100)+5,str(ord_data[8]) + " " + company_data[6])
 
 
@@ -35145,35 +35161,35 @@ def mainpage():
             pdf.drawString(115,30,ord_data[12])
             pdf.drawString(32,15,ord_data[35])
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+ord_data[31]+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
 
 
   #email
         
   def order_email():
     mailDetail=Toplevel()
-    mailDetail.title("Invoice E-Mail")
+    mailDetail.title("Order E-Mail")
     mailDetail.geometry("1080x550")
     mailDetail.resizable(False, False)
-    def my_SMTP():
-        if True:
-            em_ser_conbtn.destroy()
-            mysmtpservercon=LabelFrame(account_Frame,text="SMTP server connection(ask your ISP for your SMTP settings)", height=165, width=380)
-            mysmtpservercon.place(x=610, y=110)
-            lbl_hostn=Label(mysmtpservercon, text="Hostname").place(x=5, y=10)
-            hostnent=Entry(mysmtpservercon, width=30).place(x=80, y=10)
-            lbl_portn=Label(mysmtpservercon, text="Port").place(x=5, y=35)
-            portent=Entry(mysmtpservercon, width=30).place(x=80, y=35)
-            lbl_usn=Label(mysmtpservercon, text="Username").place(x=5, y=60)
-            unament=Entry(mysmtpservercon, width=30).place(x=80, y=60)
-            lbl_pasn=Label(mysmtpservercon, text="Password").place(x=5, y=85)
-            pwdent=Entry(mysmtpservercon, width=30).place(x=80, y=85)
-            ssl_chkvar=IntVar()
-            ssl_chkbtn=Checkbutton(mysmtpservercon, variable=ssl_chkvar, text="This server requires a secure connection(SSL)", onvalue=1, offvalue=0)
-            ssl_chkbtn.place(x=50, y=110)
-            em_ser_conbtn1=Button(account_Frame, text="Test E-mail Server Connection").place(x=610, y=285)
-        else:
-            pass
+    # def my_SMTP():
+    #     if True:
+    #         em_ser_conbtn.destroy()
+    #         mysmtpservercon=LabelFrame(account_Frame,text="SMTP server connection(ask your ISP for your SMTP settings)", height=165, width=380)
+    #         mysmtpservercon.place(x=610, y=110)
+    #         lbl_hostn=Label(mysmtpservercon, text="Hostname").place(x=5, y=10)
+    #         hostnent=Entry(mysmtpservercon, width=30).place(x=80, y=10)
+    #         lbl_portn=Label(mysmtpservercon, text="Port").place(x=5, y=35)
+    #         portent=Entry(mysmtpservercon, width=30).place(x=80, y=35)
+    #         lbl_usn=Label(mysmtpservercon, text="Username").place(x=5, y=60)
+    #         unament=Entry(mysmtpservercon, width=30).place(x=80, y=60)
+    #         lbl_pasn=Label(mysmtpservercon, text="Password").place(x=5, y=85)
+    #         pwdent=Entry(mysmtpservercon, width=30).place(x=80, y=85)
+    #         ssl_chkvar=IntVar()
+    #         ssl_chkbtn=Checkbutton(mysmtpservercon, variable=ssl_chkvar, text="This server requires a secure connection(SSL)", onvalue=1, offvalue=0)
+    #         ssl_chkbtn.place(x=50, y=110)
+    #         em_ser_conbtn1=Button(account_Frame, text="Test E-mail Server Connection").place(x=610, y=285)
+    #     else:
+    #         pass
       
     style = ttk.Style()
     style.theme_use('default')
@@ -35202,9 +35218,9 @@ def mainpage():
     style.configure('TNotebook.Tab', background="#999999", width=20, padding=5)
     mess_Notebook = ttk.Notebook(messagelbframe)
     emailmessage_Frame = Frame(mess_Notebook, height=350, width=710)
-    htmlsourse_Frame = Frame(mess_Notebook, height=350, width=710)
+    # htmlsourse_Frame = Frame(mess_Notebook, height=350, width=710)
     mess_Notebook.add(emailmessage_Frame, text="E-mail message")
-    mess_Notebook.add(htmlsourse_Frame, text="Html sourse code")
+    # mess_Notebook.add(htmlsourse_Frame)
     mess_Notebook.place(x=5, y=90)
 
     btn1=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=selectall).place(x=0, y=1)
@@ -35233,18 +35249,9 @@ def mainpage():
 
 
 
-    btn1=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=selectall).place(x=0, y=1)
-
-    
-    btn2=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=cut).place(x=36, y=1)
-    btn3=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=copy).place(x=73, y=1)
-    btn4=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=paste).place(x=105, y=1)
-    mframe=Frame(htmlsourse_Frame, height=350, width=710, bg="white")
-    mframe.place(x=0, y=28)
-
     attachlbframe=LabelFrame(email_Frame,text="Attachment(s)", height=350, width=280)
     attachlbframe.place(x=740, y=5)
-    htcodeframe=Frame(attachlbframe, height=220, width=265, bg="white").place(x=5, y=5)
+    htcodeframe=Listbox(attachlbframe,height=13, width=43, bg="white").place(x=5, y=5)
     lbl_btn_info=Label(attachlbframe, text="Double click on attachment to view").place(x=30, y=230)
     btn17=Button(attachlbframe, width=20, text="Add attacment file...").place(x=60, y=260)
     btn18=Button(attachlbframe, width=20, text="Remove attacment").place(x=60, y=295)
@@ -35253,31 +35260,143 @@ def mainpage():
 
     ready_frame=Frame(mailDetail, height=20, width=1080, bg="#b3b3b3").place(x=0,y=530)
     
-    sendatalbframe=LabelFrame(account_Frame,text="E-Mail(Sender data)",height=270, width=600)
-    sendatalbframe.place(x=5, y=5)
-    lbl_sendermail=Label(sendatalbframe, text="Your company email address").place(x=5, y=30)
-    sentent=Entry(sendatalbframe, width=40).place(x=195, y=30)
-    lbl_orcompanyname=Label(sendatalbframe, text="Your name or company name").place(x=5, y=60)
-    nament=Entry(sendatalbframe, width=40).place(x=195, y=60)
-    lbl_reply=Label(sendatalbframe, text="Reply to email address").place(x=5, y=90)
-    replyent=Entry(sendatalbframe, width=40).place(x=195, y=90)
-    lbl_sign=Label(sendatalbframe, text="Signature").place(x=5, y=120)
-    signent=Entry(sendatalbframe,width=50).place(x=100, y=120,height=75)
-    confirm_chkvar=IntVar()
-    confirm_chkbtn=Checkbutton(sendatalbframe, variable=confirm_chkvar, text="Confirmation reading", onvalue=1, offvalue=0)
-    confirm_chkbtn.place(x=200, y=215)
-    btn18=Button(account_Frame, width=15, text="Save settings",command="").place(x=25, y=285)
+    sendatalbframe=LabelFrame(account_Frame,text="E-Mail(Sender data)",height=150, width=600)
+    sendatalbframe.place(x=200, y=150)
+    lbl_sendermail=Label(sendatalbframe, text="Company email address").place(x=100, y=30)
+    sentent=Entry(sendatalbframe, width=40).place(x=250, y=30)
+    lbl_orcompanyname=Label(sendatalbframe, text="Password").place(x=120, y=70)
+    nament=Entry(sendatalbframe, width=40,show="*").place(x=250, y=70)
+  
 
-    sendatalbframe=LabelFrame(account_Frame,text="SMTP Server",height=100, width=380)
-    sendatalbframe.place(x=610, y=5)
-    servar=IntVar()
-    SMTP_rbtn=Radiobutton(sendatalbframe, text="Use the Built-In SMTP Server Settings", variable=servar, value=1)
-    SMTP_rbtn.place(x=10, y=10)
-    MySMTP_rbtn=Radiobutton(sendatalbframe, text="Use My Own SMTP Server Settings(Recommended)", variable=servar, value=2, command=my_SMTP)
-    MySMTP_rbtn.place(x=10, y=40)
-    em_ser_conbtn=Button(account_Frame, text="Test E-mail Server Connection")
-    em_ser_conbtn.place(x=710, y=110)
 
+    # def order_email():
+    #   mailDetail=Toplevel()
+    #   mailDetail.title("Order E-Mail")
+    #   mailDetail.geometry("1080x550")
+    #   mailDetail.resizable(False, False)
+    #   def my_SMTP():
+    #     if True:
+    #         em_ser_conbtn.destroy()
+    #         mysmtpservercon=LabelFrame(account_Frame,text="SMTP server connection(ask your ISP for your SMTP settings)", height=165, width=380)
+    #         mysmtpservercon.place(x=610, y=110)
+    #         lbl_hostn=Label(mysmtpservercon, text="Hostname").place(x=5, y=10)
+    #         hostnent=Entry(mysmtpservercon, width=30).place(x=80, y=10)
+    #         lbl_portn=Label(mysmtpservercon, text="Port").place(x=5, y=35)
+    #         portent=Entry(mysmtpservercon, width=30).place(x=80, y=35)
+    #         lbl_usn=Label(mysmtpservercon, text="Username").place(x=5, y=60)
+    #         unament=Entry(mysmtpservercon, width=30).place(x=80, y=60)
+    #         lbl_pasn=Label(mysmtpservercon, text="Password").place(x=5, y=85)
+    #         pwdent=Entry(mysmtpservercon, width=30).place(x=80, y=85)
+    #         ssl_chkvar=IntVar()
+    #         ssl_chkbtn=Checkbutton(mysmtpservercon, variable=ssl_chkvar, text="This server requires a secure connection(SSL)", onvalue=1, offvalue=0)
+    #         ssl_chkbtn.place(x=50, y=110)
+    #         em_ser_conbtn1=Button(account_Frame, text="Test E-mail Server Connection").place(x=610, y=285)
+    #     else:
+    #         pass
+      
+    #   style = ttk.Style()
+    #   style.theme_use('default')
+    #   style.configure('TNotebook.Tab', background="#999999", padding=5)
+    #   email_Notebook = ttk.Notebook(mailDetail)
+    #   email_Frame = Frame(email_Notebook, height=500, width=1080)
+    #   account_Frame = Frame(email_Notebook, height=550, width=1080)
+    #   email_Notebook.add(email_Frame, text="E-mail")
+    #   email_Notebook.add(account_Frame, text="Account")
+    #   email_Notebook.place(x=0, y=0)
+  
+    #   messagelbframe=LabelFrame(email_Frame,text="Message", height=500, width=730)
+    #   messagelbframe.place(x=5, y=5)
+    #   lbl_emailtoaddr=Label(messagelbframe, text="Email to address").place(x=5, y=5)
+    #   emailtoent=Entry(messagelbframe, width=50).place(x=120, y=5)
+    #   sendemail_btn=Button(messagelbframe, text="Send Email", width=10, height=1,command="").place(x=600, y=10)
+    #   lbl_carcopyto=Label(messagelbframe, text="Carbon copy to").place(x=5, y=32)
+    #   carcopyent=Entry(messagelbframe, width=50).place(x=120, y=32)
+    #   stopemail_btn=Button(messagelbframe, text="Stop sending", width=10, height=1).place(x=600, y=40)
+    #   lbl_subject=Label(messagelbframe, text="Subject").place(x=5, y=59)
+    #   subent=Entry(messagelbframe, width=50).place(x=120, y=59)
+  
+      
+    #   style = ttk.Style()
+    #   style.theme_use('default')
+    #   style.configure('TNotebook.Tab', background="#999999", width=20, padding=5)
+    #   mess_Notebook = ttk.Notebook(messagelbframe)
+    #   emailmessage_Frame = Frame(mess_Notebook, height=350, width=710)
+    #   htmlsourse_Frame = Frame(mess_Notebook, height=350, width=710)
+    #   mess_Notebook.add(emailmessage_Frame, text="E-mail message")
+    #   mess_Notebook.add(htmlsourse_Frame, text="Html sourse code")
+    #   mess_Notebook.place(x=5, y=90)
+  
+    #   btn1=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=selectall).place(x=0, y=1)
+  
+      
+    #   btn2=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=cut).place(x=36, y=1)
+    #   btn3=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=copy).place(x=73, y=1)
+    #   btn4=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=paste).place(x=105, y=1)
+    #   btn5=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=undo).place(x=140, y=1)
+    #   btn6=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=redo).place(x=175, y=1)
+    #   btn7=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=bold).place(x=210, y=1)
+    #   btn8=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=italics).place(x=245, y=1)
+    #   btn9=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=underline).place(x=280, y=1)
+    #   btn10=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=left).place(x=315, y=1)
+    #   btn11=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=right).place(x=350, y=1)
+    #   btn12=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=center).place(x=385, y=1)
+    #   btn13=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=hyperlink).place(x=420, y=1)
+      
+    #   btn14=Button(emailmessage_Frame,width=31,height=23,compound = LEFT,image=remove).place(x=455, y=1)
+  
+  
+    #   dropcomp = ttk.Combobox(emailmessage_Frame, width=12, height=3).place(x=500, y=5)
+    #   dropcompo = ttk.Combobox(emailmessage_Frame, width=6, height=3).place(x=600, y=5)
+    #   mframe=Frame(emailmessage_Frame, height=350, width=710, bg="white")
+    #   mframe.place(x=0, y=28)
+  
+  
+  
+    #   btn1=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=selectall).place(x=0, y=1)
+  
+      
+    #   btn2=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=cut).place(x=36, y=1)
+    #   btn3=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=copy).place(x=73, y=1)
+    #   btn4=Button(htmlsourse_Frame,width=31,height=23,compound = LEFT,image=paste).place(x=105, y=1)
+    #   mframe=Frame(htmlsourse_Frame, height=350, width=710, bg="white")
+    #   mframe.place(x=0, y=28)
+  
+    #   attachlbframe=LabelFrame(email_Frame,text="Attachment(s)", height=350, width=280)
+    #   attachlbframe.place(x=740, y=5)
+    #   htcodeframe=Frame(attachlbframe, height=220, width=265, bg="white").place(x=5, y=5)
+    #   lbl_btn_info=Label(attachlbframe, text="Double click on attachment to view").place(x=30, y=230)
+    #   btn17=Button(attachlbframe, width=20, text="Add attacment file...").place(x=60, y=260)
+    #   btn18=Button(attachlbframe, width=20, text="Remove attacment").place(x=60, y=295)
+    #   lbl_tt_info=Label(email_Frame, text="You can create predefined invoice, order, estimate\nand payment receipt email   templates under Main\nmenu/Settings/E-Mail templates tab")
+    #   lbl_tt_info.place(x=740, y=370)
+  
+    #   ready_frame=Frame(mailDetail, height=20, width=1080, bg="#b3b3b3").place(x=0,y=530)
+      
+    #   sendatalbframe=LabelFrame(account_Frame,text="E-Mail(Sender data)",height=270, width=600)
+    #   sendatalbframe.place(x=5, y=5)
+    #   lbl_sendermail=Label(sendatalbframe, text="Your company email address").place(x=5, y=30)
+    #   sentent=Entry(sendatalbframe, width=40).place(x=195, y=30)
+    #   lbl_orcompanyname=Label(sendatalbframe, text="Your name or company name").place(x=5, y=60)
+    #   nament=Entry(sendatalbframe, width=40).place(x=195, y=60)
+    #   lbl_reply=Label(sendatalbframe, text="Reply to email address").place(x=5, y=90)
+    #   replyent=Entry(sendatalbframe, width=40).place(x=195, y=90)
+    #   lbl_sign=Label(sendatalbframe, text="Signature").place(x=5, y=120)
+    #   signent=Entry(sendatalbframe,width=50).place(x=100, y=120,height=75)
+    #   confirm_chkvar=IntVar()
+    #   confirm_chkbtn=Checkbutton(sendatalbframe, variable=confirm_chkvar, text="Confirmation reading", onvalue=1,   offvalue=0)
+    #   confirm_chkbtn.place(x=200, y=215)
+    #   btn18=Button(account_Frame, width=15, text="Save settings",command="").place(x=25, y=285)
+  
+    #   sendatalbframe=LabelFrame(account_Frame,text="SMTP Server",height=100, width=380)
+    #   sendatalbframe.place(x=610, y=5)
+    #   servar=IntVar()
+    #   SMTP_rbtn=Radiobutton(sendatalbframe, text="Use the Built-In SMTP Server Settings", variable=servar, value=1)
+    #   SMTP_rbtn.place(x=10, y=10)
+    #   MySMTP_rbtn=Radiobutton(sendatalbframe, text="Use My Own SMTP Server Settings(Recommended)", variable=servar,   value=2, command=my_SMTP)
+    #   MySMTP_rbtn.place(x=10, y=40)
+    #   em_ser_conbtn=Button(account_Frame, text="Test E-mail Server Connection")
+    #   em_ser_conbtn.place(x=710, y=110)
+  
 
 
 
@@ -35368,7 +35487,7 @@ def mainpage():
     val =(ord_previewid,)
     fbcursor.execute(sql, val)
     storingidcheck = fbcursor.fetchone()
-    print(storingidcheck)
+
     if storingidcheck is None:
       messagebox.showwarning("F-Billing Revolution","This order has no line item.\nPlease add line item(s) before printing.")
     else:
@@ -38800,20 +38919,7 @@ def mainpage():
   pn.pack(side="left", padx=(5, 2))
   pn = Canvas(settframe, width=1, height=65, bg="#b3b3b3", bd=0)
   pn.pack(side="left", padx=(0, 5))
-  # def upload_filelogo():
-  #   global imglogo,filename
-  #   f_types =[('Png files','*.png'),('Jpg Files', '*.jpg')]
-  #   filena = filedialog.askopenfilename(filetypes=f_types)
-  #   shutil.copyfile(filena, os.getcwd()+'/images/'+filena.split('/')[-1])
-  #   print(filena.split('/')[-1])
-  #   image = Image.open(filena)
-  #   resize_image = image.resize((280, 160))
-  #   imglogo = ImageTk.PhotoImage(resize_image)
-    # b2 = Button(secondtab,image=img)
-    # b2.place(x=130, y=80)
   
-    # btlogo = Button(secondtab,width=280,height=160,image=imglogo)
-    # btlogo.place(x=580,y=280)
   global filename
   filename = ""
   def save_company():
@@ -38854,7 +38960,7 @@ def mainpage():
     i = fbcursor.fetchall()
     if not i:
       if filename == "":
-        print(12)
+   
         sql = 'insert into company(name, address, email,salestaxno,currency,currencysign,currsignplace,  decimalseperator,excurrency,dateformat,exdate,taxtype,printimageornot,tax1name,tax1rate,printtax1,  tax2name,tax2rate,printtax2,attachment_file_type,miscellanoustab_cbutton1,miscellanoustab_cbutton2,miscellanoustab_cbutton3,miscellanoustab_cbutton4,miscellanoustab_cbutton5,miscellanoustab_cbutton6) values(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s, %s,%s,%s,%s,%s,%s,%s,%s,%s)'
         val = (company_name,company_address,company_mail,company_salestax,currency,currencysign,  currencysign_placement,decimal_sepator,currency_example,date_format,example_dateformat,tax,printimage,  tax1name,tax1rate,printtax1,tax2name,tax2rate,printtax2,radiobut,cbut1,cbut2,cbut3,cbut4,cbut5,cbut6)
         fbcursor.execute(sql, val)
@@ -39154,7 +39260,7 @@ def mainpage():
       selected0 = exctree.focus()
       valuz1= exctree.item(selected0)["values"]
       idgettingextracnid=valuz1[0]
-      print(i,idgettingextracnid)
+     
       sql1 = "select * from company"
       fbcursor.execute(sql1)
       com = fbcursor.fetchone()
@@ -39561,7 +39667,6 @@ def mainpage():
   
   def del_valueterm():
     itemid = termtree.item(termtree.focus())["values"][0]
-    print(itemid)
     sql = "delete from terms_of_payment where terms_of_payment = %s"
     val = (itemid,)
     fbcursor.execute(sql, val)
