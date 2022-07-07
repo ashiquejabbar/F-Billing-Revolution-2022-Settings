@@ -1341,12 +1341,38 @@ def mainpage():
         except:
           pass
           
-                
+      def estfilter_customer():
+        if cusser.get() == '':
+          sql = "SELECT * FROM Customer"
+          fbcursor.execute(sql,)
+          ord_customer_details = fbcursor.fetchall()
+          for record in ord_create_cusventtree.get_children():
+            ord_create_cusventtree.delete(record)
 
-      enter=Label(cuselection, text="Enter filter text").place(x=5, y=10)
-      e1=Entry(cuselection, width=20).place(x=110, y=10)
-      text=Label(cuselection, text="Filtered column").place(x=340, y=10)
-      e2=Entry(cuselection, width=20).place(x=450, y=10)
+          j = 0
+          for i in ord_customer_details:
+            ord_create_cusventtree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+            j += 1
+        else:
+          filter = cusser.get()
+          for record in ord_create_cusventtree.get_children():
+            ord_create_cusventtree.delete(record)
+
+          sql = "SELECT * FROM Customer WHERE businessname=%s"
+          val = (filter, )
+          fbcursor.execute(sql, val)
+          ord_customer_details = fbcursor.fetchall()
+          j = 0
+          for i in ord_customer_details:
+            ord_create_cusventtree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+            j += 1
+        
+
+      enter=Label(cuselection, text="Customer Name").place(x=5, y=10)
+      cusser=Entry(cuselection, width=20)
+      cusser.place(x=110, y=10)
+      cus_serabtn = Button(cuselection,text="Click Here",command=estfilter_customer)
+      cus_serabtn.place(x=240,y=9,height=20,width=60)
 
       ord_create_cusventtree=ttk.Treeview(cuselection, height=27)
       ord_create_cusventtree["columns"]=["1","2","3", "4"]
@@ -2275,14 +2301,158 @@ def mainpage():
                 pass
               pass
 
+        def ord_filter_product():
+          if ord_proser.get() == '':
+            for record in ord_create_protree.get_children():
+              ord_create_protree.delete(record)
 
+            countp = 0
+            sql = 'SELECT * FROM Productservice'
+            fbcursor.execute(sql)
+            product_details = fbcursor.fetchall()
+            for i in prodata:
+              if i[12] == '1':
+                servi = '🗹'
+              else:
+                servi = ''
+              sql = "select currencysign,currsignplace from company"
+              fbcursor.execute(sql)
+              currsymb = fbcursor.fetchone()
+              if not currsymb: 
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                  countp += 1              
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+                      
+              elif currsymb[1] == "before amount":
+                if (i[13]) > (i[14]):
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "before amount with space":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount with space":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+          else:
+            filter = ord_proser.get()
+            for record in ord_create_protree.get_children():
+              ord_create_protree.delete(record)
+      
+            countp = 0
+            sql = "SELECT * FROM Productservice WHERE name=%s"
+            val = (filter, )
+            fbcursor.execute(sql, val)
+            product_details = fbcursor.fetchall()
+            for i in product_details:
+              if i[12] == '1':
+                servi = '🗹'
+              else:
+                servi = ''
+              sql = "select currencysign,currsignplace from company"
+              fbcursor.execute(sql)
+              currsymb = fbcursor.fetchone()
+              if not currsymb: 
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                  countp += 1              
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+                      
+              elif currsymb[1] == "before amount":
+                if (i[13]) > (i[14]):
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "before amount with space":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount with space":
+                if i[13] > i[14]:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  ord_create_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1 
+            
 
         
                         
-        enter=Label(newselection, text="Enter filter text").place(x=5, y=10)
-        e1=Entry(newselection, width=20).place(x=110, y=10)
-        text=Label(newselection, text="Filtered column").place(x=340, y=10)
-        e2=Entry(newselection, width=20).place(x=450, y=10)
+        enter=Label(newselection, text="Product Name").place(x=5, y=10)
+        ord_proser=Entry(newselection, width=20)
+        ord_proser.place(x=110, y=10)
+        pro_ser = Button(newselection,command=ord_filter_product,text="Click Here")
+        pro_ser.place(x=240, y=9,height=20,width=60)
         
       
         ord_create_protree=ttk.Treeview(newselection, height=27)
@@ -2622,8 +2792,6 @@ def mainpage():
         scrollbar.config( command=ord_create_protree.yview )
       
         def selepro():
-          # priceview = Label(listFrame,bg="#f5f3f2")
-          # priceview.place(x=850,y=200,width=78,height=18)
           proskuid = ord_create_protree.item(ord_create_protree.focus())["values"][0]
           sql = "select * from Productservice where sku = %s"
           val = (proskuid,)
@@ -2635,11 +2803,11 @@ def mainpage():
           if prosele[10] == '1':
             tax1 = 'yes'
           else:
-            tax1 = ''
+            tax1 = 'No'
           if prosele[19] == '1':
             tax2 = 'yes'
           else:
-            tax2 = ''
+            tax2 = 'No'
           if not create_maintree_insert:
             ord_pro_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
 
@@ -2679,11 +2847,11 @@ def mainpage():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
               if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[7]))
-                tax1sum.config(text=round((float(totaltax1)*float(ord_tax.get())/100,2)))
+                tax1sum.config(text=round((float(totaltax1)*float(ord_tax.get())/100),2))
                 tot = (float(totaltax1)*float(ord_tax.get())/100)
               else:
                 pass
-            order1.config(text=total+tot-discou+extracs)
+            order1.config(text=round(total+tot-discou+extracs,2))
             balance1.config(text=round(total+tot-discou+extracs,2))
               
           elif create_maintree_insert[12] == "3":
@@ -2706,7 +2874,7 @@ def mainpage():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
               if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[8]))
-                tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+                tax1sum.config(text=round((float(totaltax1)*float(ord_tax.get())/100),2))
                 tot = (float(totaltax1)*float(ord_tax.get())/100)
               else:
                 pass
@@ -2717,14 +2885,14 @@ def mainpage():
               checktax1 = list(ord_pro_create_tree.item(child, 'values'))
               if checktax1[7] == "yes":
                 totaltax2 =(totaltax2 + float(checktax1[8]))
-                tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+                tax2sum.config(text=round((float(totaltax2)*float(ord_tax2.get())/100),2))
                 
                 tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
               else:
                 pass
 
-            order1.config(text=total+tot+tot2-discou+extracs)
-            balance1.config(text=total+tot+tot2-discou+extracs)
+            order1.config(text=round(total+tot+tot2-discou+extracs,2))
+            balance1.config(text=round(total+tot+tot2-discou+extracs,2))
 
           newselection.destroy()
 
@@ -21330,11 +21498,11 @@ def mainpage():
           discou = (total*float(ord_disrate.get())/100)
           extracs = extracs + float(ord_extracost.get())
           cost1.config(text=ord_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          order1.config(text=total-discou+extracs)
-          balance1.config(text=total-discou+extracs)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          order1.config(text=round(total-discou+extracs,2))
+          balance1.config(text=round(total-discou+extracs,2))
+          sub1.config(text=round(total-discou,2))
         elif delrefresh[12] == "1":
           extracs = 0.0
           discou = 0.0
@@ -21344,11 +21512,11 @@ def mainpage():
           discou = (total*float(ord_disrate.get())/100)
           extracs = extracs + float(ord_extracost.get())
           cost1.config(text=ord_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          order1.config(text=total-discou+extracs)
-          balance1.config(text=total-discou+extracs)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          order1.config(text=round(total-discou+extracs,2))
+          balance1.config(text=round(total-discou+extracs,2))
+          sub1.config(text=round(total-discou,2))
         elif delrefresh[12] == "2":
           extracs = 0.0
           discou = 0.0
@@ -21358,9 +21526,9 @@ def mainpage():
           discou = (total*float(ord_disrate.get())/100)
           extracs = extracs + float(ord_extracost.get())
           cost1.config(text=ord_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
 
           tot = 0.0
           totaltax1 = 0.0
@@ -21368,12 +21536,12 @@ def mainpage():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
             if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[7]))
-              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tax1sum.config(text=round((float(totaltax1)*float(ord_tax.get())/100),2))
               tot = (float(totaltax1)*float(ord_tax.get())/100)
             else:
               pass
-          order1.config(text=total+tot-discou+extracs)
-          balance1.config(text=total+tot-discou+extracs)
+          order1.config(text=round(total+tot-discou+extracs,2))
+          balance1.config(text=round(total+tot-discou+extracs,2))
         elif delrefresh[12] == "3":
           extracs = 0.0
           discou = 0.0
@@ -21383,9 +21551,9 @@ def mainpage():
           discou = (total*float(ord_disrate.get())/100)
           extracs = extracs + float(ord_extracost.get())
           cost1.config(text=ord_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
           
           tot = 0.0
           totaltax1 = 0.0
@@ -21393,7 +21561,7 @@ def mainpage():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
             if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[8]))
-              tax1sum.config(text=(float(totaltax1)*float(ord_tax.get())/100))
+              tax1sum.config(text=round((float(totaltax1)*float(ord_tax.get())/100),2))
               tot = (float(totaltax1)*float(ord_tax.get())/100)
             else:
               pass
@@ -21404,13 +21572,13 @@ def mainpage():
             checktax1 = list(ord_pro_create_tree.item(child, 'values'))
             if checktax1[7] == "yes":
               totaltax2 =(totaltax2 + float(checktax1[8]))
-              tax2sum.config(text=(float(totaltax2)*float(ord_tax2.get())/100))
+              tax2sum.config(text=round((float(totaltax2)*float(ord_tax2.get())/100),2))
               tot2 = (float(totaltax2)*float(ord_tax2.get())/100)
             else:
               pass
 
-          order1.config(text=total+tot+tot2-discou+extracs)
-          balance1.config(text=total+tot+tot2-discou+extracs)
+          order1.config(text=round(total+tot+tot2-discou+extracs,2))
+          balance1.config(text=round(total+tot+tot2-discou+extracs,2))
       except: 
         messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
       
@@ -22449,9 +22617,20 @@ def mainpage():
 
     fir5Frame=Frame(pop,height=38,width=210)
     fir5Frame.place(x=735,y=485)
+    
+    def ord_lineup():
+      rows = ord_pro_create_tree.selection()
+      for row in rows:
+        ord_pro_create_tree.move(row, ord_pro_create_tree.parent(row), ord_pro_create_tree.index(row)-1)
 
-    btndown=Button(fir5Frame, compound="left", text="Line Down").place(x=75, y=0)
-    btnup=Button(fir5Frame, compound="left", text="Line Up").place(x=150, y=0)
+
+    def ord_linedown():
+      rows = ord_pro_create_tree.selection()
+      for row in rows:
+        ord_pro_create_tree.move(row, ord_pro_create_tree.parent(row), ord_pro_create_tree.index(row)+1)
+
+    btndown=Button(fir5Frame, compound="left", text="Line Down",command=ord_linedown).place(x=75, y=0)
+    btnup=Button(fir5Frame, compound="left", text="Line Up",command=ord_lineup).place(x=150, y=0)
 
   ### End Create Order ###
 
@@ -23558,11 +23737,37 @@ def mainpage():
             pass
             
                   
+        def estfilter_customer():
+          if cusser.get() == '':
+            sql = "SELECT * FROM Customer"
+            fbcursor.execute(sql,)
+            ord_customer_details = fbcursor.fetchall()
+            for record in ord_edit_cusventtree.get_children():
+              ord_edit_cusventtree.delete(record)
 
-        enter=Label(cuselection, text="Enter filter text").place(x=5, y=10)
-        e1=Entry(cuselection, width=20).place(x=110, y=10)
-        text=Label(cuselection, text="Filtered column").place(x=340, y=10)
-        e2=Entry(cuselection, width=20).place(x=450, y=10)
+            j = 0
+            for i in ord_customer_details:
+              ord_edit_cusventtree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+              j += 1
+          else:
+            filter = cusser.get()
+            for record in ord_edit_cusventtree.get_children():
+              ord_edit_cusventtree.delete(record)
+
+            sql = "SELECT * FROM Customer WHERE businessname=%s"
+            val = (filter, )
+            fbcursor.execute(sql, val)
+            ord_customer_details = fbcursor.fetchall()
+            j = 0
+            for i in ord_customer_details:
+              ord_edit_cusventtree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+              j += 1
+
+        enter=Label(cuselection, text="Customer Name").place(x=5, y=10)
+        cusser=Entry(cuselection, width=20)
+        cusser.place(x=110, y=10)
+        cus_serabtn = Button(cuselection,text="Click Here",command=estfilter_customer)
+        cus_serabtn.place(x=240,y=9,height=20,width=60)
 
         ord_edit_cusventtree=ttk.Treeview(cuselection, height=27)
         ord_edit_cusventtree["columns"]=["1","2","3", "4"]
@@ -24493,12 +24698,160 @@ def mainpage():
 
 
 
-          
+          def ord_filter_product():
+            if ord_proser.get() == '':
+              for record in ord_edit_protree.get_children():
+                ord_edit_protree.delete(record)
+
+              countp = 0
+              sql = 'SELECT * FROM Productservice'
+              fbcursor.execute(sql)
+              product_details = fbcursor.fetchall()
+
+              for i in product_details:
+                if i[12] == '1':
+                  servi = '🗹'
+                else:
+                  servi = ''
+                sql = "select currencysign,currsignplace from company"
+                fbcursor.execute(sql)
+                currsymb = fbcursor.fetchone()
+                if not currsymb: 
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                    countp += 1              
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+                        
+                elif currsymb[1] == "before amount":
+                  if (i[13]) > (i[14]):
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "before amount with space":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "after amount":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "after amount with space":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                    countp += 1 
+              
+            else:
+              filter = ord_proser.get()
+              for record in ord_edit_protree.get_children():
+                ord_edit_protree.delete(record)
+        
+              countp = 0
+              sql = "SELECT * FROM Productservice WHERE name=%s"
+              val = (filter, )
+              fbcursor.execute(sql, val)
+              product_details = fbcursor.fetchall()
+              for i in product_details:
+                if i[12] == '1':
+                  servi = '🗹'
+                else:
+                  servi = ''
+                sql = "select currencysign,currsignplace from company"
+                fbcursor.execute(sql)
+                currsymb = fbcursor.fetchone()
+                if not currsymb: 
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                    countp += 1              
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+                        
+                elif currsymb[1] == "before amount":
+                  if (i[13]) > (i[14]):
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "before amount with space":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "after amount":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                    countp += 1
+
+                elif currsymb[1] == "after amount with space":
+                  if i[13] > i[14]:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                    countp += 1
+                  elif i[12] == '1':
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                    countp += 1
+                  else:
+                    ord_edit_protree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                    countp += 1 
+                
+
+            
                           
-          enter=Label(newselection, text="Enter filter text").place(x=5, y=10)
-          e1=Entry(newselection, width=20).place(x=110, y=10)
-          text=Label(newselection, text="Filtered column").place(x=340, y=10)
-          e2=Entry(newselection, width=20).place(x=450, y=10)
+          enter=Label(newselection, text="Product Name").place(x=5, y=10)
+          ord_proser=Entry(newselection, width=20)
+          ord_proser.place(x=110, y=10)
+          pro_ser = Button(newselection,command=ord_filter_product,text="Click Here")
+          pro_ser.place(x=240, y=9,height=20,width=60)
 
           ord_edit_protree=ttk.Treeview(newselection, height=27)
           ord_edit_protree["columns"]=["1","2","3", "4","5"]
@@ -24868,11 +25221,11 @@ def mainpage():
               discou = (total*float(orde_disrate.get())/100)
               extracs = (extracs+float(orde_extracost.get()))
               cost1.config(text=orde_extracost.get())
-              discount1.config(text=discou)
-              priceview.config(text=total)
-              order1.config(text=total-discou+extracs)
-              balance1.config(text=total-discou+extracs)
-              sub1.config(text=total-discou)
+              discount1.config(text=round(discou,2))
+              priceview.config(text=round(total,2))
+              order1.config(text=round(total-discou+extracs,2))
+              balance1.config(text=round(total-discou+extracs,2))
+              sub1.config(text=total-round(discou,2))
             elif create_maintree_insert[12] == "2":
               edit_pro_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
               extracs = 0.0
@@ -24883,9 +25236,9 @@ def mainpage():
               discou = (total*float(orde_disrate.get())/100)
               extracs = (extracs+float(orde_extracost.get()))
               cost1.config(text=orde_extracost.get())
-              discount1.config(text=discou)
-              priceview.config(text=total)
-              sub1.config(text=total-discou)
+              discount1.config(text=round(discou,2))
+              priceview.config(text=round(total,2))
+              sub1.config(text=round(total-discou,2))
               
 
               tot = 0.0
@@ -24894,12 +25247,12 @@ def mainpage():
                 checktax1 = list(edit_pro_tree.item(child, 'values'))
                 if checktax1[6] == "yes":
                   totaltax1 =(totaltax1 + float(checktax1[7]))
-                  tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+                  tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
                   tot = (float(totaltax1)*float(orde_tax1.get())/100)
                 else:
                   pass
-              order1.config(text=total+tot-discou+extracs)
-              balance1.config(text=total+tot-discou+extracs)
+              order1.config(text=round(total+tot-discou+extracs,2))
+              balance1.config(text=round(total+tot-discou+extracs,2))
                 
             elif create_maintree_insert[12] == "3":
               edit_pro_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,tax2,prosele[7]*1))
@@ -24911,9 +25264,9 @@ def mainpage():
               extracs = (extracs+float(orde_extracost.get()))
               cost1.config(text=orde_extracost.get())
               discou = (total*float(orde_disrate.get())/100)
-              discount1.config(text=discou)
-              priceview.config(text=total)
-              sub1.config(text=total-discou)
+              discount1.config(text=round(discou,2))
+              priceview.config(text=round(total,2))
+              sub1.config(text=round(total-discou,2))
               
               tot = 0.0
               totaltax1 = 0.0
@@ -24921,7 +25274,7 @@ def mainpage():
                 checktax1 = list(edit_pro_tree.item(child, 'values'))
                 if checktax1[6] == "yes":
                   totaltax1 =(totaltax1 + float(checktax1[8]))
-                  tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+                  tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
                   tot = (float(totaltax1)*float(orde_tax1.get())/100)
                 else:
                   pass
@@ -24932,14 +25285,14 @@ def mainpage():
                 checktax1 = list(edit_pro_tree.item(child, 'values'))
                 if checktax1[7] == "yes":
                   totaltax2 =(totaltax2 + float(checktax1[8]))
-                  tax2sum.config(text=(float(totaltax2)*float(orde_tax2.get())/100))
+                  tax2sum.config(text=round((float(totaltax2)*float(orde_tax2.get())/100),2))
                   
                   tot2 = (float(totaltax2)*float(orde_tax2.get())/100)
                 else:
                   pass
 
-              order1.config(text=total+tot+tot2-discou+extracs)
-              balance1.config(text=total+tot+tot2-discou+extracs)
+              order1.config(text=round(total+tot+tot2-discou+extracs,2))
+              balance1.config(text=round(total+tot+tot2-discou+extracs,2))
 
             newselection.destroy()
 
@@ -43551,11 +43904,11 @@ def mainpage():
             discou = (total*float(orde_disrate.get())/100)
             extracs = extracs + float(orde_extracost.get())
             cost1.config(text=orde_extracost.get())
-            discount1.config(text=discou)
-            priceview.config(text=total)
-            order1.config(text=total-discou+extracs)
-            balance1.config(text=total-discou+extracs)
-            sub1.config(text=total-discou)
+            discount1.config(text=round(discou,2))
+            priceview.config(text=round(total,2))
+            order1.config(text=round(total-discou+extracs,2))
+            balance1.config(text=round(total-discou+extracs,2))
+            sub1.config(text=round(total-discou,2))
           elif delrefresh[12] == "1":
             extracs = 0.0
             discou = 0.0
@@ -43565,11 +43918,11 @@ def mainpage():
             discou = (total*float(orde_disrate.get())/100)
             extracs = extracs + float(orde_extracost.get())
             cost1.config(text=orde_extracost.get())
-            discount1.config(text=discou)
-            priceview.config(text=total)
-            order1.config(text=total-discou+extracs)
-            balance1.config(text=total-discou+extracs)
-            sub1.config(text=total-discou)
+            discount1.config(text=round(discou,2))
+            priceview.config(text=round(total,2))
+            order1.config(text=round(total-discou+extracs,2))
+            balance1.config(text=round(total-discou+extracs,2))
+            sub1.config(text=round(total-discou,2))
           elif delrefresh[12] == "2":
             extracs = 0.0
             discou = 0.0
@@ -43579,9 +43932,9 @@ def mainpage():
             discou = (total*float(orde_disrate.get())/100)
             extracs = extracs + float(orde_extracost.get())
             cost1.config(text=orde_extracost.get())
-            discount1.config(text=discou)
-            priceview.config(text=total)
-            sub1.config(text=total-discou)
+            discount1.config(text=round(discou,2))
+            priceview.config(text=round(total,2))
+            sub1.config(text=round(total-discou,2))
 
             tot = 0.0
             totaltax1 = 0.0
@@ -43589,7 +43942,7 @@ def mainpage():
               checktax1 = list(edit_pro_tree.item(child, 'values'))
               if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[7]))
-                tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+                tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
                 tot = (float(totaltax1)*float(orde_tax1.get())/100)
               else:
                 pass
@@ -43604,9 +43957,9 @@ def mainpage():
             discou = (total*float(orde_disrate.get())/100)
             extracs = extracs + float(orde_extracost.get())
             cost1.config(text=orde_extracost.get())
-            discount1.config(text=discou)
-            priceview.config(text=total)
-            sub1.config(text=total-discou)
+            discount1.config(text=round(discou,2))
+            priceview.config(text=round(total,2))
+            sub1.config(text=round(total-discou,2))
             
             tot = 0.0
             totaltax1 = 0.0
@@ -43614,7 +43967,7 @@ def mainpage():
               checktax1 = list(edit_pro_tree.item(child, 'values'))
               if checktax1[6] == "yes":
                 totaltax1 =(totaltax1 + float(checktax1[8]))
-                tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+                tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
                 tot = (float(totaltax1)*float(orde_tax1.get())/100)
               else:
                 pass
@@ -43625,13 +43978,13 @@ def mainpage():
               checktax1 = list(edit_pro_tree.item(child, 'values'))
               if checktax1[7] == "yes":
                 totaltax2 =(totaltax2 + float(checktax1[8]))
-                tax2sum.config(text=(float(totaltax2)*float(orde_tax2.get())/100))
+                tax2sum.config(text=round((float(totaltax2)*float(orde_tax2.get())/100),2))
                 tot2 = (float(totaltax2)*float(orde_tax2.get())/100)
               else:
                 pass
 
-            order1.config(text=total+tot+tot2-discou+extracs)
-            balance1.config(text=total+tot+tot2-discou+extracs)
+            order1.config(text=round(total+tot+tot2-discou+extracs,2))
+            balance1.config(text=round(total+tot+tot2-discou+extracs,2))
         except:
           messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item .")
         
@@ -43799,12 +44152,14 @@ def mainpage():
         orde_check_duedate.deselect
       else:
         pass
+
       # sql = "select terms_of_payment from terms_of_payment"
       # fbcursor.execute(sql)
       # termspay = fbcursor.fetchall()
       # termspaydata = []
       # for i in termspay:
       #   termspay.append(i[0])
+      # print(termspaydata)
       terms=Label(labelframe,text="Terms").place(x=5,y=92)
       orde_terms=ttk.Combobox(labelframe,width=25)
       # orde_terms['values'] = termspaydata
@@ -44684,11 +45039,11 @@ def mainpage():
           discou = (total*float(orde_disrate.get())/100)
           extracs = (extracs+float(orde_extracost.get()))
           cost1.config(text=orde_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          order1.config(text=total-discou+extracs)
-          balance1.config(text=total-discou+extracs)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          order1.config(text=round(total-discou+extracs,2))
+          balance1.config(text=round(total-discou+extracs,2))
+          sub1.config(text=round(total-discou,2))
           coutp += 1
         elif display_editprotree[12] == "2":
           edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[13]))
@@ -44700,9 +45055,9 @@ def mainpage():
           discou = (total*float(orde_disrate.get())/100)
           extracs = (extracs+float(orde_extracost.get()))
           cost1.config(text=orde_extracost.get())
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
           
 
           tot = 0.0
@@ -44711,12 +45066,12 @@ def mainpage():
             checktax1 = list(edit_pro_tree.item(child, 'values'))
             if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[7]))
-              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
               tot = (float(totaltax1)*float(orde_tax1.get())/100)
             else:
               pass
-          order1.config(text=total+tot-discou+extracs)
-          balance1.config(text=total+tot-discou+extracs)
+          order1.config(text=round(total+tot-discou+extracs,2))
+          balance1.config(text=round(total+tot-discou+extracs,2))
           coutp += 1  
         elif display_editprotree[12] == "3":
           edit_pro_tree.insert(parent='', index='end',text='', values=(i[5],i[6],i[7],i[8],i[9],i[10],i[11],i[12],i[13]))
@@ -44728,9 +45083,9 @@ def mainpage():
           extracs = (extracs+float(orde_extracost.get()))
           cost1.config(text=orde_extracost.get())
           discou = (total*float(orde_disrate.get())/100)
-          discount1.config(text=discou)
-          priceview.config(text=total)
-          sub1.config(text=total-discou)
+          discount1.config(text=round(discou,2))
+          priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
           
           tot = 0.0
           totaltax1 = 0.0
@@ -44738,7 +45093,7 @@ def mainpage():
             checktax1 = list(edit_pro_tree.item(child, 'values'))
             if checktax1[6] == "yes":
               totaltax1 =(totaltax1 + float(checktax1[8]))
-              tax1sum.config(text=(float(totaltax1)*float(orde_tax1.get())/100))
+              tax1sum.config(text=round((float(totaltax1)*float(orde_tax1.get())/100),2))
               tot = (float(totaltax1)*float(orde_tax1.get())/100)
             else:
               pass
@@ -44749,20 +45104,31 @@ def mainpage():
             checktax1 = list(edit_pro_tree.item(child, 'values'))
             if checktax1[7] == "yes":
               totaltax2 =(totaltax2 + float(checktax1[8]))
-              tax2sum.config(text=(float(totaltax2)*float(orde_tax2.get())/100))
+              tax2sum.config(text=round((float(totaltax2)*float(orde_tax2.get())/100),2))
               
               tot2 = (float(totaltax2)*float(orde_tax2.get())/100)
             else:
               pass
           
-          order1.config(text=total+tot+tot2-discou+extracs)
-          balance1.config(text=total+tot+tot2-discou+extracs)
+          order1.config(text=round(total+tot+tot2-discou+extracs,2))
+          balance1.config(text=round(total+tot+tot2-discou+extracs,2))
           coutp += 1
 
       fir5Frame=Frame(pop,height=38,width=210)
       fir5Frame.place(x=735,y=485)
-      btndown=Button(fir5Frame, compound="left", text="Line Down").place(x=75, y=0)
-      btnup=Button(fir5Frame, compound="left", text="Line Up").place(x=150, y=0)
+
+      def ord_lineup():
+        rows = edit_pro_tree.selection()
+        for row in rows:
+          edit_pro_tree.move(row, edit_pro_tree.parent(row), edit_pro_tree.index(row)-1)
+
+
+      def ord_linedown():
+        rows = edit_pro_tree.selection()
+        for row in rows:
+          edit_pro_tree.move(row, edit_pro_tree.parent(row), edit_pro_tree.index(row)+1)
+      btndown=Button(fir5Frame, compound="left", text="Line Down",command = ord_linedown).place(x=75, y=0)
+      btnup=Button(fir5Frame, compound="left", text="Line Up",command = ord_lineup).place(x=150, y=0)
     except:
       try:
         pop.destroy()
