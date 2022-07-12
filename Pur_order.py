@@ -1284,12 +1284,37 @@ def mainpage():
         except:
           pass
           
-                 
+      def pur_cusfilter_customer():
+        if cussera.get() == '':
+          sql = "SELECT * FROM Customer"
+          fbcursor.execute(sql,)
+          ord_customer_details = fbcursor.fetchall()
+          for record in pur_customertree.get_children():
+            pur_customertree.delete(record)
 
-      enter=Label(cuselection, text="Enter filter text").place(x=5, y=10)
-      e1=Entry(cuselection, width=20).place(x=110, y=10)
-      text=Label(cuselection, text="Filtered column").place(x=340, y=10)
-      e2=Entry(cuselection, width=20).place(x=450, y=10)
+          j = 0
+          for i in ord_customer_details:
+            pur_customertree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+            j += 1
+        else:
+          filter = cussera.get()
+          for record in pur_customertree.get_children():
+            pur_customertree.delete(record)
+
+          sql = "SELECT * FROM Customer WHERE businessname=%s"
+          val = (filter, )
+          fbcursor.execute(sql, val)
+          ord_customer_details = fbcursor.fetchall()
+          j = 0
+          for i in ord_customer_details:
+            pur_customertree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
+            j += 1
+
+      enter=Label(cuselection, text="Customer Name").place(x=5, y=10)
+      cussera=Entry(cuselection, width=20)
+      cussera.place(x=110, y=10)
+      cus_serabt = Button(cuselection,text="Click Here",command=pur_cusfilter_customer)
+      cus_serabt.place(x=240,y=9,height=20,width=60)
 
       pur_customertree=ttk.Treeview(cuselection, height=27)
       pur_customertree["columns"]=["1","2","3", "4"]
@@ -1310,6 +1335,28 @@ def mainpage():
       for i in fbcursor:
         pur_customertree.insert(parent='', index='end', iid=i, text='', values=(i[24],i[4],i[10],i[8]))
         j += 1
+
+      #_________pur select customer________#
+      def pur_sele_cus():
+        cusid = pur_customertree.item(pur_customertree.focus())["values"][0]
+        sql = "select * from customer where customerno = %s"
+        val = (cusid,)
+        fbcursor.execute(sql,val)
+        cussel = fbcursor.fetchone()
+        pur_name.delete(0, END)
+        pur_name.insert(0, cussel[4])
+        pur_addr.delete("1.0", END)
+        pur_addr.insert("1.0", cussel[5])
+        pur_delivery.delete(0, END)
+        pur_delivery.insert(0, cussel[6])
+        pur_deliaddr.delete("1.0", END)
+        pur_deliaddr.insert("1.0", cussel[7])
+        pur_email.delete(0, END)
+        pur_email.insert(0, cussel[9])
+        pur_sms.delete(0, END)
+        pur_sms.insert(0, cussel[8])
+        cuselection.destroy()
+
 
       ctegorytree=ttk.Treeview(cuselection, height=27)
       ctegorytree["columns"]=["1"]
@@ -1394,7 +1441,7 @@ def mainpage():
       scrollbar.place(x=640, y=45, height=560)
       scrollbar.config( command=pur_customertree.yview )
 
-      btn1=Button(cuselection,compound = LEFT,image=tick, text="ok", width=60).place(x=15, y=610)
+      btn1=Button(cuselection,compound = LEFT,image=tick, text="ok", width=60,command=pur_sele_cus).place(x=15, y=610)
       btn1=Button(cuselection,compound = LEFT,image=tick, text="Edit selected customer", width=150,command=p_edit_customer).place(x=250, y=610)
       btn1=Button(cuselection,compound = LEFT,image=tick,text="Add new customer", width=150,command=p_add_customer).place(x=435, y=610)
       btn1=Button(cuselection,compound = LEFT,image=cancel, text="Cancel", width=60).place(x=740, y=610)   
@@ -2180,13 +2227,156 @@ def mainpage():
               pass
             pass
 
-            
+        def pur_filter_product():
+          if pro_serach.get() == '':
+            for record in pur_seleproducttree.get_children():
+              pur_seleproducttree.delete(record)
+
+            countp = 0
+            sql = 'SELECT * FROM Productservice'
+            fbcursor.execute(sql)
+            product_details = fbcursor.fetchall()
+            for i in prodata:
+              if i[12] == '1':
+                servi = '🗹'
+              else:
+                servi = ''
+              sql = "select currencysign,currsignplace from company"
+              fbcursor.execute(sql)
+              currsymb = fbcursor.fetchone()
+              if not currsymb: 
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                  countp += 1              
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+                      
+              elif currsymb[1] == "before amount":
+                if (i[13]) > (i[14]):
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "before amount with space":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount with space":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+          else:
+            filter = pro_serach.get()
+            for record in pur_seleproducttree.get_children():
+              pur_seleproducttree.delete(record)
+      
+            countp = 0
+            sql = "SELECT * FROM Productservice WHERE name=%s"
+            val = (filter, )
+            fbcursor.execute(sql, val)
+            product_details = fbcursor.fetchall()
+            for i in product_details:
+              if i[12] == '1':
+                servi = '🗹'
+              else:
+                servi = ''
+              sql = "select currencysign,currsignplace from company"
+              fbcursor.execute(sql)
+              currsymb = fbcursor.fetchone()
+              if not currsymb: 
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('green',))
+                  countp += 1              
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+                      
+              elif currsymb[1] == "before amount":
+                if (i[13]) > (i[14]):
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0]+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "before amount with space":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],currsymb[0] +" "+i[7],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='', values=(i[2],i[4],i[7]+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1
+
+              elif currsymb[1] == "after amount with space":
+                if i[13] > i[14]:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('green',))
+                  countp += 1
+                elif i[12] == '1':
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('blue',))
+                  countp += 1
+                else:
+                  pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
+                  countp += 1   
           
                         
-        enter=Label(newselection, text="Enter filter text").place(x=5, y=10)
-        e1=Entry(newselection, width=20).place(x=110, y=10)
-        text=Label(newselection, text="Filtered column").place(x=340, y=10)
-        e2=Entry(newselection, width=20).place(x=450, y=10)
+        enter=Label(newselection, text="Product Name").place(x=5, y=10)
+        pro_serach=Entry(newselection, width=20)
+        pro_serach.place(x=110, y=10)
+        pro_sera = Button(newselection,command=pur_filter_product,text="Click Here")
+        pro_sera.place(x=240, y=9,height=20,width=60)
 
         pur_seleproducttree=ttk.Treeview(newselection, height=27)
         pur_seleproducttree["columns"]=["1","2","3", "4","5"]
@@ -2273,6 +2463,111 @@ def mainpage():
             else:
               pur_seleproducttree.insert(parent='', index='end', iid=countp, text='hello', values=(i[2],i[4],i[7]+" "+currsymb[0],servi,i[13]),tags=('red',))
               countp += 1 
+
+        def pur_selepro():
+          proskuid = pur_seleproducttree.item(pur_seleproducttree.focus())["values"][0]
+          sql = "select * from Productservice where sku = %s"
+          val = (proskuid,)
+          fbcursor.execute(sql,val)
+          prosele = fbcursor.fetchone()
+          sql = "select * from company"
+          fbcursor.execute(sql)
+          create_maintree_insert = fbcursor.fetchone()
+          if prosele[10] == '1':
+            tax1 = 'yes'
+          else:
+            tax1 = 'No'
+          if prosele[19] == '1':
+            tax2 = 'yes'
+          else:
+            tax2 = 'No'
+          if not create_maintree_insert:
+            pur_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
+
+          elif create_maintree_insert[12] == "1":
+            pur_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
+            total = 0.0
+            for child in pur_create_tree.get_children():
+              total += float(pur_create_tree.item(child, 'values')[6])
+            discou = (total*float(pur_disrate.get())/100)
+            extracs = (extracs+float(pur_extracost.get()))
+            cost1.config(text=pur_extracost.get())
+            discount1.config(text=round(discou,2))
+            pur_priceview.config(text=round(total,2))
+            order1.config(text=round(total-discou+extracs,2))
+            balance1.config(text=round(total-discou+extracs,2))
+            sub1.config(text=round(total-discou,2))
+          elif create_maintree_insert[12] == "2":
+            pur_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
+            total = 0.0
+            for child in pur_create_tree.get_children():
+              total += float(pur_create_tree.item(child, 'values')[7])
+            discou = (total*float(pur_disrate.get())/100)
+            extracs = (extracs+float(pur_extracost.get()))
+            cost1.config(text=pur_extracost.get())
+            discount1.config(text=round(discou,2))
+            pur_priceview.config(text=round(total,2))
+            sub1.config(text=round(total-discou,2))
+            
+
+            tot = 0.0
+            totaltax1 = 0.0
+            for child in pur_create_tree.get_children():
+              checktax1 = list(pur_create_tree.item(child, 'values'))
+              if checktax1[6] == "yes":
+                totaltax1 =(totaltax1 + float(checktax1[7]))
+                tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+                tot = (float(totaltax1)*float(pur_tax1.get())/100)
+              else:
+                pass
+            order1.config(text=round(total+tot-discou+extracs,2))
+            balance1.config(text=round(total+tot-discou+extracs,2))
+              
+          elif create_maintree_insert[12] == "3":
+            pur_create_tree.insert(parent='', index='end',text='', values=(prosele[2],prosele[4],prosele[5],prosele[7],1,prosele[8],tax1,tax2,prosele[7]*1))
+            extracs = 0.0
+            discou = 0.0
+            total = 0.0
+            for child in pur_create_tree.get_children():
+              total += float(pur_create_tree.item(child, 'values')[8])
+            extracs = (extracs+float(pur_extracost.get()))
+            cost1.config(text=pur_extracost.get())
+            discou = (total*float(pur_disrate.get())/100)
+            discount1.config(text=round(discou,2))
+            pur_priceview.config(text=round(total,2))
+            sub1.config(text=round(total-discou,2))
+            
+            tot = 0.0
+            totaltax1 = 0.0
+            for child in pur_create_tree.get_children():
+              checktax1 = list(pur_create_tree.item(child, 'values'))
+              if checktax1[6] == "yes":
+                totaltax1 =(totaltax1 + float(checktax1[8]))
+                tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+                tot = (float(totaltax1)*float(pur_tax1.get())/100)
+              else:
+                pass
+            
+            tot2 = 0.0
+            totaltax2 = 0.0
+            for child in pur_create_tree.get_children():
+              checktax1 = list(pur_create_tree.item(child, 'values'))
+              if checktax1[7] == "yes":
+                totaltax2 =(totaltax2 + float(checktax1[8]))
+                tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+                
+                tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+              else:
+                pass
+
+            order1.config(text=round(total+tot+tot2-discou+extracs,2))
+            balance1.config(text=round(total+tot+tot2-discou+extracs,2))
+
+          newselection.destroy()
 
 
         ctegorytree=ttk.Treeview(newselection, height=27)
@@ -2523,7 +2818,7 @@ def mainpage():
         scrollbar.config( command=pur_seleproducttree.yview )
       
 
-        btn1=Button(newselection,compound = LEFT,image=tick ,text="ok", width=60).place(x=15, y=610)
+        btn1=Button(newselection,compound = LEFT,image=tick ,text="ok", width=60,command=pur_selepro).place(x=15, y=610)
         btn1=Button(newselection,compound = LEFT,image=tick , text="Edit product/Service", width=150,command=pur_edit_product).place(x=250, y=610)
         btn1=Button(newselection,compound = LEFT,image=tick , text="Add product/Service", width=150,command=pur_create_product).place(x=435, y=610)
         btn1=Button(newselection,compound = LEFT,image=cancel ,text="Cancel", width=60).place(x=740, y=610)
@@ -2683,8 +2978,35 @@ def mainpage():
     labelframe1 = LabelFrame(fir1Frame,text=" Vendor")
     labelframe1.place(x=10,y=5,width=640,height=160)
     order = Label(labelframe1, text="Vendor to").place(x=10,y=5)
-    pur_name = ttk.Combobox(labelframe1, value="Hello",width=28)
+
+    def sele_cus_na(event):
+      ord_cus = pur_name.get()
+      sql = "select * from customer where businessname = %s"
+      val = (ord_cus,)
+      fbcursor.execute(sql,val)
+      cussel = fbcursor.fetchone()
+      pur_addr.delete("1.0", END)
+      pur_addr.insert("1.0", cussel[5])
+      pur_delivery.delete(0, END)
+      pur_delivery.insert(0, cussel[6])
+      pur_deliaddr.delete("1.0", END)
+      pur_deliaddr.insert("1.0", cussel[7])
+      pur_email.delete(0, END)
+      pur_email.insert(0, cussel[9])
+      pur_sms.delete(0, END)
+      pur_sms.insert(0, cussel[8])
+
+    sql = "select businessname from customer"
+    fbcursor.execute(sql)
+    cusna = fbcursor.fetchall()
+    cusnadata = []
+    for i in cusna:
+      cusnadata.append(i[0])
+
+    pur_name = ttk.Combobox(labelframe1, value=cusnadata,width=28)
     pur_name.place(x=80,y=5)
+    pur_name.bind("<<ComboboxSelected>>",sele_cus_na)
+
     address=Label(labelframe1,text="Address").place(x=10,y=30)
     pur_addr=Text(labelframe1,width=23)
     pur_addr.place(x=80,y=30,height=70)
@@ -2708,8 +3030,43 @@ def mainpage():
     labelframe = LabelFrame(fir1Frame,text="Purchase Order")
     labelframe.place(x=652,y=5,width=290,height=170)
     order=Label(labelframe,text="P.Order#").place(x=5,y=5)
+
+    def pur_num_increment(pnum):
+      result = ""
+      numberStr = ""
+      purnum = pnum
+      pno = str(purnum).split("/")[0]
+      i = len(pno) - 1
+      while i > 0:
+        c = pnum[i]
+        if not c.isdigit():
+          break
+        numberStr = c + numberStr
+        i -= 1
+      number = int(numberStr)
+      number += 1
+      result += pnum[0 : i + 1]
+      result += "0000" if number < 1000 else ""
+      result += str(number)
+      y = dt.datetime.today().date()
+      year = "/" + "" + str(y.year)
+      result += year
+      return result
+    
+    fbcursor.execute("SELECT * FROM porder ORDER BY porderid  DESC LIMIT 1")
+    ord_number_data = fbcursor.fetchone()
+    
+    if not ord_number_data == None:
+      a = ord_number_data[39]
+      pur_no = pur_num_increment(a)
+    else:
+      y = dt.datetime.today().date()
+      year = "/" + "" + str(y.year)
+      pur_no = prefix_str.get() +"0000" + pspin2.get()+ "" + year
+    
     pur_orderid=Entry(labelframe,width=27)
     pur_orderid.place(x=100,y=5,)
+    pur_orderid.insert(0,pur_no)
     orderdate=Label(labelframe,text="P.Order date").place(x=5,y=33)
     pur_date=Entry(labelframe,width=20)
     pur_date.place(x=150,y=33)
@@ -2719,7 +3076,15 @@ def mainpage():
     pur_duedate=Entry(labelframe,width=20)
     pur_duedate.place(x=150,y=62)
     terms=Label(labelframe,text="Terms").place(x=5,y=92)
-    pur_terms=ttk.Combobox(labelframe, value="",width=25)
+
+    sql = "select terms_of_payment from terms_of_payment"
+    fbcursor.execute(sql)
+    cusna = fbcursor.fetchall()
+    termofpay = []
+    for i in cusna:
+      termofpay.append(i[0])
+
+    pur_terms=ttk.Combobox(labelframe, value=termofpay,width=25)
     pur_terms.place(x=100,y=92)
     ref=Label(labelframe,text="Order ref#").place(x=5,y=118)
     pur_ref=Entry(labelframe,width=27)
@@ -2728,32 +3093,108 @@ def mainpage():
     fir2Frame=Frame(pop1, height=150,width=100,bg="#f5f3f2")
     fir2Frame.pack(side="top", fill=X)
     listFrame = Frame(fir2Frame, bg="white", height=140,borderwidth=5,  relief=RIDGE)
-    
-    pur_create_tree=ttk.Treeview(listFrame)
-    pur_create_tree["columns"]=["1","2","3","4","5","6","7","8"]
 
-    pur_create_tree.column("#0", width=40)
-    pur_create_tree.column("1", width=80)
-    pur_create_tree.column("2", width=190)
-    pur_create_tree.column("3", width=190)
-    pur_create_tree.column("4", width=80)
-    pur_create_tree.column("5", width=60)
-    pur_create_tree.column("6", width=60)
-    pur_create_tree.column("7", width=60)
-    pur_create_tree.column("8", width=80)
- 
-    pur_create_tree.heading("#0")
-    pur_create_tree.heading("1",text="ID/SKU")
-    pur_create_tree.heading("2",text="Product/Service")
-    pur_create_tree.heading("3",text="Description")
-    pur_create_tree.heading("4",text="Unit Price")
-    pur_create_tree.heading("5",text="Quality")
-    pur_create_tree.heading("6",text="Pcs/Weight")
-    pur_create_tree.heading("7",text="Tax1")
-    pur_create_tree.heading("8",text="Price")
+    sql = "select * from company"
+    fbcursor.execute(sql)
+    pur_create_maintree = fbcursor.fetchone()
+    
+    if not pur_create_maintree:
+      pur_create_tree=ttk.Treeview(listFrame)
+      pur_create_tree["columns"]=["1","2","3","4","5","6","7","8"]
+      pur_create_tree.column("#0", width=40)
+      pur_create_tree.column("1", width=80)
+      pur_create_tree.column("2", width=190)
+      pur_create_tree.column("3", width=190)
+      pur_create_tree.column("4", width=80)
+      pur_create_tree.column("5", width=60)
+      pur_create_tree.column("6", width=60)
+      pur_create_tree.column("7", width=60)
+      pur_create_tree.column("8", width=80)
+
+      pur_create_tree.heading("#0")
+      pur_create_tree.heading("1",text="ID/SKU")
+      pur_create_tree.heading("2",text="Product/Service")
+      pur_create_tree.heading("3",text="Description")
+      pur_create_tree.heading("4",text="Unit Price")
+      pur_create_tree.heading("5",text="Quality")
+      pur_create_tree.heading("6",text="Pcs/Weight")
+      pur_create_tree.heading("7",text="Tax1")
+      pur_create_tree.heading("8",text="Price")
+
+    elif pur_create_maintree[12] == "1":
+      pur_create_tree=ttk.Treeview(listFrame)
+      pur_create_tree["columns"]=["1","2","3","4","5","6","7"]
+      pur_create_tree.column("#0", width=40)
+      pur_create_tree.column("1", width=80)
+      pur_create_tree.column("2", width=190)
+      pur_create_tree.column("3", width=190)
+      pur_create_tree.column("4", width=80)
+      pur_create_tree.column("5", width=60)
+      pur_create_tree.column("6", width=60)
+      pur_create_tree.column("7", width=60)
+   
+      pur_create_tree.heading("#0")
+      pur_create_tree.heading("1",text="ID/SKU")
+      pur_create_tree.heading("2",text="Product/Service")
+      pur_create_tree.heading("3",text="Description")
+      pur_create_tree.heading("4",text="Unit Price")
+      pur_create_tree.heading("5",text="Quality")
+      pur_create_tree.heading("6",text="Pcs/Weight")
+      pur_create_tree.heading("7",text="Price")
+    
+    elif pur_create_maintree[12] == "2":
+      pur_create_tree=ttk.Treeview(listFrame)
+      pur_create_tree["columns"]=["1","2","3","4","5","6","7","8"]
+      pur_create_tree.column("#0", width=40)
+      pur_create_tree.column("1", width=80)
+      pur_create_tree.column("2", width=190)
+      pur_create_tree.column("3", width=190)
+      pur_create_tree.column("4", width=80)
+      pur_create_tree.column("5", width=60)
+      pur_create_tree.column("6", width=60)
+      pur_create_tree.column("7", width=60)
+      pur_create_tree.column("8", width=80)
+   
+      pur_create_tree.heading("#0")
+      pur_create_tree.heading("1",text="ID/SKU")
+      pur_create_tree.heading("2",text="Product/Service")
+      pur_create_tree.heading("3",text="Description")
+      pur_create_tree.heading("4",text="Unit Price")
+      pur_create_tree.heading("5",text="Quality")
+      pur_create_tree.heading("6",text="Pcs/Weight")
+      pur_create_tree.heading("7",text="Tax1")
+      pur_create_tree.heading("8",text="Price")
+
+    elif pur_create_maintree[12] == "3":
+      pur_create_tree=ttk.Treeview(listFrame)
+      pur_create_tree["columns"]=["1","2","3","4","5","6","7","8","9"]
+      pur_create_tree.column("#0", width=40)
+      pur_create_tree.column("1", width=80)
+      pur_create_tree.column("2", width=190)
+      pur_create_tree.column("3", width=190)
+      pur_create_tree.column("4", width=80)
+      pur_create_tree.column("5", width=60)
+      pur_create_tree.column("6", width=60)
+      pur_create_tree.column("7", width=60)
+      pur_create_tree.column("8", width=80)
+      pur_create_tree.column("9", width=80)
+
+      pur_create_tree.heading("#0")
+      pur_create_tree.heading("1",text="ID/SKU")
+      pur_create_tree.heading("2",text="Product/Service")
+      pur_create_tree.heading("3",text="Description")
+      pur_create_tree.heading("4",text="Unit Price")
+      pur_create_tree.heading("5",text="Quality")
+      pur_create_tree.heading("6",text="Pcs/Weight")
+      pur_create_tree.heading("7",text="Tax1")
+      pur_create_tree.heading("8",text="Tax2")
+      pur_create_tree.heading("9",text="Price")
 
     pur_create_tree.pack(fill="both", expand=1)
     listFrame.pack(side="top", fill="both", padx=5, pady=3, expand=1)
+
+    pur_priceview = Label(listFrame,bg="#f5f3f2")
+    pur_priceview.place(x=850,y=200,width=78,height=18)
 
     fir3Frame=Frame(pop1,height=200,width=700,bg="#f5f3f2")
     fir3Frame.place(x=0,y=490)
@@ -2788,9 +3229,44 @@ def mainpage():
     cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
     pur_extracost=Entry(labelframe1,width=10)
     pur_extracost.place(x=115,y=35)
-    tax=Label(labelframe1,text="Tax1").place(x=420,y=35)
+    tax=Label(labelframe1,text="Tax1")
     pur_tax1=Entry(labelframe1,width=7)
-    pur_tax1.place(x=460,y=35)
+    tax2=Label(labelframe1,text="Tax2")
+    pur_tax2=Entry(labelframe1,width=7)
+    
+    sql = "select taxtype,tax1rate,tax2rate from company"
+    fbcursor.execute(sql)
+    taxdis = fbcursor.fetchone()
+    if not taxdis:
+      pur_tax1.insert(0, 0)
+      pur_tax2.insert(0, 0)
+    elif taxdis[0] == "1":
+      pur_tax1.insert(0, 0)
+      pur_tax2.insert(0, 0)
+    elif taxdis[0] == "2":
+      pur_tax1.place(x=460,y=35)
+      tax.place(x=420,y=35)
+      if not taxdis:
+        pur_tax1.insert(0, 0)
+        pur_tax2.insert(0, 0)
+      else:
+        pur_tax1.insert(0, taxdis[1])
+        pur_tax2.insert(0, 0)
+      # ord_tax.bind('<KeyRelease>', bindtax1)
+    elif taxdis[0] == "3":
+      pur_tax1.place(x=460,y=35)
+      pur_tax2.place(x=460,y=67)
+      tax2.place(x=420,y=67)
+      tax.place(x=420,y=35)
+      if not taxdis:
+        pur_tax1.insert(0, 0)
+        pur_tax2.insert(0, 0)
+      else:
+        pur_tax1.insert(0, taxdis[1])
+        pur_tax2.insert(0, taxdis[2])
+      # ord_tax.bind('<KeyRelease>', bindtax1)
+      # ord_tax2.bind('<KeyRelease>', bindtax2)
+
     template=Label(labelframe1,text="Template").place(x=37,y=70)
     pur_templates=ttk.Combobox(labelframe1, value="",width=25)
     pur_templates.place(x=115,y=70)
@@ -2848,16 +3324,132 @@ def mainpage():
     fir4Frame.place(x=740,y=520)
     summaryfrme = LabelFrame(fir4Frame,text="Summary",font=("arial",15))
     summaryfrme.place(x=0,y=0,width=200,height=170)
-    discount=Label(summaryfrme, text="Discount").place(x=0 ,y=0)
-    discount1=Label(summaryfrme, text="$0.00").place(x=130 ,y=0)
-    sub=Label(summaryfrme, text="Subtotal").place(x=0 ,y=21)
-    sub1=Label(summaryfrme, text="$0.00").place(x=130 ,y=21)
-    tax=Label(summaryfrme, text="Tax1").place(x=0 ,y=42)
-    tax1=Label(summaryfrme, text="$0.00").place(x=130 ,y=42)
-    cost=Label(summaryfrme, text="Extra cost").place(x=0 ,y=63)
-    cost=Label(summaryfrme, text="$0.00").place(x=130 ,y=63)
-    order=Label(summaryfrme, text="P.Order total").place(x=0 ,y=84)
-    order1=Label(summaryfrme, text="$0.00").place(x=130 ,y=84)
+    discount=Label(summaryfrme, text="Discount")
+    discount1=Label(summaryfrme, text="0.00")
+    sub=Label(summaryfrme, text="Subtotal")
+    sub1=Label(summaryfrme, text="0.00")
+    tax=Label(summaryfrme, text="Tax1")
+    tax1sum=Label(summaryfrme, text="0.00")
+    tax22=Label(summaryfrme, text="Tax2")
+    tax2sum=Label(summaryfrme, text="0.00")
+    cost=Label(summaryfrme, text="Extra cost")
+    cost1=Label(summaryfrme, text="0.00")
+    order=Label(summaryfrme, text="Order total")
+    order1=Label(summaryfrme, text="0.00")
+    total=Label(summaryfrme, text="Total paid")
+    total1=Label(summaryfrme, text="0.00")
+    balance=Label(summaryfrme, text="Balance")
+    balance1=Label(summaryfrme, text="0.00")
+
+    sql = "select taxtype from company"
+    fbcursor.execute(sql)
+    taxsummarysym = fbcursor.fetchone()
+    sql = "select currencysign,currsignplace from company"
+    fbcursor.execute(sql)
+    symbollabal = fbcursor.fetchone()
+    discountsym = Label(summaryfrme,text=symbollabal[0])
+    subsym = Label(summaryfrme,text=symbollabal[0])
+    tax1sym = Label(summaryfrme,text=symbollabal[0])
+    tax2sym = Label(summaryfrme,text=symbollabal[0])
+    costsym = Label(summaryfrme,text=symbollabal[0])
+    ordersym = Label(summaryfrme,text=symbollabal[0])
+    totalsym = Label(summaryfrme,text=symbollabal[0])
+    balsym = Label(summaryfrme,text=symbollabal[0])
+    if not taxsummarysym:
+      discountsym.place(x=105,y=7)
+      subsym.place(x=105,y=28)
+      costsym.place(x=105,y=54)
+      ordersym.place(x=105,y=77)
+      totalsym.place(x=105,y=98)
+      balsym.place(x=105,y=119)
+    elif taxsummarysym[0] == "1":
+      discountsym.place(x=105,y=7)
+      subsym.place(x=105,y=28)
+      costsym.place(x=105,y=54)
+      ordersym.place(x=105,y=77)
+      totalsym.place(x=105,y=98)
+      balsym.place(x=105,y=119)
+    elif taxsummarysym[0] == "2":
+      discountsym.place(x=105,y=0)
+      subsym.place(x=105,y=21)
+      tax1sym.place(x=105,y=42)
+      costsym.place(x=105,y=63)
+      ordersym.place(x=105,y=84)
+      totalsym.place(x=105,y=105)
+      balsym.place(x=105,y=126)
+    elif taxsummarysym[0] == "3":
+      discountsym.place(x=105,y=0)
+      subsym.place(x=105,y=16)
+      tax1sym.place(x=105,y=36)
+      tax2sym.place(x=105,y=52)
+      costsym.place(x=105,y=69)
+      ordersym.place(x=105,y=89)
+      totalsym.place(x=105,y=110)
+      balsym.place(x=105,y=126)
+
+    
+    sql = "select taxtype from company"
+    fbcursor.execute(sql)
+    taxsummary = fbcursor.fetchone()
+    if not taxsummary:
+      discount.place(x=0 ,y=7)
+      discount1.place(x=130 ,y=7)
+      sub.place(x=0 ,y=28)
+      sub1.place(x=130 ,y=28)
+      cost.place(x=0 ,y=54)
+      cost1.place(x=130 ,y=54)
+      order.place(x=0 ,y=77)
+      order1.place(x=130 ,y=77)
+      total.place(x=0 ,y=98)
+      total1.place(x=130 ,y=98)
+      balance.place(x=0 ,y=119)
+      balance1.place(x=130 ,y=119)
+    elif taxsummary[0] == "1":
+      discount.place(x=0 ,y=7)
+      discount1.place(x=130 ,y=7)
+      sub.place(x=0 ,y=28)
+      sub1.place(x=130 ,y=28)
+      cost.place(x=0 ,y=54)
+      cost1.place(x=130 ,y=54)
+      order.place(x=0 ,y=77)
+      order1.place(x=130 ,y=77)
+      total.place(x=0 ,y=98)
+      total1.place(x=130 ,y=98)
+      balance.place(x=0 ,y=119)
+      balance1.place(x=130 ,y=119)
+    elif taxsummary[0] == "2":
+      tax.place(x=0 ,y=42)
+      tax1sum.place(x=130 ,y=42)
+      discount.place(x=0 ,y=0)
+      discount1.place(x=130 ,y=0)
+      sub.place(x=0 ,y=21)
+      sub1.place(x=130 ,y=21)
+      cost.place(x=0 ,y=63)
+      cost1.place(x=130 ,y=63)
+      order.place(x=0 ,y=84)
+      order1.place(x=130 ,y=84)
+      total.place(x=0 ,y=105)
+      total1.place(x=130 ,y=105)
+      balance.place(x=0 ,y=126)
+      balance1.place(x=130 ,y=126)
+    elif taxsummary[0] == "3":
+      tax.place(x=0 ,y=36)
+      tax1sum.place(x=130 ,y=36)
+      tax22.place(x=0 ,y=52)
+      tax2sum.place(x=130 ,y=52)
+      discount.place(x=0 ,y=0)
+      discount1.place(x=130 ,y=0)
+      sub.place(x=0 ,y=16)
+      sub1.place(x=130 ,y=16)
+      cost.place(x=0 ,y=69)
+      cost1.place(x=130 ,y=69)
+      order.place(x=0 ,y=89)
+      order1.place(x=130 ,y=89)
+      total.place(x=0 ,y=110)
+      total1.place(x=130 ,y=110)
+      balance.place(x=0 ,y=126)
+      balance1.place(x=130 ,y=126)
+
 
     fir5Frame=Frame(pop1,height=38,width=210)
     fir5Frame.place(x=735,y=485)
