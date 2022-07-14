@@ -298,7 +298,7 @@ def mainpage():
   main.title("F-Billing Revolution 2022(FREE version) | Company database:fbillingdb | User:Administrator")
   s = ttk.Style()
   s.theme_use('default')
-  s.configure('TNotebook.Tab', background="#999999", width=20, padding=10)
+  s.configure('TNotebook.Tab', background="#999999",width=20, padding=10)
   tabControl = ttk.Notebook(main)
   tab1 = ttk.Frame(tabControl)
   tab2 = ttk.Frame(tabControl)
@@ -322,7 +322,7 @@ def mainpage():
   tabControl.add(tab10,image=setting,compound = LEFT, text ='Settings')
   tabControl.pack(expand = 1, fill ="both")
   
-  def check_empty() :
+  def check_empty():
        if entry.get():
            pass     #your function where you want to jump
        else:
@@ -332,6 +332,99 @@ def mainpage():
     pop1=Toplevel(pur_midFrame)
     pop1.title("Orders")
     pop1.geometry("950x690+150+0")
+    
+    def save_purchase():
+      pur__vandor = pur_name.get()
+      pur__address = pur_addr.get("1.0","end-1c")
+      pur__emailid = pur_email.get()
+      pur__deliveryname =pur_delivery.get()
+      pur__deliveryadd = pur_deliaddr.get("1.0","end-1c")
+      pur__sms = pur_sms.get()
+      pur__orderid = pur_orderid.get()
+      pur__date = pur_date.get_date()
+      pur__duedate = pur_duedate.get_date()
+      pur__termsofpay = pur_terms.get()
+      pur__extracostname = pur_extracostname.get()
+      pur__extracost = pur_extracost.get()
+      pur__template = pur_templates.get()
+      pur__saleperson = pur_salesper.get()
+      pur__discount = pur_disrate.get()
+      pur__tax1 = pur_tax1.get()
+      pur__tax2 = pur_tax2.get()
+      pur__category = pur_cat.get()
+      pur__emailon = pur_emailon.cget("text")
+      pur__printon = pur_printon.cget("text")
+      pur__titletxt = pur_titltetext.get()
+      pur__header = pur_header.get()
+      pur__footer = pur_footer.get()
+      pur__termsnote = pur_termsnotes.get("1.0","end-1c")
+      pur__comments = pur_comments.get("1.0","end-1c")
+      pur__privatenotes = pur_pravatenote.get("1.0","end-1c")
+      pur__sumdis = discount1.cget("text")
+      pur__sum_subtotal = sub1.cget("text")
+      pur__purtotal = order1.cget("text")
+
+      #________________Order Insert___________________#
+      sql = 'insert into porder(businessname,businessaddress,cpemail,deliveryto,deliveryaddress,cpmobileforsms,porder_number,porderdate,duedate,term_of_payment,extracostname,extracost,template,salesper,discourate,tax1,	tax2,category,emailon,printon,title_text,header_text,footer_text,terms,comments,privatenote,sumdiscount,subtotal,total) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+      val = (pur__vandor,pur__address,pur__emailid,pur__deliveryname,pur__deliveryadd,pur__sms,pur__orderid,pur__date,pur__duedate,pur__termsofpay,pur__extracostname,pur__extracost,pur__template,pur__saleperson,pur__discount,pur__tax1,pur__tax2,pur__category,pur__emailon,pur__printon,pur__titletxt,pur__header,pur__footer,pur__termsnote,pur__comments,pur__privatenotes,pur__sumdis,pur__sum_subtotal,pur__purtotal)
+      fbcursor.execute(sql, val)
+      fbilldb.commit()
+
+      #_______________Purchase Order product service  insert _____________#
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      pord_insertpro_service = fbcursor.fetchone()
+      for child in pur_create_tree.get_children():
+        insert_pro_list = list(pur_create_tree.item(child, 'values'))
+        if not pord_insertpro_service:
+          sql = 'insert into storingproduct(porder_number,sku,name,description,unitprice,quantity,peices,price) values(%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (pur__orderid,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif pord_insertpro_service[12] == "1":
+          sql = 'insert into storingproduct(porder_number,sku,name,description,unitprice,quantity,peices,price) values(%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (pur__orderid,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif pord_insertpro_service[12] == "2":
+          sql = 'insert into storingproduct(porder_number,sku,name,description,unitprice,quantity,peices,tax1,price) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (pur__orderid,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6],insert_pro_list[7])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+        elif pord_insertpro_service[12] == "3":
+          sql = 'insert into storingproduct(porder_number,sku,name,description,unitprice,quantity,peices,tax1,tax2,price) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+          val = (pur__orderid,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6],insert_pro_list[7],insert_pro_list[8])
+          fbcursor.execute(sql, val)
+          fbilldb.commit()
+      
+      #______________Refresh tree_______________#
+      for record in purchase_tree.get_children():
+       purchase_tree.delete(record)
+      sql = "select currencysign,currsignplace from company"
+      fbcursor.execute(sql)
+      sym = fbcursor.fetchone()
+
+      fbcursor.execute('SELECT * FROM porder;')
+      countp = 0
+      for i in fbcursor:
+        if  not sym:
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+          countp += 1
+        elif sym[1] == "before amount":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+          countp += 1
+        elif sym[1] == "after amount":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+          countp += 1
+        elif sym[1] == "before amount with space":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+          countp += 1
+        elif sym[1] == "after amount with space":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+          countp += 1
+      pop1.destroy()
+      
+
 
 
     #select vendor
@@ -340,7 +433,6 @@ def mainpage():
       cuselection.title("Select Customer")
       cuselection.geometry("930x650+240+10")
       cuselection.resizable(False, False)
-
 
       #add new customer
       def p_add_customer():
@@ -2971,6 +3063,10 @@ def mainpage():
 
     calc= Button(firFrame1,compound="top", text="Open\nCalculator",relief=RAISED, image=photo9,bg="#f5f3f2", fg="black", height=55, bd=1, width=55)
     calc.pack(side="left", pady=3, ipadx=4)
+    
+
+    savepur= Button(firFrame1,compound="top", text="Save",relief=RAISED, image=tick,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=save_purchase)
+    savepur.pack(side="right", pady=3, ipadx=4)
 
     fir1Frame=Frame(pop1, height=180,bg="#f5f3f2")
     fir1Frame.pack(side="top", fill=X)
@@ -3068,12 +3164,12 @@ def mainpage():
     pur_orderid.place(x=100,y=5,)
     pur_orderid.insert(0,pur_no)
     orderdate=Label(labelframe,text="P.Order date").place(x=5,y=33)
-    pur_date=Entry(labelframe,width=20)
+    pur_date=DateEntry(labelframe,width=20)
     pur_date.place(x=150,y=33)
     checkvarStatus5=IntVar()
     pur_duedate_check=Checkbutton(labelframe,variable = checkvarStatus5,text="P.Due date",onvalue =0 ,offvalue = 1)
     pur_duedate_check.place(x=5,y=62)
-    pur_duedate=Entry(labelframe,width=20)
+    pur_duedate=DateEntry(labelframe,width=20)
     pur_duedate.place(x=150,y=62)
     terms=Label(labelframe,text="Terms").place(x=5,y=92)
 
@@ -3220,14 +3316,22 @@ def mainpage():
 
     labelframe1 = LabelFrame(orderFrame,text="",font=("arial",15))
     labelframe1.place(x=1,y=1,width=800,height=170)
+
+    sql = "select extra_cost_name from extra_cost_name"
+    fbcursor.execute(sql)
+    cusna = fbcursor.fetchall()
+    extracona = []
+    for i in cusna:
+      extracona.append(i[0])
     cost1=Label(labelframe1,text="Extra cost name").place(x=2,y=5)
-    pur_extracostname=ttk.Combobox(labelframe1, value="",width=20)
+    pur_extracostname=ttk.Combobox(labelframe1, value=extracona,width=20)
     pur_extracostname.place(x=115,y=5)
     rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
-    pur_disrate=Entry(labelframe1,width=6)
+    pur_disrate=Spinbox(labelframe1,width=6,from_=0,to=100)
     pur_disrate.place(x=460,y=5)
     cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
-    pur_extracost=Entry(labelframe1,width=10)
+    extracostvar = IntVar(value=0)
+    pur_extracost=Entry(labelframe1,width=10,textvariable=extracostvar)
     pur_extracost.place(x=115,y=35)
     tax=Label(labelframe1,text="Tax1")
     pur_tax1=Entry(labelframe1,width=7)
@@ -3268,8 +3372,9 @@ def mainpage():
       # ord_tax2.bind('<KeyRelease>', bindtax2)
 
     template=Label(labelframe1,text="Template").place(x=37,y=70)
-    pur_templates=ttk.Combobox(labelframe1, value="",width=25)
+    pur_templates=ttk.Combobox(labelframe1,width=25)
     pur_templates.place(x=115,y=70)
+    pur_templates["values"] = ["Professional 1 (logo on left side)","Professional 2 (logo on right side)","Simplified 1 (logo on left side)","Simplified 2 (logo on right side)","Business Classic"]
     sales=Label(labelframe1,text="Sales Person").place(x=25,y=100)
     pur_salesper=Entry(labelframe1,width=18)
     pur_salesper.place(x=115,y=100)
@@ -3281,18 +3386,27 @@ def mainpage():
     statusfrme.place(x=540,y=0,width=160,height=160)
     draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey").place(x=50, y=3)
     on1=Label(statusfrme, text="Emailed on:").place( y=50)
-    nev1=Label(statusfrme, text="Never").place(x=100,y=50)
+    pur_emailon=Label(statusfrme, text="")
+    pur_emailon.place(x=100,y=50)
     on2=Label(statusfrme, text="Printed on:").place( y=90)
-    nev2=Label(statusfrme, text="Never").place(x=100,y=90)
+    pur_printon=Label(statusfrme, text="")
+    pur_printon.place(x=100,y=90)
+
+    sql = "select headerandfooter from header_and_footer"
+    fbcursor.execute(sql)
+    cusna = fbcursor.fetchall()
+    txtofthf = []
+    for i in cusna:
+      txtofthf.append(i[0])
 
     text1=Label(headerFrame,text="Title text").place(x=50,y=5)
-    pur_titltetext=ttk.Combobox(headerFrame, value="",width=60)
+    pur_titltetext=ttk.Combobox(headerFrame, value=txtofthf,width=60)
     pur_titltetext.place(x=125,y=5)
     text2=Label(headerFrame,text="Page header text").place(x=2,y=45)
-    pur_header=ttk.Combobox(headerFrame, value="",width=60)
+    pur_header=ttk.Combobox(headerFrame, value=txtofthf,width=60)
     pur_header.place(x=125,y=45)
     text3=Label(headerFrame,text="Footer text").place(x=35,y=85)
-    pur_footer=ttk.Combobox(headerFrame, value="",width=60)
+    pur_footer=ttk.Combobox(headerFrame, value=txtofthf,width=60)
     pur_footer.place(x=125,y=85)
 
     text=Label(noteFrame,text="Private notes(not shown on invoice/order/estemates)").place(x=10,y=10)
@@ -3994,12 +4108,12 @@ def mainpage():
     purch_orderid=Entry(labelframe,width=27)
     purch_orderid.place(x=100,y=5,)
     orderdate=Label(labelframe,text="P.Order date").place(x=5,y=33)
-    purch_date=Entry(labelframe,width=20)
+    purch_date=DateEntry(labelframe,width=20)
     purch_date.place(x=150,y=33)
     checkvarStatus5=IntVar()
     purch_duedate_check=Checkbutton(labelframe,variable = checkvarStatus5,text="P.Due date",onvalue =0 ,offvalue = 1)
     purch_duedate_check.place(x=5,y=62)
-    purch_duedate=Entry(labelframe,width=20)
+    purch_duedate=DateEntry(labelframe,width=20)
     purch_duedate.place(x=150,y=62)
     terms=Label(labelframe,text="Terms").place(x=5,y=92)
     purch_terms=ttk.Combobox(labelframe, value="",width=25)
@@ -4418,33 +4532,56 @@ def mainpage():
         expand=YES,
         )
 
-      
-      tree = ttk.Treeview(self.left_frame, columns = (1,2,3,4,5,6,7,8,9,10), height = 15, show = "headings")
-      tree.pack(side = 'top')
-      tree.heading(1)
-      tree.heading(2, text="P.Order#")
-      tree.heading(3, text="Porder date")
-      tree.heading(4, text="Due date")
-      tree.heading(5, text="Customer Name")
-      tree.heading(6, text="Status")
-      tree.heading(7, text="Emailed on")
-      tree.heading(8, text="Printed on")
-      tree.heading(9, text="SMS on")
-      tree.heading(10, text="Porder Total")   
-      tree.column(1, width = 40)
-      tree.column(2, width = 145)
-      tree.column(3, width = 140)
-      tree.column(4, width = 140)
-      tree.column(5, width = 200)
-      tree.column(6, width = 140)
-      tree.column(7, width = 150)
-      tree.column(8, width = 130)
-      tree.column(9, width = 130)
-      tree.column(10, width = 130)
+      global purchase_tree
+      purchase_tree = ttk.Treeview(self.left_frame, columns = (1,2,3,4,5,6,7,8,9,10), height = 15, show = "headings")
+      purchase_tree.pack(side = 'top')
+      purchase_tree.heading(1)
+      purchase_tree.heading(2, text="P.Order#")
+      purchase_tree.heading(3, text="Porder date")
+      purchase_tree.heading(4, text="Due date")
+      purchase_tree.heading(5, text="Customer Name")
+      purchase_tree.heading(6, text="Status")
+      purchase_tree.heading(7, text="Emailed on")
+      purchase_tree.heading(8, text="Printed on")
+      purchase_tree.heading(9, text="SMS on")
+      purchase_tree.heading(10, text="Porder Total")   
+      purchase_tree.column(1, width = 40)
+      purchase_tree.column(2, width = 145)
+      purchase_tree.column(3, width = 140)
+      purchase_tree.column(4, width = 140)
+      purchase_tree.column(5, width = 200)
+      purchase_tree.column(6, width = 140)
+      purchase_tree.column(7, width = 150)
+      purchase_tree.column(8, width = 130)
+      purchase_tree.column(9, width = 130)
+      purchase_tree.column(10, width = 130)
 
       scrollbar = Scrollbar(self.left_frame)
       scrollbar.place(x=990+345, y=0, height=300+20)
-      scrollbar.config( command=tree.yview )
+      scrollbar.config( command=purchase_tree.yview )
+
+      sql = "select currencysign,currsignplace from company"
+      fbcursor.execute(sql)
+      sym = fbcursor.fetchone()
+
+      fbcursor.execute('SELECT * FROM porder;')
+      countp = 0
+      for i in fbcursor:
+        if  not sym:
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+          countp += 1
+        elif sym[1] == "before amount":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+          countp += 1
+        elif sym[1] == "after amount":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+          countp += 1
+        elif sym[1] == "before amount with space":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+          countp += 1
+        elif sym[1] == "after amount with space":
+          purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+          countp += 1
 
       tabControl = ttk.Notebook(self.left_frame,width=1)
       tab1 = ttk.Frame(tabControl)
@@ -4457,41 +4594,41 @@ def mainpage():
       tabControl.add(tab4,image=photo11,compound = LEFT, text ='Documents')
       tabControl.pack(expand = 1, fill ="both")
       
-      tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7,8,), height = 15, show = "headings")
-      tree.pack(side = 'top')
-      tree.heading(1)
-      tree.heading(2, text="Product/Service ID",)
-      tree.heading(3, text="Name")
-      tree.heading(4, text="Description")
-      tree.heading(5, text="Price")
-      tree.heading(6, text="QTY")
-      tree.heading(7, text="Tax1")
-      tree.heading(8, text="Line Total")   
-      tree.column(1, width = 40)
-      tree.column(2, width = 260)
-      tree.column(3, width = 260)
-      tree.column(4, width = 300)
-      tree.column(5, width = 130)
-      tree.column(6, width = 100)
-      tree.column(7, width = 100)
-      tree.column(8, width = 150)
+      purchase_product_tree = ttk.Treeview(tab1, columns = (1,2,3,4,5,6,7,8,), height = 15, show = "headings")
+      purchase_product_tree.pack(side = 'top')
+      purchase_product_tree.heading(1)
+      purchase_product_tree.heading(2, text="Product/Service ID",)
+      purchase_product_tree.heading(3, text="Name")
+      purchase_product_tree.heading(4, text="Description")
+      purchase_product_tree.heading(5, text="Price")
+      purchase_product_tree.heading(6, text="QTY")
+      purchase_product_tree.heading(7, text="Tax1")
+      purchase_product_tree.heading(8, text="Line Total")   
+      purchase_product_tree.column(1, width = 40)
+      purchase_product_tree.column(2, width = 260)
+      purchase_product_tree.column(3, width = 260)
+      purchase_product_tree.column(4, width = 300)
+      purchase_product_tree.column(5, width = 130)
+      purchase_product_tree.column(6, width = 100)
+      purchase_product_tree.column(7, width = 100)
+      purchase_product_tree.column(8, width = 150)
 
       note1=Text(tab2, width=170,height=10).place(x=10, y=10)
 
       note1=Text(tab3, width=170,height=10).place(x=10, y=10)
 
-      tree = ttk.Treeview(tab4, columns = (1,2,3), height = 15, show = "headings")
-      tree.pack(side = 'top')
-      tree.heading(1)
-      tree.heading(2, text="Attach to Email",)
-      tree.heading(3, text="Filename")
-      tree.column(1, width = 50)
-      tree.column(2, width = 250)
-      tree.column(3, width = 1000)
+      purchase_doc_tree = ttk.Treeview(tab4, columns = (1,2,3), height = 15, show = "headings")
+      purchase_doc_tree.pack(side = 'top')
+      purchase_doc_tree.heading(1)
+      purchase_doc_tree.heading(2, text="Attach to Email",)
+      purchase_doc_tree.heading(3, text="Filename")
+      purchase_doc_tree.column(1, width = 50)
+      purchase_doc_tree.column(2, width = 250)
+      purchase_doc_tree.column(3, width = 1000)
 
       scrollbar = Scrollbar(self.left_frame)
       scrollbar.place(x=990+340, y=360, height=190)
-      scrollbar.config( command=tree.yview )
+      scrollbar.config( command=purchase_doc_tree.yview )
          
   myapp = MyApp1(tab5)
 
@@ -16899,7 +17036,7 @@ def mainpage():
     btclogo = Button(ninetab,width=280,height=160,image=paid_sett)
     btclogo.place(x=505,y=120)
     btclogo.photo = paid_sett
-    
+
   btnimg = BooleanVar()      
   btloadima = Button(ninetab,text="Load logo image",command=upload_btnimg)
   btloadima.place(x=510,y=310)
