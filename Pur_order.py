@@ -17,7 +17,7 @@ from PIL import ImageTk, Image, ImageFile
 from matplotlib.font_manager import json_dump
 from numpy import choose, empty, place
 import pandas as pd
-from tkinter.messagebox import showinfo
+from tkinter.messagebox import showinfo, showwarning
 import tkinter.scrolledtext as scrolledtext
 from tkinter.filedialog import askopenfilename
 import os
@@ -332,6 +332,23 @@ def mainpage():
     pop1=Toplevel(pur_midFrame)
     pop1.title("Orders")
     pop1.geometry("950x690+150+0")
+
+    def pord_attach_doc():
+      file_type = [('png files','.png'),('jpg files','.jpg'),('PDF files','.pdf'),('all files','.')]
+      file = filedialog.askopenfilename(initialdir="/",filetypes=file_type)
+      shutil.copyfile(file, os.getcwd()+'/Purchase Order/'+file.split('/')[-1])
+      file_size = crate_convertion(os.path.getsize(file))
+      pur_create_doc.insert(parent='',index='end',iid=file.split('/')[-1],text='',values=('',file.split('/')[-1],file_size))
+    def crate_convertion(B):
+      BYTE = float(B)
+      KB = float(1024)
+      MB = float(KB**2)
+      if BYTE < KB:
+        return '{0} {1}'.format(BYTE,'Bytes' if 0 == B > 1 else 'Byte')
+      elif KB <= BYTE < MB:
+        return '{0:.2f} KB'.format(BYTE / KB)
+      elif MB <= BYTE:
+        return '{0:.2f} MB'.format(BYTE / MB)
     
     def save_purchase():
       pur__vandor = pur_name.get()
@@ -363,10 +380,11 @@ def mainpage():
       pur__sumdis = discount1.cget("text")
       pur__sum_subtotal = sub1.cget("text")
       pur__purtotal = order1.cget("text")
+      pur__draft=pur_status.cget("text")
 
       #________________Order Insert___________________#
-      sql = 'insert into porder(businessname,businessaddress,cpemail,deliveryto,deliveryaddress,cpmobileforsms,porder_number,porderdate,duedate,term_of_payment,extracostname,extracost,template,salesper,discourate,tax1,	tax2,category,emailon,printon,title_text,header_text,footer_text,terms,comments,privatenote,sumdiscount,subtotal,total) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-      val = (pur__vandor,pur__address,pur__emailid,pur__deliveryname,pur__deliveryadd,pur__sms,pur__orderid,pur__date,pur__duedate,pur__termsofpay,pur__extracostname,pur__extracost,pur__template,pur__saleperson,pur__discount,pur__tax1,pur__tax2,pur__category,pur__emailon,pur__printon,pur__titletxt,pur__header,pur__footer,pur__termsnote,pur__comments,pur__privatenotes,pur__sumdis,pur__sum_subtotal,pur__purtotal)
+      sql = 'insert into porder(businessname,businessaddress,cpemail,deliveryto,deliveryaddress,cpmobileforsms,porder_number,porderdate,duedate,term_of_payment,extracostname,extracost,template,salesper,discourate,tax1,tax2,category,emailon,printon,title_text,header_text,footer_text,terms,comments,privatenote,sumdiscount,subtotal,total,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+      val = (pur__vandor,pur__address,pur__emailid,pur__deliveryname,pur__deliveryadd,pur__sms,pur__orderid,pur__date,pur__duedate,pur__termsofpay,pur__extracostname,pur__extracost,pur__template,pur__saleperson,pur__discount,pur__tax1,pur__tax2,pur__category,pur__emailon,pur__printon,pur__titletxt,pur__header,pur__footer,pur__termsnote,pur__comments,pur__privatenotes,pur__sumdis,pur__sum_subtotal,pur__purtotal,pur__draft)
       fbcursor.execute(sql, val)
       fbilldb.commit()
 
@@ -396,6 +414,15 @@ def mainpage():
           val = (pur__orderid,insert_pro_list[0],insert_pro_list[1],insert_pro_list[2],insert_pro_list[3],insert_pro_list[4],insert_pro_list[5],insert_pro_list[6],insert_pro_list[7],insert_pro_list[8])
           fbcursor.execute(sql, val)
           fbilldb.commit()
+      #_____________Documents Insert________________#
+
+      for child in pur_create_doc.get_children():
+        insert_doc_list = list(pur_create_doc.item(child, 'values'))
+        sql = 'insert into documents (porder_number,documents) values(%s,%s)'
+        val = (pur__orderid,insert_doc_list[1])
+        fbcursor.execute(sql, val)
+        fbilldb.commit()
+      
       
       #______________Refresh tree_______________#
       for record in purchase_tree.get_children():
@@ -3005,14 +3032,149 @@ def mainpage():
 
     #delete line item 
     def pur_create_delete():
-      messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item.")
+      try:
+        selected_item = pur_create_tree.selection()[0]
+        pur_create_tree.delete(selected_item)
+
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        company_data = fbcursor.fetchone()
+        
+        if not company_data:
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in pur_create_tree.get_children():
+            total += float(pur_create_tree.item(child, 'values')[6])
+          discou = (total*float(pur_disrate.get())/100)
+          extracs = (extracs+float(pur_extracost.get()))
+          cost1.config(text=pur_extracost.get())
+          discount1.config(text=round(discou,2))
+          pur_priceview.config(text=round(total,2))
+          order1.config(text=round(total-discou+extracs,2))
+          balance1.config(text=round(total-discou+extracs,2))
+
+        elif company_data[12] == "1":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in pur_create_tree.get_children():
+            total += float(pur_create_tree.item(child, 'values')[6])
+          discou = (total*float(pur_disrate.get())/100)
+          extracs = (extracs+float(pur_extracost.get()))
+          cost1.config(text=pur_extracost.get())
+          discount1.config(text=round(discou,2))
+          pur_priceview.config(text=round(total,2))
+          order1.config(text=round(total-discou+extracs,2))
+          balance1.config(text=round(total-discou+extracs,2))
+          sub1.config(text=round(total-discou,2))
+          
+        elif company_data[12] == "2":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in pur_create_tree.get_children():
+            total += float(pur_create_tree.item(child, 'values')[7])
+          discou = (total*float(pur_disrate.get())/100)
+          extracs = (extracs+float(pur_extracost.get()))
+          cost1.config(text=pur_extracost.get())
+          discount1.config(text=round(discou,2))
+          pur_priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in pur_create_tree.get_children():
+            checktax1 = list(pur_create_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[7]))
+              tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+              tot = (float(totaltax1)*float(pur_tax1.get())/100)
+            else:
+              pass
+          order1.config(text=round(total+tot-discou+extracs,2))
+          balance1.config(text=round(total+tot-discou+extracs,2))
+            
+        elif company_data[12] == "3":
+          extracs = 0.0
+          discou = 0.0
+          total = 0.0
+          for child in pur_create_tree.get_children():
+            total += float(pur_create_tree.item(child, 'values')[8])
+          extracs = (extracs+float(pur_extracost.get()))
+          cost1.config(text=pur_extracost.get())
+          discou = (total*float(pur_disrate.get())/100)
+          discount1.config(text=round(discou,2))
+          pur_priceview.config(text=round(total,2))
+          sub1.config(text=round(total-discou,2))
+          
+          tot = 0.0
+          totaltax1 = 0.0
+          for child in pur_create_tree.get_children():
+            checktax1 = list(pur_create_tree.item(child, 'values'))
+            if checktax1[6] == "yes":
+              totaltax1 =(totaltax1 + float(checktax1[8]))
+              tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+              tot = (float(totaltax1)*float(pur_tax1.get())/100)
+            else:
+              pass
+          
+          tot2 = 0.0
+          totaltax2 = 0.0
+          for child in pur_create_tree.get_children():
+            checktax1 = list(pur_create_tree.item(child, 'values'))
+            if checktax1[7] == "yes":
+              totaltax2 =(totaltax2 + float(checktax1[8]))
+              tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+              
+              tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+            else:
+              pass
+
+          order1.config(text=round(total+tot+tot2-discou+extracs,2))
+          balance1.config(text=round(total+tot+tot2-discou+extracs,2))
+      except:
+        messagebox.showerror("F-Billing Revolution","Customer is required,please select customer before deleting line item.")
 
 
 
     #finalize
-    def pur_create_finalize():  
-      messagebox.askyesno("Finalize purchase order", "Would you like to mark this purchase order as completed ?All product will be added in to stock and purchase order will be closed")
+    def pur_create_finalize():
+      child_check = pur_create_tree.get_children()
+      if not child_check:
+        messagebox.showwarning("Finalize", "This invioce has on line item\nPlease add line item(s) first")
+      else:
+        finalize = messagebox.askyesno("Finalize purchase order", "Would you like to mark this purchase order as completed ?All product will be added in to stock and purchase order will be closed")
+        if finalize == True:
+          create["state"] = DISABLED
+          add["state"] = DISABLED
+          dele["state"] = DISABLED
+          finali["state"] = DISABLED
+          pur_name["state"] = DISABLED
+          pur_addr["state"] = DISABLED
+          pur_email["state"] = DISABLED
+          pur_delivery["state"] = DISABLED
+          pur_deliaddr["state"] = DISABLED
+          pur_sms["state"] = DISABLED
+          pur_date["state"] = DISABLED
+          pur_duedate["state"] = DISABLED
+          pur_terms["state"] = DISABLED
+          pur_extracostname["state"] = DISABLED
+          pur_extracost["state"] = DISABLED
+          pur_disrate["state"] = DISABLED
+          pur_tax1["state"] = DISABLED
+          pur_tax2["state"] = DISABLED
+          pur_titltetext["state"] = DISABLED
+          pur_header["state"] = DISABLED
+          pur_footer["state"] = DISABLED
+          pur_comments["state"] = DISABLED
+          pur_termsnotes["state"] = DISABLED
+          doc_addbtn["state"] = DISABLED
+          doc_removebtn["state"] = DISABLED
 
+          pur_status.config(text="Completed",font=("arial", 12, "bold"), fg="green",anchor="center")
+
+          
 
     firFrame1=Frame(pop1, bg="#f5f3f2", height=60)
     firFrame1.pack(side="top", fill=X)
@@ -3054,8 +3216,8 @@ def mainpage():
     w = Canvas(firFrame1, width=1, height=65, bg="#b3b3b3", bd=0)
     w.pack(side="left", padx=5)
 
-    finalize= Button(firFrame1,compound="top", text="Finalize\nP.Order",relief=RAISED, image=photo10,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=pur_create_finalize)
-    finalize.pack(side="left", pady=3, ipadx=4)
+    finali= Button(firFrame1,compound="top", text="Finalize\nP.Order",relief=RAISED, image=photo10,bg="#f5f3f2", fg="black", height=55, bd=1, width=55,command=pur_create_finalize)
+    finali.pack(side="left", pady=3, ipadx=4)
 
     w = Canvas(firFrame1, width=1, height=65, bg="#b3b3b3", bd=0)
     w.pack(side="left", padx=5)
@@ -3326,13 +3488,322 @@ def mainpage():
     cost1=Label(labelframe1,text="Extra cost name").place(x=2,y=5)
     pur_extracostname=ttk.Combobox(labelframe1, value=extracona,width=20)
     pur_extracostname.place(x=115,y=5)
+    def binddiscoun(event):
+      discount.config(text=pur_disrate.get()+"%Discount")
+
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      company_data = fbcursor.fetchone()
+      if not company_data:
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[6])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        order1.config(text=round(total-discou+extracs,2))
+        balance1.config(text=round(total-discou+extracs,2))
+
+      elif company_data[12] == "1":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[6])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        order1.config(text=round(total-discou+extracs,2))
+        balance1.config(text=round(total-discou+extracs,2))
+        sub1.config(text=round(total-discou,2))
+        
+      elif company_data[12] == "2":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[7])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        order1.config(text=round(total+tot-discou+extracs,2))
+        balance1.config(text=round(total+tot-discou+extracs,2))
+          
+      elif company_data[12] == "3":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[8])
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discou = (total*float(pur_disrate.get())/100)
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[7] == "yes":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+            
+            tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+          else:
+            pass
+
+        order1.config(text=round(total+tot+tot2-discou+extracs,2))
+        balance1.config(text=round(total+tot+tot2-discou+extracs,2))
     rate=Label(labelframe1,text="Discount rate").place(x=370,y=5)
     pur_disrate=Spinbox(labelframe1,width=6,from_=0,to=100)
     pur_disrate.place(x=460,y=5)
+    pur_disrate.bind('<Button-1>', binddiscoun)
     cost2=Label(labelframe1,text="Extra cost").place(x=35,y=35)
+    def extracostblind(event):
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      company_data = fbcursor.fetchone()
+      
+      if not company_data:
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[6])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        order1.config(text=round(total-discou+extracs,2))
+        balance1.config(text=round(total-discou+extracs,2))
+
+      elif company_data[12] == "1":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[6])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        order1.config(text=round(total-discou+extracs,2))
+        balance1.config(text=round(total-discou+extracs,2))
+        sub1.config(text=round(total-discou,2))
+        
+      elif company_data[12] == "2":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[7])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        order1.config(text=round(total+tot-discou+extracs,2))
+        balance1.config(text=round(total+tot-discou+extracs,2))
+          
+      elif company_data[12] == "3":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[8])
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discou = (total*float(pur_disrate.get())/100)
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[7] == "yes":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+            
+            tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+          else:
+            pass
+
+        order1.config(text=round(total+tot+tot2-discou+extracs,2))
+        balance1.config(text=round(total+tot+tot2-discou+extracs,2))
+
     extracostvar = IntVar(value=0)
     pur_extracost=Entry(labelframe1,width=10,textvariable=extracostvar)
+    pur_extracost.bind('<KeyRelease>', extracostblind)
     pur_extracost.place(x=115,y=35)
+
+    def pur_bindtax1(event):
+      sql = "select * from company"
+      fbcursor.execute(sql)
+      company_data = fbcursor.fetchone()
+      if company_data[12] == "2":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[7])
+        discou = (total*float(pur_disrate.get())/100)
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[7]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        order1.config(text=round(total+tot-discou+extracs,2))
+        balance1.config(text=round(total+tot-discou+extracs,2))
+          
+      elif company_data[12] == "3":
+        extracs = 0.0
+        discou = 0.0
+        total = 0.0
+        for child in pur_create_tree.get_children():
+          total += float(pur_create_tree.item(child, 'values')[8])
+        extracs = (extracs+float(pur_extracost.get()))
+        cost1.config(text=pur_extracost.get())
+        discou = (total*float(pur_disrate.get())/100)
+        discount1.config(text=round(discou,2))
+        pur_priceview.config(text=round(total,2))
+        sub1.config(text=round(total-discou,2))
+        
+        tot = 0.0
+        totaltax1 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[6] == "yes":
+            totaltax1 =(totaltax1 + float(checktax1[8]))
+            tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+            tot = (float(totaltax1)*float(pur_tax1.get())/100)
+          else:
+            pass
+        
+        tot2 = 0.0
+        totaltax2 = 0.0
+        for child in pur_create_tree.get_children():
+          checktax1 = list(pur_create_tree.item(child, 'values'))
+          if checktax1[7] == "yes":
+            totaltax2 =(totaltax2 + float(checktax1[8]))
+            tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+            
+            tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+          else:
+            pass
+
+        order1.config(text=round(total+tot+tot2-discou+extracs,2))
+        balance1.config(text=round(total+tot+tot2-discou+extracs,2))
+
+
+    def pur_bindtax2(event):
+      extracs = 0.0
+      discou = 0.0
+      total = 0.0
+      for child in pur_create_tree.get_children():
+        total += float(pur_create_tree.item(child, 'values')[8])
+      extracs = (extracs+float(pur_extracost.get()))
+      cost1.config(text=pur_extracost.get())
+      discou = (total*float(pur_disrate.get())/100)
+      discount1.config(text=round(discou,2))
+      pur_priceview.config(text=round(total,2))
+      sub1.config(text=round(total-discou,2))
+      
+      tot = 0.0
+      totaltax1 = 0.0
+      for child in pur_create_tree.get_children():
+        checktax1 = list(pur_create_tree.item(child, 'values'))
+        if checktax1[6] == "yes":
+          totaltax1 =(totaltax1 + float(checktax1[8]))
+          tax1sum.config(text=round((float(totaltax1)*float(pur_tax1.get())/100),2))
+          tot = (float(totaltax1)*float(pur_tax1.get())/100)
+        else:
+          pass
+      
+      tot2 = 0.0
+      totaltax2 = 0.0
+      for child in pur_create_tree.get_children():
+        checktax1 = list(pur_create_tree.item(child, 'values'))
+        if checktax1[7] == "yes":
+          totaltax2 =(totaltax2 + float(checktax1[8]))
+          tax2sum.config(text=round((float(totaltax2)*float(pur_tax2.get())/100),2))
+          
+          tot2 = (float(totaltax2)*float(pur_tax2.get())/100)
+        else:
+          pass
+
+        order1.config(text=round(total+tot+tot2-discou+extracs,2))
+        balance1.config(text=round(total+tot+tot2-discou+extracs,2))
     tax=Label(labelframe1,text="Tax1")
     pur_tax1=Entry(labelframe1,width=7)
     tax2=Label(labelframe1,text="Tax2")
@@ -3356,7 +3827,7 @@ def mainpage():
       else:
         pur_tax1.insert(0, taxdis[1])
         pur_tax2.insert(0, 0)
-      # ord_tax.bind('<KeyRelease>', bindtax1)
+      pur_tax1.bind('<KeyRelease>', pur_bindtax1)
     elif taxdis[0] == "3":
       pur_tax1.place(x=460,y=35)
       pur_tax2.place(x=460,y=67)
@@ -3368,8 +3839,8 @@ def mainpage():
       else:
         pur_tax1.insert(0, taxdis[1])
         pur_tax2.insert(0, taxdis[2])
-      # ord_tax.bind('<KeyRelease>', bindtax1)
-      # ord_tax2.bind('<KeyRelease>', bindtax2)
+      pur_tax1.bind('<KeyRelease>', pur_bindtax1)
+      pur_tax2.bind('<KeyRelease>', pur_bindtax2)
 
     template=Label(labelframe1,text="Template").place(x=37,y=70)
     pur_templates=ttk.Combobox(labelframe1,width=25)
@@ -3384,7 +3855,8 @@ def mainpage():
 
     statusfrme = LabelFrame(labelframe1,text="Status",font=("arial",15))
     statusfrme.place(x=540,y=0,width=160,height=160)
-    draft=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey").place(x=50, y=3)
+    pur_status=Label(statusfrme, text="Draft",font=("arial", 15, "bold"), fg="grey")
+    pur_status.place(x=50, y=3)
     on1=Label(statusfrme, text="Emailed on:").place( y=50)
     pur_emailon=Label(statusfrme, text="")
     pur_emailon.place(x=100,y=50)
@@ -3419,8 +3891,22 @@ def mainpage():
     pur_comments=Text(commentFrame,width=100,height=9)
     pur_comments.place(x=10,y=10)
 
-    btn1=Button(documentFrame,height=2,width=3,text="+").place(x=5,y=10)
-    btn2=Button(documentFrame,height=2,width=3,text="-").place(x=5,y=50)
+    doc_addbtn=Button(documentFrame,height=2,width=3,text="+",command=pord_attach_doc)
+    doc_addbtn.place(x=5,y=10)
+    
+    def pord_doc_del():
+      try:
+        selected_doc_item = pur_create_doc.selection()[0]
+        pur_create_doc.delete(selected_doc_item)
+      except:
+        pass
+
+    def pord_seledoc(event):
+      selected_doc_item = pur_create_doc.item(pur_create_doc.focus())["values"][1]
+      win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+selected_doc_item,None,".",0)
+
+    doc_removebtn=Button(documentFrame,height=2,width=3,text="-",command=pord_doc_del)
+    doc_removebtn.place(x=5,y=50)
     text=Label(documentFrame,text="Attached documents or image files.If you attach large email then email taken long time to send").place(x=50,y=10)
     pur_create_doc=ttk.Treeview(documentFrame, height=5)
     pur_create_doc["columns"]=["1","2","3"]
@@ -3433,6 +3919,8 @@ def mainpage():
     pur_create_doc.heading("2",text="Filename")
     pur_create_doc.heading("3",text="Filesize")  
     pur_create_doc.place(x=50, y=45)
+    pur_create_doc.bind('<Double-Button-1>',pord_seledoc)
+    
 
     fir4Frame=Frame(pop1,height=190,width=210,bg="#f5f3f2")
     fir4Frame.place(x=740,y=520)
