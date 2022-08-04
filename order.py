@@ -52969,7 +52969,6 @@ def mainpage():
 
     
     if ord_data[11] == 'Professional 1 (logo on left side)':
-      print("hi")
       pdf.setFont('Helvetica',12)
       
       pdf.drawCentredString(302,770,ord_data[33])

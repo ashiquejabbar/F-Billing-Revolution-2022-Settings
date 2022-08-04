@@ -20554,7 +20554,7 @@ def mainpage():
         from reportlab.pdfgen import canvas
         from reportlab.lib.pagesizes import letter
         savename = purch_orderid.get().split('/')[0]
-        pdf = canvas.Canvas("Purchase Documents/"+savename+".pdf", pagesize=letter)
+        pdf = canvas.Canvas("Purchase Order/"+savename+".pdf", pagesize=letter)
         sql = "select * from company"
         fbcursor.execute(sql)
         company_data = fbcursor.fetchone()
@@ -20771,14 +20771,14 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -20806,7 +20806,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -20814,7 +20814,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -20842,7 +20842,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -20850,7 +20850,7 @@ def mainpage():
 
                 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -20878,7 +20878,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -20886,7 +20886,7 @@ def mainpage():
 
           
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -20925,7 +20925,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -20933,7 +20933,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -20983,7 +20983,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -20991,7 +20991,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21041,7 +21041,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -21049,7 +21049,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21099,7 +21099,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -21107,7 +21107,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21175,7 +21175,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21186,7 +21186,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21214,7 +21214,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21225,7 +21225,7 @@ def mainpage():
 
   
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21253,7 +21253,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21264,7 +21264,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21292,7 +21292,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21303,7 +21303,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21344,7 +21344,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21355,7 +21355,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21405,7 +21405,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21416,7 +21416,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21466,7 +21466,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21477,7 +21477,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21527,7 +21527,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21538,7 +21538,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21606,7 +21606,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21620,7 +21620,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21648,7 +21648,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21662,7 +21662,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21690,7 +21690,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21704,7 +21704,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21732,7 +21732,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21745,7 +21745,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21786,7 +21786,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21799,7 +21799,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21849,7 +21849,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21863,7 +21863,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21915,7 +21915,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21928,7 +21928,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -21978,7 +21978,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -21991,7 +21991,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22039,7 +22039,7 @@ def mainpage():
             pdf.showPage()
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -22062,12 +22062,12 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           else:
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -22090,13 +22090,13 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Documents/"+savename+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
 
           orde_ondate=dt.datetime.today().date()
-          orde_printon.config(text=orde_ondate)
+          purch_printon.config(text=orde_ondate)
 
         elif purch_template.get() == 'Professional 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -22309,14 +22309,14 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22344,7 +22344,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22352,7 +22352,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22380,7 +22380,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22388,7 +22388,7 @@ def mainpage():
 
                 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22416,7 +22416,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22424,7 +22424,7 @@ def mainpage():
 
           
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22463,7 +22463,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22471,7 +22471,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22521,7 +22521,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22529,7 +22529,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22579,7 +22579,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22587,7 +22587,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22637,7 +22637,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -22645,7 +22645,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22713,7 +22713,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22724,7 +22724,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22752,7 +22752,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22763,7 +22763,7 @@ def mainpage():
 
   
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22791,7 +22791,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22802,7 +22802,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22830,7 +22830,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22841,7 +22841,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22882,7 +22882,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22893,7 +22893,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -22943,7 +22943,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -22954,7 +22954,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23004,7 +23004,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23015,7 +23015,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23065,7 +23065,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23076,7 +23076,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23144,7 +23144,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23158,7 +23158,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23186,7 +23186,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23200,7 +23200,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23228,7 +23228,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23242,7 +23242,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23270,7 +23270,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23283,7 +23283,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23324,7 +23324,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23337,7 +23337,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23387,7 +23387,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23401,7 +23401,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23453,7 +23453,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23466,7 +23466,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23516,7 +23516,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -23529,7 +23529,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23577,7 +23577,7 @@ def mainpage():
             pdf.showPage()
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -23600,12 +23600,12 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           else:
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -23628,13 +23628,13 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Documents/"+savename+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
 
           orde_ondate=dt.datetime.today().date()
-          orde_printon.config(text=orde_ondate)
+          purch_printon.config(text=orde_ondate)
 
         elif purch_template.get() == 'Simplified 1 (logo on left side)':
           pdf.setFont('Helvetica',12)
@@ -23835,14 +23835,14 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23870,7 +23870,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -23878,7 +23878,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23906,7 +23906,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -23914,7 +23914,7 @@ def mainpage():
 
                 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23942,7 +23942,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -23950,7 +23950,7 @@ def mainpage():
 
           
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -23989,7 +23989,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -23997,7 +23997,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24047,7 +24047,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -24055,7 +24055,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24105,7 +24105,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -24113,7 +24113,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24163,7 +24163,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -24171,7 +24171,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24239,7 +24239,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24250,7 +24250,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24278,7 +24278,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24289,7 +24289,7 @@ def mainpage():
 
   
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24317,7 +24317,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24328,7 +24328,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24356,7 +24356,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24367,7 +24367,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24408,7 +24408,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24419,7 +24419,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24469,7 +24469,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24480,7 +24480,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24530,7 +24530,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24541,7 +24541,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24591,7 +24591,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24602,7 +24602,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24670,7 +24670,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24684,7 +24684,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24712,7 +24712,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24726,7 +24726,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24754,7 +24754,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24768,7 +24768,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24796,7 +24796,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24809,7 +24809,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24850,7 +24850,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24863,7 +24863,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24913,7 +24913,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24927,7 +24927,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -24979,7 +24979,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -24992,7 +24992,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25042,7 +25042,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25055,7 +25055,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25103,7 +25103,7 @@ def mainpage():
             pdf.showPage()
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -25126,12 +25126,12 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           else:
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -25154,13 +25154,13 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
 
           orde_ondate=dt.datetime.today().date()
-          orde_printon.config(text=orde_ondate)
+          purch_printon.config(text=orde_ondate)
 
         elif purch_template.get() == 'Simplified 2 (logo on right side)':
           pdf.setFont('Helvetica',12)
@@ -25359,14 +25359,14 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25394,7 +25394,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25402,7 +25402,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25430,7 +25430,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25438,7 +25438,7 @@ def mainpage():
 
                 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25466,7 +25466,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25474,7 +25474,7 @@ def mainpage():
 
           
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25513,7 +25513,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25521,7 +25521,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25571,7 +25571,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25579,7 +25579,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25629,7 +25629,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25637,7 +25637,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25687,7 +25687,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -25695,7 +25695,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25763,7 +25763,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25774,7 +25774,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25802,7 +25802,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25813,7 +25813,7 @@ def mainpage():
 
   
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25841,7 +25841,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25852,7 +25852,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25880,7 +25880,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25891,7 +25891,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25932,7 +25932,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -25943,7 +25943,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -25993,7 +25993,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26004,7 +26004,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26054,7 +26054,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26065,7 +26065,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26115,7 +26115,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26126,7 +26126,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26194,7 +26194,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26208,7 +26208,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26236,7 +26236,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26250,7 +26250,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26278,7 +26278,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26292,7 +26292,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26320,7 +26320,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26333,7 +26333,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26374,7 +26374,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26387,7 +26387,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26437,7 +26437,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26451,7 +26451,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26503,7 +26503,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26516,7 +26516,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26566,7 +26566,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -26579,7 +26579,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26627,7 +26627,7 @@ def mainpage():
             pdf.showPage()
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -26650,12 +26650,12 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           else:
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -26678,13 +26678,13 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
 
           orde_ondate=dt.datetime.today().date()
-          orde_printon.config(text=orde_ondate)
+          purch_printon.config(text=orde_ondate)
         
         elif purch_template.get() == 'Business Classic':
           pdf.setStrokeColorRGB(255,10,0)
@@ -26861,14 +26861,14 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
                 pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26896,7 +26896,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -26904,7 +26904,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26932,7 +26932,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -26940,7 +26940,7 @@ def mainpage():
 
                 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -26968,7 +26968,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -26976,7 +26976,7 @@ def mainpage():
 
           
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27015,7 +27015,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -27023,7 +27023,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27073,7 +27073,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -27081,7 +27081,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27131,7 +27131,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -27139,7 +27139,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27189,7 +27189,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"Order Total")
@@ -27197,7 +27197,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27265,7 +27265,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27276,7 +27276,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27304,7 +27304,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27315,7 +27315,7 @@ def mainpage():
 
   
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27343,7 +27343,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27354,7 +27354,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27382,7 +27382,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27393,7 +27393,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27434,7 +27434,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27445,7 +27445,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27495,7 +27495,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27506,7 +27506,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27556,7 +27556,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27567,7 +27567,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27617,7 +27617,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27628,7 +27628,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27696,7 +27696,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27710,7 +27710,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27738,7 +27738,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27752,7 +27752,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27780,7 +27780,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27794,7 +27794,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27822,7 +27822,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27835,7 +27835,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27876,7 +27876,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27889,7 +27889,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -27939,7 +27939,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + "" + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + "" + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -27953,7 +27953,7 @@ def mainpage():
 
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -28005,7 +28005,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(sub1.cget("text")))
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(cost1.cget("text")))
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -28018,7 +28018,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(order1.cget("text")))
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -28068,7 +28068,7 @@ def mainpage():
                 pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
                 pdf.drawRightString(578,(calc_y1-20)+5,str(sub1.cget("text")) + " " + company_data[6])
 
-                pdf.drawString(352,(calc_y1-40)+5,orde_extracostname.get())
+                pdf.drawString(352,(calc_y1-40)+5,purch_extracostname.get())
                 pdf.drawRightString(578,(calc_y1-40)+5,str(cost1.cget("text")) + " " + company_data[6])
 
                 pdf.drawString(352,(calc_y1-60)+5,"TAX1")
@@ -28081,7 +28081,7 @@ def mainpage():
                 pdf.drawRightString(578,(calc_y1-100)+5,str(order1.cget("text")) + " " + company_data[6])
 
 
-                comment_text = orde_commands.get("1.0","end-1c")
+                comment_text = purch_comments.get("1.0","end-1c")
                 wraped_text = "\n".join(wrap(comment_text,102))
                 c  = wraped_text.split('\n')
                    
@@ -28129,7 +28129,7 @@ def mainpage():
             pdf.showPage()
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -28152,12 +28152,12 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           else:
             pdf.drawCentredString(302,115,"Terms and Conditions")
             pdf.line(30,110,580,110)
-            term_text = orde_termsnotes.get("1.0","end-1c")
+            term_text = purch_termsnotes.get("1.0","end-1c")
             wraped_text = "\n".join(wrap(term_text,102))
             t  = wraped_text.split('\n')
                
@@ -28180,13 +28180,13 @@ def mainpage():
               pass
            
             pdf.drawString(32,30,"Sales Person :")
-            pdf.drawString(115,30,orde_sales.get())
-            pdf.drawString(32,15,orde_footertext.get())
+            pdf.drawString(115,30,purch_salesper.get())
+            pdf.drawString(32,15,purch_footer.get())
           pdf.save()
-          win32api.ShellExecute(0,"",os.getcwd()+"/Order Documents/"+savename+".pdf",None,".",0)
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
 
           orde_ondate=dt.datetime.today().date()
-          orde_printon.config(text=orde_ondate)
+          purch_printon.config(text=orde_ondate)
 
 
 
@@ -29726,7 +29726,7 @@ def mainpage():
     
             canvas.create_text(780, 805, text="TAX2", fill="black", font=('Helvetica 10'))
             canvas_tax2 = Label(canvas, font=('Helvetica 10 '),width=13)
-            canvas_tax2.config(text=symbolcheck[1+" "]+str(tax2sum.cget("text")),anchor="e",bg="white")
+            canvas_tax2.config(text=symbolcheck[1]+str(tax2sum.cget("text")),anchor="e",bg="white")
             canvas.create_window(920, 803,window=canvas_tax2)
           
             
@@ -32275,117 +32275,7801 @@ def mainpage():
 
 
   #print selectede purchase order
-  def printsele1():
-
-    def proper1():
-      propert=Toplevel()
-      propert.title("Microsoft Print To PDF Advanced Document Settings")
-      propert.geometry("670x500+240+150")
-
-      def proper2():
-        propert1=Toplevel()
-        propert1.title("Microsoft Print To PDF Advanced Document Settings")
-        propert1.geometry("670x500+240+150")
-
-        name=Label(propert1, text="Microsoft Print To PDF Advanced Document Settings").place(x=10, y=5)
-        paper=Label(propert1, text="Paper/Output").place(x=30, y=35)
-        size=Label(propert1, text="Paper size").place(x=55, y=65)
-        n = StringVar()
-        search = ttk.Combobox(propert1, width = 15, textvariable = n )
-        search['values'] = ('letter')
-        search.place(x=150,y=65)
-        search.current(0)
-        copy=Label(propert1, text="Copy count:").place(x=55, y=95)
-
-        okbtn=Button(propert1,compound = LEFT,image=tick , text="Ok", width=60).place(x=460, y=450)
-        canbtn=Button(propert1,compound = LEFT,image=cancel, text="Cancel", width=60).place(x=570, y=450)
-        
-
-
-      style = ttk.Style()
-      style.theme_use('default')
-      style.configure('TNotebook.Tab', background="#999999", width=20, padding=5)
-      property_Notebook = ttk.Notebook(propert)
-      property_Frame = Frame(property_Notebook, height=500, width=670)
-      property_Notebook.add(property_Frame, text="Layout")
-      property_Notebook.place(x=0, y=0)
-
-      name=Label(property_Frame, text="Orientation:").place(x=10, y=5)
-      n = StringVar()
-      search = ttk.Combobox(property_Frame, width = 23, textvariable = n )
-      search['values'] = ('Portrait')
-      search.place(x=10,y=25)
-      search.current(0)
-
-      text=Text(property_Frame,width=50).place(x=250, y=5,height=350)
-
-      btn=Button(property_Frame, text="Advanced",command=proper2).place(x=550, y=380)
-      btn=Button(property_Frame,compound = LEFT,image=tick, text="OK", width=60,).place(x=430, y=420)
-      btn=Button(property_Frame,compound = LEFT,image=tick, text="Cancel", width=60,).place(x=550, y=420)     
-
-        
+  def purchase_print():
+        pord_printid = purchase_tree.item(purchase_tree.focus())["values"][1]
     
-    if(False):
-        messagebox.showwarning("FBilling Revelution 2020", "Customer is required, Please select customer for this invoice\nbefore printing")
-    elif(False):
-        messagebox.showinfo("FBilling Revelution 2020", "Print job has been completed.")
-    else:
-        print1=Toplevel()
-        print1.title("Print")
-        print1.geometry("670x400+240+150")
+        sql = "select * from porder where porder_number =%s"
+        val = (pord_printid,)
+        fbcursor.execute(sql,val)
+        pord_data = fbcursor.fetchone()
         
-        printerframe=LabelFrame(print1, text="Printer", height=80, width=650)
-        printerframe.place(x=7, y=5)      
-        name=Label(printerframe, text="Name:").place(x=10, y=5)
-        e1= ttk.Combobox(printerframe, width=40).place(x=70, y=5)
-        where=Label(printerframe, text="Where:").place(x=10, y=30)
-        printocheckvar=IntVar()
-        printochkbtn=Checkbutton(printerframe,text="Print to file",variable=printocheckvar,onvalue=1,offvalue=0,height=1,width=10)
-        printochkbtn.place(x=450, y=30)
-        btn=Button(printerframe, text="Properties", width=10,command=proper1).place(x=540, y=5)
+        sql = 'select * from storingproduct where porder_number=%s'
+        val = (pord_printid,)
+        fbcursor.execute(sql, val)
+        storing_data = fbcursor.fetchall()
+    
+        from reportlab.pdfgen import canvas
+        from reportlab.lib.pagesizes import letter
+       
+        savename = pord_data[39].split('/')[0]
+        pdf = canvas.Canvas("Purchase Order/"+savename+".pdf", pagesize=letter)
+        sql = "select * from company"
+        fbcursor.execute(sql)
+        company_data = fbcursor.fetchone()
+        if pord_data[13] == 'Professional 1 (logo on left side)':
+          pdf.setFont('Helvetica',12)
+          pdf.drawCentredString(302,770,pord_data[33])
+          pdf.drawCentredString(302,475,pord_data[34])
+          pdf.drawImage("images/"+company_data[13],30,665,width=200,height=90)
 
-        pageslblframe=LabelFrame(print1, text="Pages", height=140, width=320)
-        pageslblframe.place(x=10, y=90)
-        radvar=IntVar()
-        radioall=Radiobutton(pageslblframe, text="All", variable=radvar, value="1").place(x=10, y=5)
-        radiocpage=Radiobutton(pageslblframe, text="Current Page", variable=radvar, value="2").place(x=10, y=25)
-        radiopages=Radiobutton(pageslblframe, text="Pages: ", variable=radvar, value="3").place(x=10, y=45)
-        pagecountentry = Entry(pageslblframe, width=23).place(x=80, y=47)
-        pageinfolabl=Label(pageslblframe, text="Enter page numbers and/or page ranges\nseperated by commas. For example:1,3,5-12")
-        pageinfolabl.place(x=5, y=75)
+          pdf.drawString(30,635,"Porder#")
+          pdf.drawString(30,620,"Porder date")
+          pdf.drawString(30,605,"Due date")
+          pdf.drawString(30,590,"Terms")
+          pdf.drawString(30,575,"Order ref#")
 
-        copylblframe=LabelFrame(print1, text="Copies", height=140, width=320)
-        copylblframe.place(x=335, y=90)
-        nolabl=Label(copylblframe, text="Number of copies").place(x=5, y=5)      
-        noentry = Entry(copylblframe, width=18).place(x=130, y=5)      
-        one=Frame(copylblframe, width=30, height=40, bg="black").place(x=20, y=40)     
-        two=Frame(copylblframe, width=30, height=40, bg="grey").place(x=15, y=45)     
-        three=Frame(copylblframe, width=30, height=40, bg="white").place(x=10, y=50)      
-        four=Frame(copylblframe, width=30, height=40, bg="black").place(x=80, y=40)      
-        fiv=Frame(copylblframe, width=30, height=40, bg="grey").place(x=75, y=45)      
-        six=Frame(copylblframe, width=30, height=40, bg="white").place(x=70, y=50)      
-        collatecheckvar=IntVar()
-        collatechkbtn=Checkbutton(copylblframe,text="Collate",variable=collatecheckvar,onvalue=1,offvalue=0,height=1,width=10)
-        collatechkbtn.place(x=130, y=70)
+          pdf.drawString(140,635,pord_data[39])
+          pdf.drawString(140,620,str(pord_data[2]))
+          pdf.drawString(140,605,str(pord_data[3]))
+          pdf.drawString(140,590,pord_data[36])
+          pdf.drawString(140,575,'')
 
-        othrlblframe=LabelFrame(print1, text="Other", height=120, width=320)
-        othrlblframe.place(x=10, y=235)
-        printlb=Label(othrlblframe, text="Print").place(x=5, y=0)
-        dropprint = ttk.Combobox(othrlblframe, width=23).place(x=80, y=0)
-        orderlb=Label(othrlblframe, text="Order").place(x=5, y=25)
-        dropord = ttk.Combobox(othrlblframe, width=23).place(x=80, y=25)
-        duplexlb=Label(othrlblframe, text="Duplex").place(x=5, y=50)
-        droplex = ttk.Combobox(othrlblframe, width=23).place(x=80, y=50)
+          pdf.drawString(60,550,"Order to")
+          pdf.line(60,548,112,548)
+          pdf.drawString(60,535,pord_data[35])
+          invto_addr = pord_data[20]
+          wraped_text = "\n".join(wrap(invto_addr,40))
+          a  = wraped_text.split('\n')
+              
+          addr = len(a)
+          if addr > 0:
+            pdf.drawString(60,520,a[0])
+            if addr > 1:
+              pdf.drawString(60,505,a[1])
+              if addr > 2:
+                pdf.drawString(60,490,a[2])
+                if addr > 3:
+                  pdf.drawString(60,475,a[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
 
-        prmodelblframe=LabelFrame(print1, text="Print mode", height=120, width=320)
-        prmodelblframe.place(x=335, y=235)
-        dropscal = ttk.Combobox(prmodelblframe, width=30).place(x=5, y=5)
-        poslb=Label(prmodelblframe, text="Print on sheet").place(x=5, y=35)
-        droppos = ttk.Combobox(prmodelblframe, width=10).place(x=155, y=35)
+          pdf.drawString(300,550,"Ship to")
+          pdf.line(300,548,338,548)
+          pdf.drawString(300,535,pord_data[27])
+          shipto_addr = pord_data[28]
+          wraped_text = "\n".join(wrap(shipto_addr,40))
+          a1  = wraped_text.split('\n')
+              
+          addr1 = len(a1)
+          if addr1 > 0:
+            pdf.drawString(300,520,a1[0])
+            if addr1 > 1:
+              pdf.drawString(300,505,a1[1])
+              if addr1 > 2:
+                pdf.drawString(300,490,a1[2])
+                if addr1 > 3:
+                  pdf.drawString(300,475,a1[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
 
-        okbtn=Button(print1,compound = LEFT,image=tick,text="Ok", width=60).place(x=460, y=370)
-        canbtn=Button(print1,compound = LEFT,image=tick, text="Cancel", width=60).place(x=570, y=370)
+
+          pdf.setFont('Helvetica-Bold',12)
+          pdf.drawRightString(580,745, company_data[1])
+          pdf.setFont('Helvetica',12)
+          text=company_data[2]
+          wraped_text="\n".join(wrap(text,30))
+          htg=wraped_text.split('\n')
+              
+          vg=len(htg)
+          if vg>0:
+            pdf.drawAlignedString(582,730,htg[0])
+            if vg>1:
+              pdf.drawAlignedString(582,715,htg[1])
+              if vg>2:
+                pdf.drawAlignedString(582,700,htg[2])
+                if vg>3:
+                  pdf.drawAlignedString(582,685,htg[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawAlignedString(582,660, company_data[4])
+          pdf.setFont('Helvetica-Bold',16)
+          pdf.drawAlignedString(582,620, "order")
+
+          pdf.setFont('Helvetica',12)
+          pdf.drawAlignedString(582,580,"TAX EXEMPTED")
+
+
+          pdf.setLineWidth(.3)
+          pdf.line(30,470,30,450)
+          pdf.line(580,470,580,450)
+          pdf.line(130,470,130,450)
+          pdf.line(310,470,310,450) #vertical lines
+          pdf.line(400,470,400,450)
+          pdf.line(490,470,490,450)
+          #------------------------#
+          pdf.line(30,450,580,450)
+          pdf.line(30,470,580,470)
+
+
+          pdf.drawString(60,455,"ID/SKU")
+          pdf.drawString(140,455,"Product/Service")
+          pdf.drawString(332,455,"Quantity")
+          pdf.drawString(420,455,"Unit Price")
+          pdf.drawString(523,455,"Price")
+
+          yval = 430 
+          y2 = 430
+          v1 = 450
+          v2 = 430
+          for i in storing_data:
+            
+            if yval <= 12:
+              pdf.showPage()
+              yval = 730
+              y2 = 730
+              v1 = 750
+              v2 = 730
+              pdf.line(30,yval,580,y2)
+              pdf.line(30,yval+20,580,y2+20)
+            pdf.line(30,yval,580,y2)
+            if company_data[12] == "1":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "2":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "3":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+          
+          calc_y1 = yval
+          calc_y2 = y2
+          
+          if company_data[12] == "1":
+            if calc_y1-100 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+                
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+          
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+          elif company_data[12] == "2":
+            if calc_y1-120 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+  
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(discount1.cget("text")) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+      
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+          elif company_data[12] == "3":
+            if calc_y1-140 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+         
+          if (calc_y1-170)-115 <= 10 or (calc_y1-190)-115 <= 10 or (calc_y1-210)-115 <= 10:
+            pdf.showPage()
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[38]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          else:
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          pdf.save()
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
+
+          order_ondate=dt.datetime.today().date()
+          sql = "UPDATE porder SET printon=%s WHERE porder_number = %s"
+          val = (order_ondate,pord_printid)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+
+          for record in purchase_tree.get_children():
+            purchase_tree.delete(record)
+
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          sym = fbcursor.fetchone()
+
+          fbcursor.execute('SELECT * FROM porder;')
+          countp = 0
+          for i in fbcursor:
+            if  not sym:
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+              countp += 1
+            elif sym[1] == "before amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+              countp += 1
+            elif sym[1] == "before amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+              countp += 1
+
+        elif pord_data[13] == 'Professional 2 (logo on right side)':
+          pdf.setFont('Helvetica',12)
+          pdf.drawCentredString(302,770,pord_data[33])
+          pdf.drawCentredString(302,475,pord_data[34])
+          pdf.drawImage("images/"+company_data[13],380,665,width=200,height=90)
+
+          pdf.drawString(340,635,"Order#")
+          pdf.drawString(340,620,"Order date")
+          pdf.drawString(340,605,"Due date")
+          pdf.drawString(340,590,"Terms")
+          pdf.drawString(340,575,"Order ref#")
+
+          pdf.drawString(450,635,pord_data[39])
+          pdf.drawString(450,620,str(pord_data[2]))
+          pdf.drawString(450,605,str(pord_data[3]))
+          pdf.drawString(450,590,pord_data[37])
+          pdf.drawString(450,575,"")
+
+          pdf.drawString(60,550,"Order to")
+          pdf.line(60,548,112,548)
+          pdf.drawString(60,535,pord_data[25])
+          invto_addr = pord_data[20]
+          wraped_text = "\n".join(wrap(invto_addr,30))
+          a  = wraped_text.split('\n')
+              
+          addr = len(a)
+          if addr > 0:
+            pdf.drawString(60,520,a[0])
+            if addr > 1:
+              pdf.drawString(60,505,a[1])
+              if addr > 2:
+                pdf.drawString(60,490,a[2])
+                if addr > 3:
+                  pdf.drawString(60,475,a[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(300,550,"Ship to")
+          pdf.line(300,548,338,548)
+          pdf.drawString(300,535,pord_data[27])
+          shipto_addr = pord_data[28]
+          wraped_text = "\n".join(wrap(shipto_addr,30))
+          a1  = wraped_text.split('\n')
+              
+          addr1 = len(a1)
+          if addr1 > 0:
+            pdf.drawString(300,520,a1[0])
+            if addr1 > 1:
+              pdf.drawString(300,505,a1[1])
+              if addr1 > 2:
+                pdf.drawString(300,490,a1[2])
+                if addr1 > 3:
+                  pdf.drawString(300,475,a1[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.setFont('Helvetica-Bold',12)
+          pdf.drawString(30,745, company_data[1])
+          pdf.setFont('Helvetica',12)
+          text=company_data[2]
+          wraped_text="\n".join(wrap(text,30))
+          htg=wraped_text.split('\n')
+              
+          vg=len(htg)
+          if vg>0:
+            pdf.drawString(30,730,htg[0])
+            if vg>1:
+              pdf.drawString(30,715,htg[1])
+              if vg>2:
+                pdf.drawString(30,700,htg[2])
+                if vg>3:
+                  pdf.drawString(30,685,htg[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(30,660, company_data[4])
+          pdf.setFont('Helvetica-Bold',16)
+          pdf.drawString(30,620, "Order")
+
+          pdf.setFont('Helvetica',12)
+          pdf.drawString(30,580,"TAX EXEMPTED")
+
+          pdf.setLineWidth(.3)
+          pdf.line(30,470,30,450)
+          pdf.line(580,470,580,450)
+          pdf.line(130,470,130,450)
+          pdf.line(310,470,310,450) #vertical lines
+          pdf.line(400,470,400,450)
+          pdf.line(490,470,490,450)
+          #------------------------#
+          pdf.line(30,450,580,450)
+          pdf.line(30,470,580,470)
+
+
+          pdf.drawString(60,455,"ID/SKU")
+          pdf.drawString(140,455,"Product/Service")
+          pdf.drawString(332,455,"Quantity")
+          pdf.drawString(420,455,"Unit Price")
+          pdf.drawString(523,455,"Price")
+
+          yval = 430 
+          y2 = 430
+          v1 = 450
+          v2 = 430
+          for i in storing_data:
+            
+            if yval <= 12:
+              pdf.showPage()
+              yval = 730
+              y2 = 730
+              v1 = 750
+              v2 = 730
+              pdf.line(30,yval,580,y2)
+              pdf.line(30,yval+20,580,y2+20)
+            pdf.line(30,yval,580,y2)
+            if company_data[12] == "1":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "2":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "3":
+              pdf.drawString(32,yval+5,str(i[5]))
+              pdf.drawString(132,yval+5,str(i[6]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(130,v1,130,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+          
+          calc_y1 = yval
+          calc_y2 = y2
+          
+          if company_data[12] == "1":
+            if calc_y1-100 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+                
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+          
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount")(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+          elif company_data[12] == "2":
+            if calc_y1-120 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+           
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+  
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+         
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount")(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+          elif company_data[12] == "3":
+            if calc_y1-140 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+         
+          if (calc_y1-170)-115 <= 10 or (calc_y1-190)-115 <= 10 or (calc_y1-210)-115 <= 10:
+            pdf.showPage()
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          else:
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          pdf.save()
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
+
+          order_ondate=dt.datetime.today().date()
+          sql = "UPDATE porder SET printon=%s WHERE porder_number = %s"
+          val = (order_ondate,pord_printid)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+
+          for record in purchase_tree.get_children():
+            purchase_tree.delete(record)
+
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          sym = fbcursor.fetchone()
+
+          fbcursor.execute('SELECT * FROM porder;')
+          countp = 0
+          for i in fbcursor:
+            if  not sym:
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+              countp += 1
+            elif sym[1] == "before amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+              countp += 1
+            elif sym[1] == "before amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+              countp += 1
+
+        elif pord_data[13] == 'Simplified 1 (logo on left side)':
+          pdf.setFont('Helvetica',12)
+          pdf.drawCentredString(302,770,pord_data[33])
+          pdf.drawCentredString(302,475,pord_data[34])
+          pdf.drawImage("images/"+company_data[13],30,665,width=200,height=90)
+
+          pdf.drawString(30,635,"Order#")
+          pdf.drawString(30,620,"Order date")
+          pdf.drawString(30,605,"Due date")
+          pdf.drawString(30,590,"Terms")
+          pdf.drawString(30,575,"Order ref#")
+
+          pdf.drawString(140,635,pord_data[39])
+          pdf.drawString(140,620,str(pord_data[2]))
+          pdf.drawString(140,605,str(pord_data[3]))
+          pdf.drawString(140,590,pord_data[36])
+          pdf.drawString(140,575,"")
+
+          pdf.drawString(60,550,"Order to")
+          pdf.line(60,548,112,548)
+          pdf.drawString(60,535,pord_data[25])
+          invto_addr = pord_data[20]
+          wraped_text = "\n".join(wrap(invto_addr,40))
+          a  = wraped_text.split('\n')
+              
+          addr = len(a)
+          if addr > 0:
+            pdf.drawString(60,520,a[0])
+            if addr > 1:
+              pdf.drawString(60,505,a[1])
+              if addr > 2:
+                pdf.drawString(60,490,a[2])
+                if addr > 3:
+                  pdf.drawString(60,475,a[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(300,550,"Ship to")
+          pdf.line(300,548,338,548)
+          pdf.drawString(300,535,pord_data[27])
+          shipto_addr = pord_data[28]
+          wraped_text = "\n".join(wrap(shipto_addr,40))
+          a1  = wraped_text.split('\n')
+              
+          addr1 = len(a1)
+          if addr1 > 0:
+            pdf.drawString(300,520,a1[0])
+            if addr1 > 1:
+              pdf.drawString(300,505,a1[1])
+              if addr1 > 2:
+                pdf.drawString(300,490,a1[2])
+                if addr1 > 3:
+                  pdf.drawString(300,475,a1[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+
+          pdf.setFont('Helvetica-Bold',12)
+          pdf.drawRightString(580,745, company_data[1])
+          pdf.setFont('Helvetica',12)
+          text=company_data[2]
+          wraped_text="\n".join(wrap(text,30))
+          htg=wraped_text.split('\n')
+              
+          vg=len(htg)
+          if vg>0:
+            pdf.drawAlignedString(582,730,htg[0])
+            if vg>1:
+              pdf.drawAlignedString(582,715,htg[1])
+              if vg>2:
+                pdf.drawAlignedString(582,700,htg[2])
+                if vg>3:
+                  pdf.drawAlignedString(582,685,htg[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawAlignedString(582,660, company_data[4])
+          pdf.setFont('Helvetica-Bold',16)
+          pdf.drawAlignedString(582,620, "Order")
+
+          pdf.setFont('Helvetica',12)
+          pdf.drawAlignedString(582,580,"TAX EXEMPTED")
+
+
+          pdf.setLineWidth(.3)
+          pdf.line(30,470,30,450)
+          pdf.line(580,470,580,450)
+          pdf.line(310,470,310,450) #vertical lines
+          pdf.line(450,470,450,450)
+          #------------------------#
+          pdf.line(30,450,580,450)
+          pdf.line(30,470,580,470)
+
+
+       
+          pdf.drawString(140,455,"Product/Service")
+          pdf.drawString(332,455,"Quantity")
+          pdf.drawString(523,455,"Price")
+
+          yval = 430 
+          y2 = 430
+          v1 = 450
+          v2 = 430
+          for i in storing_data:
+            
+            if yval <= 12:
+              pdf.showPage()
+              yval = 730
+              y2 = 730
+              v1 = 750
+              v2 = 730
+              pdf.line(30,yval,580,y2)
+              pdf.line(30,yval+20,580,y2+20)
+            pdf.line(30,yval,580,y2)
+            if company_data[12] == "1":
+              
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "2":
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "3":
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+          
+          calc_y1 = yval
+          calc_y2 = y2
+          
+          if company_data[12] == "1":
+            if calc_y1-100 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+                
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+          
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+          elif company_data[12] == "2":
+            if calc_y1-120 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+             
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+  
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
         
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+          elif company_data[12] == "3":
+            if calc_y1-140 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+         
+          if (calc_y1-170)-115 <= 10 or (calc_y1-190)-115 <= 10 or (calc_y1-210)-115 <= 10:
+            pdf.showPage()
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          else:
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          pdf.save()
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
+
+          order_ondate=dt.datetime.today().date()
+          sql = "UPDATE porder SET printon=%s WHERE porder_number = %s"
+          val = (order_ondate,pord_printid)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+
+          for record in purchase_tree.get_children():
+            purchase_tree.delete(record)
+
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          sym = fbcursor.fetchone()
+
+          fbcursor.execute('SELECT * FROM porder;')
+          countp = 0
+          for i in fbcursor:
+            if  not sym:
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+              countp += 1
+            elif sym[1] == "before amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+              countp += 1
+            elif sym[1] == "before amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+              countp += 1
+
+        elif pord_data[13] == 'Simplified 2 (logo on right side)':
+          pdf.setFont('Helvetica',12)
+          pdf.drawCentredString(302,770,pord_data[33])
+          pdf.drawCentredString(302,475,pord_data[34])
+          pdf.drawImage("images/"+company_data[13],380,665,width=200,height=90)
+
+          pdf.drawString(340,635,"Order#")
+          pdf.drawString(340,620,"Order date")
+          pdf.drawString(340,605,"Due date")
+          pdf.drawString(340,590,"Terms")
+          pdf.drawString(340,575,"Order ref#")
+
+          pdf.drawString(450,635,pord_data[39])
+          pdf.drawString(450,620,str(pord_data[2]))
+          pdf.drawString(450,605,str(pord_data[3]))
+          pdf.drawString(450,590,pord_data[36])
+          pdf.drawString(450,575,"")
+
+          pdf.drawString(60,550,"Order to")
+          pdf.line(60,548,112,548)
+          pdf.drawString(60,535,pord_data[25])
+          invto_addr = pord_data[20]
+          wraped_text = "\n".join(wrap(invto_addr,30))
+          a  = wraped_text.split('\n')
+              
+          addr = len(a)
+          if addr > 0:
+            pdf.drawString(60,520,a[0])
+            if addr > 1:
+              pdf.drawString(60,505,a[1])
+              if addr > 2:
+                pdf.drawString(60,490,a[2])
+                if addr > 3:
+                  pdf.drawString(60,475,a[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(300,550,"Ship to")
+          pdf.line(300,548,338,548)
+          pdf.drawString(300,535,pord_data[27])
+          shipto_addr = pord_data[28]
+          wraped_text = "\n".join(wrap(shipto_addr,30))
+          a1  = wraped_text.split('\n')
+              
+          addr1 = len(a1)
+          if addr1 > 0:
+            pdf.drawString(300,520,a1[0])
+            if addr1 > 1:
+              pdf.drawString(300,505,a1[1])
+              if addr1 > 2:
+                pdf.drawString(300,490,a1[2])
+                if addr1 > 3:
+                  pdf.drawString(300,475,a1[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.setFont('Helvetica-Bold',12)
+          pdf.drawString(30,745, company_data[1])
+          pdf.setFont('Helvetica',12)
+          text=company_data[2]
+          wraped_text="\n".join(wrap(text,30))
+          htg=wraped_text.split('\n')
+              
+          vg=len(htg)
+          if vg>0:
+            pdf.drawString(30,730,htg[0])
+            if vg>1:
+              pdf.drawString(30,715,htg[1])
+              if vg>2:
+                pdf.drawString(30,700,htg[2])
+                if vg>3:
+                  pdf.drawString(30,685,htg[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(30,660, company_data[4])
+          pdf.setFont('Helvetica-Bold',16)
+          pdf.drawString(30,620, "Order")
+
+          pdf.setFont('Helvetica',12)
+          pdf.drawString(30,580,"TAX EXEMPTED")
+
+          pdf.setLineWidth(.3)
+          pdf.line(30,470,30,450)
+          pdf.line(580,470,580,450)
+          pdf.line(310,470,310,450) #vertical lines
+          pdf.line(450,470,450,450)
+          #------------------------#
+          pdf.line(30,450,580,450)
+          pdf.line(30,470,580,470)
+
+
+       
+          pdf.drawString(140,455,"Product/Service")
+          pdf.drawString(332,455,"Quantity")
+          pdf.drawString(523,455,"Price")
+
+          yval = 430 
+          y2 = 430
+          v1 = 450
+          v2 = 430
+          for i in storing_data:
+            
+            if yval <= 12:
+              pdf.showPage()
+              yval = 730
+              y2 = 730
+              v1 = 750
+              v2 = 730
+              pdf.line(30,yval,580,y2)
+              pdf.line(30,yval+20,580,y2+20)
+            pdf.line(30,yval,580,y2)
+            if company_data[12] == "1":
+              
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "2":
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "3":
+              pdf.drawString(32,yval+5,str(i[6]))
+              pdf.drawCentredString(375,yval+5,str(i[9]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(450,v1,450,v2)
+              v1 -= 20
+              v2 -= 20
+          
+          calc_y1 = yval
+          calc_y2 = y2
+          
+          if company_data[12] == "1":
+            if calc_y1-100 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+                
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+          
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pur_comments.get("1.0","end-1c")
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+          elif company_data[12] == "2":
+            if calc_y1-120 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+          
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+  
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+          elif company_data[12] == "3":
+            if calc_y1-140 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+         
+          if (calc_y1-170)-115 <= 10 or (calc_y1-190)-115 <= 10 or (calc_y1-210)-115 <= 10:
+            pdf.showPage()
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          else:
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          pdf.save()
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
+
+          order_ondate=dt.datetime.today().date()
+          sql = "UPDATE porder SET printon=%s WHERE porder_number = %s"
+          val = (order_ondate,pord_printid)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+
+          for record in purchase_tree.get_children():
+            purchase_tree.delete(record)
+
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          sym = fbcursor.fetchone()
+
+          fbcursor.execute('SELECT * FROM porder;')
+          countp = 0
+          for i in fbcursor:
+            if  not sym:
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+              countp += 1
+            elif sym[1] == "before amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+              countp += 1
+            elif sym[1] == "before amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+              countp += 1
+        
+        elif pord_data[13] == 'Business Classic':
+          pdf.setStrokeColorRGB(255,10,0)
+          pdf.line(30,762,580,762)
+          pdf.setFont('Helvetica',12)
+          pdf.drawCentredString(302,770,pord_data[33])
+          pdf.drawCentredString(302,585,pord_data[34])
+          pdf.drawImage("images/"+company_data[13],30,660,width=200,height=90)
+
+          pdf.setFont('Helvetica-Bold',12)
+          pdf.drawString(240,735, company_data[1])
+          pdf.setFont('Helvetica',12)
+          text=company_data[2]
+          wraped_text="\n".join(wrap(text,30))
+          htg=wraped_text.split('\n')
+              
+          vg=len(htg)
+          if vg>0:
+            pdf.drawString(240,720,htg[0])
+            if vg>1:
+              pdf.drawString(240,705,htg[1])
+              if vg>2:
+                pdf.drawString(240,690,htg[2])
+                if vg>3:
+                  pdf.drawString(240,675,htg[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.drawString(240,650, company_data[4])
+
+          pdf.drawString(390,665,"Order#")
+          pdf.drawString(390,650,"Order date")
+          pdf.drawString(390,635,"Due date")
+          pdf.drawString(390,620,"Terms")
+          pdf.drawString(390,605,"Order ref#")
+
+          pdf.drawString(480,665,pord_data[39])
+          pdf.drawString(480,650,str(pord_data[2]))
+          pdf.drawString(480,635,str(pord_data[3]))
+          pdf.drawString(480,620,pord_data[36])
+          pdf.drawString(480,605,'')
+
+          pdf.drawString(390,735,pord_data[25])
+          invto_addr = pord_data[20]
+          wraped_text = "\n".join(wrap(invto_addr,30))
+          a  = wraped_text.split('\n')
+              
+          addr = len(a)
+          if addr > 0:
+            pdf.drawString(390,720,a[0])
+            if addr > 1:
+              pdf.drawString(390,705,a[1])
+              if addr > 2:
+                pdf.drawString(390,590,a[2])
+                if addr > 3:
+                  pdf.drawString(390,575,a[3])
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+          else:
+            pass
+
+          pdf.setStrokeColorRGB(0,0,0)
+          pdf.setLineWidth(.3)
+          pdf.line(30,580,30,560)
+          pdf.line(580,580,580,560)
+          pdf.line(310,580,310,560) #vertical lines
+          pdf.line(400,580,400,560)
+          pdf.line(490,580,490,560)
+          #------------------------#
+          pdf.line(30,560,580,560)
+          pdf.line(30,580,580,580)
+
+
+        
+          pdf.drawString(130,565,"Product/Service")
+          pdf.drawString(332,565,"Quantity")
+          pdf.drawString(420,565,"Unit Price")
+          pdf.drawString(523,565,"Price")
+
+          yval = 540 
+          y2 = 540
+          v1 = 560
+          v2 = 540
+          for i in storing_data:
+            
+            if yval <= 12:
+              pdf.showPage()
+              yval = 730
+              y2 = 730
+              v1 = 750
+              v2 = 730
+              pdf.line(30,yval,580,y2)
+              pdf.line(30,yval+20,580,y2+20)
+            pdf.line(30,yval,580,y2)
+            if company_data[12] == "1":
+              pdf.drawString(132,yval+5,str(i[5]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "2":
+              pdf.drawString(132,yval+5,str(i[5]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+            elif company_data[12] == "3":
+              pdf.drawString(132,yval+5,str(i[5]))
+              pdf.drawString(355,yval+5,str(i[9]))
+              pdf.drawRightString(488,yval+5,str(i[8]))
+              pdf.drawRightString(578,yval+5,str(i[13]))
+              yval -= 20
+              y2 -= 20
+
+              pdf.line(30,v1,30,v2)
+              pdf.line(580,v1,580,v2)
+              pdf.line(310,v1,310,v2) #vertical lines
+              pdf.line(400,v1,400,v2)
+              pdf.line(490,v1,490,v2)
+              v1 -= 20
+              v2 -= 20
+          
+          calc_y1 = yval
+          calc_y2 = y2
+          
+          if company_data[12] == "1":
+            if calc_y1-100 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+                
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+          
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-125,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-140,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-155,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-170,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-60,350,calc_y1+20)
+              pdf.line(580,calc_y1-60,580,calc_y1+20)
+              pdf.line(465,calc_y1-60,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              # pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              if company_data[7] == "before amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-170 <= 40:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-125,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-140,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-155,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-170,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+          elif company_data[12] == "2":
+            if calc_y1-120 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1+20,580,calc_y2+20)
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+       
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+  
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-145,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-160,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-175,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-190,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-80,350,calc_y1+20)
+              pdf.line(580,calc_y1-80,580,calc_y1+20)
+              pdf.line(465,calc_y1-80,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              # pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              if company_data[7] == "before amount":
+    
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "before amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-190 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-145,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-160,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-175,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-190,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+          elif company_data[12] == "3":
+            if calc_y1-140 <= 40:
+              pdf.showPage()
+              calc_y1 = 730
+              calc_y2 = 730
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+
+                comment_text = pur_commentspur_comments.get("1.0","end-1c")
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                comm = len(c)
+                if comm > 0:
+                  pdf.drawString(32,calc_y1-165,c[0])
+                  if comm > 1:
+                    pdf.drawString(32,calc_y1-180,c[1])
+                    if comm > 2:
+                      pdf.drawString(32,calc_y1-195,c[2])
+                      if comm > 3:
+                        pdf.drawString(32,calc_y1-210,c[3])
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  pass
+            else:
+              pdf.line(350,calc_y1-100,350,calc_y1+20)
+              pdf.line(580,calc_y1-100,580,calc_y1+20)
+              pdf.line(465,calc_y1-100,465,calc_y1+20)
+              #-----------------------------------
+              pdf.line(350,calc_y1,580,calc_y2)
+              pdf.line(350,calc_y1-20,580,calc_y2-20)
+              pdf.line(350,calc_y1-40,580,calc_y2-40)
+              pdf.line(350,calc_y1-60,580,calc_y2-60)
+              pdf.line(350,calc_y1-80,580,calc_y2-80)
+              pdf.line(350,calc_y1-100,580,calc_y2-100)
+              # pdf.line(350,calc_y1-120,580,calc_y2-120)
+              # pdf.line(350,calc_y1-140,580,calc_y2-140)
+              if company_data[7] == "before amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + "" + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + "" + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + "" + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + "" + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + "" + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + "" + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + "" + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + "" + company_data[6])
+
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+
+
+              elif company_data[7] == "before amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,company_data[6] + " " + str(pord_data[30]))
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,company_data[6] + " " + str(pord_data[32]))
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,company_data[6] + " " + str(pord_data[12]))
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,company_data[6] + " " + str(pord_data[31]))
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,company_data[6] + " " + str(pord_data[41]))
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,company_data[6] + " " + str(pord_data[10]))
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+              elif company_data[7] == "after amount with space":            
+                pdf.drawString(352,calc_y1+5,(str(pord_data[15])+"%Discount"))
+                pdf.drawRightString(578,calc_y1+5,str(pord_data[30]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-20)+5,"Subtotal")
+                pdf.drawRightString(578,(calc_y1-20)+5,str(pord_data[32]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-40)+5,pord_data[11])
+                pdf.drawRightString(578,(calc_y1-40)+5,str(pord_data[12]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-60)+5,"TAX1")
+                pdf.drawRightString(578,(calc_y1-60)+5,str(pord_data[31]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-80)+5,"TAX2")
+                pdf.drawRightString(578,(calc_y1-80)+5,str(pord_data[41]) + " " + company_data[6])
+
+                pdf.drawString(352,(calc_y1-100)+5,"Order Total")
+                pdf.drawRightString(578,(calc_y1-100)+5,str(pord_data[10]) + " " + company_data[6])
+
+
+                comment_text = pord_data[38]
+                wraped_text = "\n".join(wrap(comment_text,102))
+                c  = wraped_text.split('\n')
+                   
+                if calc_y1-210 <= 45:
+                  pdf.showPage()
+                  calc_y1 = 730
+                  calc_y2 = 730  
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-15,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-30,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-45,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+                else:
+                  comm = len(c)
+                  if comm > 0:
+                    pdf.drawString(32,calc_y1-165,c[0])
+                    if comm > 1:
+                      pdf.drawString(32,calc_y1-180,c[1])
+                      if comm > 2:
+                        pdf.drawString(32,calc_y1-195,c[2])
+                        if comm > 3:
+                          pdf.drawString(32,calc_y1-210,c[3])
+                        else:
+                          pass
+                      else:
+                        pass
+                    else:
+                      pass
+                  else:
+                    pass
+         
+          if (calc_y1-170)-115 <= 10 or (calc_y1-190)-115 <= 10 or (calc_y1-210)-115 <= 10:
+            pdf.showPage()
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          else:
+            pdf.drawCentredString(302,115,"Terms and Conditions")
+            pdf.line(30,110,580,110)
+            term_text = pord_data[37]
+            wraped_text = "\n".join(wrap(term_text,102))
+            t  = wraped_text.split('\n')
+               
+            term = len(t)
+            if term > 0:
+              pdf.drawString(32,95,t[0])
+              if term > 1:
+                pdf.drawString(32,80,t[1])
+                if term > 2:
+                  pdf.drawString(32,65,t[2])
+                  if term > 3:
+                    pdf.drawString(32,50,t[3])
+                  else:
+                    pass
+                else:
+                  pass
+              else:
+                pass
+            else:
+              pass
+           
+            pdf.drawString(32,30,"Sales Person :")
+            pdf.drawString(115,30,pord_data[14])
+            pdf.drawString(32,15,pord_data[35])
+          pdf.save()
+          win32api.ShellExecute(0,"",os.getcwd()+"/Purchase Order/"+savename+".pdf",None,".",0)
+
+          order_ondate=dt.datetime.today().date()
+          sql = "UPDATE porder SET printon=%s WHERE porder_number = %s"
+          val = (order_ondate,pord_printid)
+          fbcursor.execute(sql,val)
+          fbilldb.commit()
+
+          for record in purchase_tree.get_children():
+            purchase_tree.delete(record)
+
+          sql = "select currencysign,currsignplace from company"
+          fbcursor.execute(sql)
+          sym = fbcursor.fetchone()
+
+          fbcursor.execute('SELECT * FROM porder;')
+          countp = 0
+          for i in fbcursor:
+            if  not sym:
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], i[10]))
+              countp += 1
+            elif sym[1] == "before amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+sym[0]))
+              countp += 1
+            elif sym[1] == "before amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8],sym[0]+" "+str(i[10])))
+              countp += 1
+            elif sym[1] == "after amount with space":
+              purchase_tree.insert(parent='', index='end', iid=countp, text='', values=(' ',i[39], i[2], i[3], i[25], i[5],i[6], i[7], i[8], str(i[10])+" "+sym[0]))
+              countp += 1
 
 
 
@@ -32416,7 +40100,7 @@ def mainpage():
   preview1Label = Button(pur_midFrame,compound="top", text="Print\nPreview",relief=RAISED, image=photo4,bg="#f8f8f2",fg="black", height=55, bd=1, width=55,command=purchase_printpreview1)
   preview1Label.pack(side="left")
 
-  purchase1Label = Button(pur_midFrame,compound="top", text="Print\nSelected",relief=RAISED, image=photo5,bg="#f8f8f2",fg="black", height=55, bd=1, width=55,command=printsele1)
+  purchase1Label = Button(pur_midFrame,compound="top", text="Print\nSelected",relief=RAISED, image=photo5,bg="#f8f8f2",fg="black", height=55, bd=1, width=55,command=purchase_print)
   purchase1Label.pack(side="left")
 
   w = Canvas(pur_midFrame, width=1, height=55, bg="#b3b3b3", bd=0)
@@ -32440,9 +40124,31 @@ def mainpage():
   lbl1_invdt.grid(row=0, column=0, pady=5, padx=(5, 0))
   lbl1_invdtt = Label(pur_lb1frame, text="Porder date to  :  ", bg="#f8f8f2")
   lbl1_invdtt.grid(row=1, column=0, pady=5, padx=(5, 0))
-  invdt1 = Entry(pur_lb1frame, width=15)
+
+  sql = "select * from company"
+  fbcursor.execute(sql)
+  datefor = fbcursor.fetchone()
+  if not datefor:
+    datepatt = 'mm-dd-yyyy'
+  elif datefor[10] == "Default":
+    datepatt = 'mm-dd-yyyy'
+  elif datefor[10] == "mm-dd-yyyy":
+    datepatt = 'mm-dd-yyyy'
+  elif datefor[10] == "dd-mm-yyyy":
+    datepatt = 'dd-mm-yyyy'
+  elif datefor[10] == "yyyy.mm.dd":
+    datepatt = 'yyyy.mm.dd'
+  elif datefor[10] == "mm/dd/yyyy":
+    datepatt = "mm/dd/yyyy"
+  elif datefor[10] == "dd/mm/yyyy":
+    datepatt = "dd/mm/yyyy"
+  elif datefor[10] == "dd.mm.yyyy":
+    datepatt = "dd.mm.yyyy"
+  elif datefor[10] == "yyyy/mm/dd":
+    datepatt = "yyyy/mm/dd"
+  invdt1 = DateEntry(pur_lb1frame, width=15,date_pattern=datepatt)
   invdt1.grid(row=0, column=1)
-  invdtt1 = Entry(pur_lb1frame, width=15)
+  invdtt1 = DateEntry(pur_lb1frame, width=15,date_pattern=datepatt)
   invdtt1.grid(row=1, column=1)
   check1var1 = IntVar()
   chk1btn1 = Checkbutton(pur_lb1frame, text = "Apply filter", variable = check1var1, onvalue = 1, offvalue = 0, height =2, width = 8, bg="#f8f8f2")
